@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="1. 拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。拓扑信息：    角色 ip port     redis-master redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip 6379   redis-slave1 容器启动">
+<meta name="description" content="拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。拓扑信息：    角色 ip port     redis-master redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip 6379   redis-slave1 容器启动时自动">
 <meta name="keywords" content="Docker,Redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Docker搭建Redis主从复制、哨兵机制">
 <meta property="og:url" content="https://kylin1994.github.io/2018/03/14/使用Docker搭建Redis主从复制、哨兵机制/index.html">
 <meta property="og:site_name" content="Kylin Xiang&#39;s Blog">
-<meta property="og:description" content="1. 拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。拓扑信息：    角色 ip port     redis-master redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip 6379   redis-slave1 容器启动">
+<meta property="og:description" content="拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。拓扑信息：    角色 ip port     redis-master redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip 6379   redis-slave1 容器启动时自动">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-78c11a101a34e462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-43a97ebc46f85167.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -101,10 +101,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-37398a32eecf09e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-599cd762c04dbd30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-7965effb0c7662f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-03-14T07:42:55.024Z">
+<meta property="og:updated_time" content="2018-03-14T08:39:17.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Docker搭建Redis主从复制、哨兵机制">
-<meta name="twitter:description" content="1. 拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。拓扑信息：    角色 ip port     redis-master redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip 6379   redis-slave1 容器启动">
+<meta name="twitter:description" content="拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。拓扑信息：    角色 ip port     redis-master redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip 6379   redis-slave1 容器启动时自动">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6287954-78c11a101a34e462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -397,7 +397,7 @@
       
 
       
-        <h1 id="1-拓扑结构"><a href="#1-拓扑结构" class="headerlink" title="1. 拓扑结构"></a>1. 拓扑结构</h1><p>本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。<br><img src="http://upload-images.jianshu.io/upload_images/6287954-78c11a101a34e462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="redis拓扑结构"><br>拓扑信息：</p>
+        <h1 id="拓扑结构"><a href="#拓扑结构" class="headerlink" title="拓扑结构"></a>拓扑结构</h1><p>本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。<br><img src="http://upload-images.jianshu.io/upload_images/6287954-78c11a101a34e462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="redis拓扑结构"><br>拓扑信息：</p>
 <table>
 <thead>
 <tr>
@@ -440,8 +440,8 @@
 </tbody>
 </table>
 <p>注：master或者master-sentinel或者master-sentinel2或者master-sentinel3都是主节点容器的别名。与之相关联的容器可以通过别称来代替ip访问容器。</p>
-<h1 id="2-搭建主从复制结构"><a href="#2-搭建主从复制结构" class="headerlink" title="2. 搭建主从复制结构"></a>2. 搭建主从复制结构</h1><h2 id="2-1-master节点配置"><a href="#2-1-master节点配置" class="headerlink" title="2.1 master节点配置"></a>2.1 master节点配置</h2><h3 id="2-1-1-master节点配置文件"><a href="#2-1-1-master节点配置文件" class="headerlink" title="2.1.1 master节点配置文件"></a>2.1.1 master节点配置文件</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-43a97ebc46f85167.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="master节点配置文件"></p>
-<h3 id="2-1-2-master节点配置文件详解"><a href="#2-1-2-master节点配置文件详解" class="headerlink" title="2.1.2 master节点配置文件详解"></a>2.1.2 master节点配置文件详解</h3><ul>
+<h1 id="搭建主从复制结构"><a href="#搭建主从复制结构" class="headerlink" title="搭建主从复制结构"></a>搭建主从复制结构</h1><h2 id="master节点配置"><a href="#master节点配置" class="headerlink" title="master节点配置"></a>master节点配置</h2><h3 id="master节点配置文件"><a href="#master节点配置文件" class="headerlink" title="master节点配置文件"></a>master节点配置文件</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-43a97ebc46f85167.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="master节点配置文件"></p>
+<h3 id="master节点配置文件详解"><a href="#master节点配置文件详解" class="headerlink" title="master节点配置文件详解"></a>master节点配置文件详解</h3><ul>
 <li><code>port</code>：端口号</li>
 <li><code>daemonize</code>：redis采用的是单进程多线程的模式。当redis.conf中选项daemonize设置成yes时，代表开启守护进程模式。在该模式下，redis会在后台运行，并将进程pid号写入至redis.conf选项pidfile设置的文件中，此时redis将一直运行，除非手动kill该进程。</li>
 <li><code>logfile</code>：日志文件的名字，在工作目录下自动创建，会记录redis的运行日志。</li>
@@ -449,7 +449,7 @@
 <li><code>dir</code>：工作目录的路径。</li>
 </ul>
 <p>其他配置请参考redis中文官网：<a href="http://www.redis.cn" target="_blank" rel="noopener">www.redis.cn</a></p>
-<h3 id="2-1-3-在docker中运行redis-master节点服务"><a href="#2-1-3-在docker中运行redis-master节点服务" class="headerlink" title="2.1.3 在docker中运行redis master节点服务"></a>2.1.3 在docker中运行redis master节点服务</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-eeaded7d794d34f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="master节点docker命令"><br>命令说明：</p>
+<h3 id="在docker中运行redis-master节点服务"><a href="#在docker中运行redis-master节点服务" class="headerlink" title="在docker中运行redis master节点服务"></a>在docker中运行redis master节点服务</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-eeaded7d794d34f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="master节点docker命令"><br>命令说明：</p>
 <ul>
 <li><code>--name</code>: 命名容器为<code>redis-master</code>，一定不要忽略容器命名，为后面<code>--link</code>命令命名更容易记住名字。</li>
 <li><code>-v</code>:将本地的配置文件<code>~/redis/redis-6379.conf</code>挂载到容器中的<code>/redis/redis-6379.conf</code></li>
@@ -465,11 +465,11 @@
 <li>第七行： 警告，THP的系统配置问题，具体参考：<a href="https://jingyan.baidu.com/article/da1091fb196ea7027849d6b0.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/da1091fb196ea7027849d6b0.html</a><br>上述警告对于demo来说可以忽略，但是对于生产环境，需要重新对系统进行相关配置之后，再重新启动容器。</li>
 </ul>
 <p>至此，master节点已经成功启动了。</p>
-<h2 id="2-2-slave节点配置"><a href="#2-2-slave节点配置" class="headerlink" title="2.2 slave节点配置"></a>2.2 slave节点配置</h2><h3 id="2-2-1-slave节点配置文件"><a href="#2-2-1-slave节点配置文件" class="headerlink" title="2.2.1 slave节点配置文件"></a>2.2.1 slave节点配置文件</h3><p>两个slave节点的配置一模一样，除了端口号之外。slave1的端口为6380，slave2的端口号为6381。<br><img src="http://upload-images.jianshu.io/upload_images/6287954-4f18124158729a3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="slave1节点的配置文件"></p>
-<h3 id="2-2-2-slave节点配置文件详解"><a href="#2-2-2-slave节点配置文件详解" class="headerlink" title="2.2.2 slave节点配置文件详解"></a>2.2.2 slave节点配置文件详解</h3><ul>
+<h2 id="slave节点配置"><a href="#slave节点配置" class="headerlink" title="slave节点配置"></a>slave节点配置</h2><h3 id="slave节点配置文件"><a href="#slave节点配置文件" class="headerlink" title="slave节点配置文件"></a>slave节点配置文件</h3><p>两个slave节点的配置一模一样，除了端口号之外。slave1的端口为6380，slave2的端口号为6381。<br><img src="http://upload-images.jianshu.io/upload_images/6287954-4f18124158729a3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="slave1节点的配置文件"></p>
+<h3 id="slave节点配置文件详解"><a href="#slave节点配置文件详解" class="headerlink" title="slave节点配置文件详解"></a>slave节点配置文件详解</h3><ul>
 <li>前5项配置和master节点类似，请参考master节点配置说明。</li>
 <li><p>这里重点说一下 <code>slaveof</code>命令，此命令用来给当前redis server节点指定一个master节点，自身作为master节点的slave节点。<code>slaveof</code>命令的格式为<code>slaveof &lt;ip&gt; &lt;port&gt;</code>，很明显，当前节点通过ip和port来定位将哪一个节点作为master节点，但是对于配置<code>slaveof redis-master 6379</code>来说，<code>redis-master</code>参数并不是一个ip。这里是因为在docker环境下，容器启动是ip是不定的，所以容器的通信可以通过<code>--link</code>选项来实现，而这里的<code>redis-master</code>就是master节点容器的名字，用容器名可以代替ip。具体参看下文。</p>
-<h3 id="2-2-3-在docker中运行redis-slave节点服务"><a href="#2-2-3-在docker中运行redis-slave节点服务" class="headerlink" title="2.2.3 在docker中运行redis slave节点服务"></a>2.2.3 在docker中运行redis slave节点服务</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-b3373fdc1a52e797.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="启动slave节点容器"><br>命令说明：</p>
+<h3 id="在docker中运行redis-slave节点服务"><a href="#在docker中运行redis-slave节点服务" class="headerlink" title="在docker中运行redis slave节点服务"></a>在docker中运行redis slave节点服务</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-b3373fdc1a52e797.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="启动slave节点容器"><br>命令说明：</p>
 </li>
 <li><p><code>--name</code>: 容器名为<code>redis-slave1</code></p>
 </li>
@@ -482,7 +482,7 @@
 <li>Connecting to MASTER redis-master:6379说明已经连接到master节点，并且开始了数据的同步，从master节点复制到slave节点。</li>
 <li>从最后6行可以看出，因为是新增的slave结点，所以master到slave的复制时全量复制（倒数第五行），部分复制不可用（倒数第六行）。复制一共经历了四个步骤（最后四行）：1. 从master接收数据 2.清理掉旧的数据 3.在内存中接在db 4.复制成功。</li>
 </ul>
-<h2 id="2-3-配置redis哨兵"><a href="#2-3-配置redis哨兵" class="headerlink" title="2.3 配置redis哨兵"></a>2.3 配置redis哨兵</h2><h3 id="2-3-1-redis哨兵配置文件"><a href="#2-3-1-redis哨兵配置文件" class="headerlink" title="2.3.1 redis哨兵配置文件"></a>2.3.1 redis哨兵配置文件</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-dd34222eacccaa0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="redis-sentinel1配置文件"><br>配置说明：</p>
+<h2 id="配置redis哨兵"><a href="#配置redis哨兵" class="headerlink" title="配置redis哨兵"></a>配置redis哨兵</h2><h3 id="redis哨兵配置文件"><a href="#redis哨兵配置文件" class="headerlink" title="redis哨兵配置文件"></a>redis哨兵配置文件</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-dd34222eacccaa0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="redis-sentinel1配置文件"><br>配置说明：</p>
 <ul>
 <li><code>port daemonize logfile dir</code>配置和普通redis server节点相同。</li>
 <li><p><code>sentinel monitor</code>：该命令的格式为<code>sentinel monitor &lt;master&gt; &lt;ip&gt; &lt;port&gt; &lt;quorum&gt;</code>。<br><code>&lt;master&gt;</code>：参数为哨兵监控的master节点的别名<br><code>&lt;ip&gt;</code>：参数为监控的master节点的ip（在docker中，容器间用<code>--link</code>命令通信，所以可以替换为目标容器的名字或别名）<br><code>&lt;port&gt;</code>：为监控的master结点的端口<br><code>&lt;quorum&gt;</code>：代表要判定master节点最终不可达所需要的票数。用于故障发现和判定。例如如果将quorum配置为2，代表至少要两个哨兵节点认为master节点不可达，那么这个不可达的判定才是客观的，对于<quorum>值设置的越小，那么达到下线的条件就越宽松，反之越严格。一般建议将其设置为哨兵节点的数量加1。</quorum></p>
@@ -494,14 +494,14 @@
 <li><p><code>sentinel failover-timeout</code> 格式为<code>sentinel failover-timeout &lt;master-name&gt; &lt;times&gt;</code><br>表示故障转移的超时时间。<br>其他配置请参加redis中文官网：<a href="http://www.redis.cn" target="_blank" rel="noopener">www.redis.cn</a></p>
 </li>
 </ul>
-<h3 id="2-3-3-在docker容器中启动redis哨兵服务"><a href="#2-3-3-在docker容器中启动redis哨兵服务" class="headerlink" title="2.3.3 在docker容器中启动redis哨兵服务"></a>2.3.3 在docker容器中启动redis哨兵服务</h3><p>使用下图命令在容器中启动redis哨兵服务。<br><img src="http://upload-images.jianshu.io/upload_images/6287954-37398a32eecf09e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docker启动redis哨兵命令"><br>其他两个哨兵服务只需要修改：<br><code>--name</code>参数（比如 <code>redis-master-sentinel2</code>)<br><code>-v</code>挂载相应的配置文件(比如<code>~/redis/redis-26380.conf:/redis/redis-62380.conf</code>)，–link参数给主节点去不同的别名(比如<code>redis-master:master-sentinel2</code>)。<br>在容器中启动redis-sentinel服务：<br><img src="http://upload-images.jianshu.io/upload_images/6287954-599cd762c04dbd30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在容器中启动redis-sentinel服务"><br>运行上述命令后没有消息，就是最好的消息。<br>下面可以查看工作目录下的日志文件来查看启动情况。如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/6287954-7965effb0c7662f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看哨兵节点的日志"><br>日志说明：</p>
+<h3 id="在docker容器中启动redis哨兵服务"><a href="#在docker容器中启动redis哨兵服务" class="headerlink" title="在docker容器中启动redis哨兵服务"></a>在docker容器中启动redis哨兵服务</h3><p>使用下图命令在容器中启动redis哨兵服务。<br><img src="http://upload-images.jianshu.io/upload_images/6287954-37398a32eecf09e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docker启动redis哨兵命令"><br>其他两个哨兵服务只需要修改：<br><code>--name</code>参数（比如 <code>redis-master-sentinel2</code>)<br><code>-v</code>挂载相应的配置文件(比如<code>~/redis/redis-26380.conf:/redis/redis-62380.conf</code>)，–link参数给主节点去不同的别名(比如<code>redis-master:master-sentinel2</code>)。<br>在容器中启动redis-sentinel服务：<br><img src="http://upload-images.jianshu.io/upload_images/6287954-599cd762c04dbd30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在容器中启动redis-sentinel服务"><br>运行上述命令后没有消息，就是最好的消息。<br>下面可以查看工作目录下的日志文件来查看启动情况。如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/6287954-7965effb0c7662f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看哨兵节点的日志"><br>日志说明：</p>
 <ul>
 <li>从第四行可以看出，节点启动成功，以sentinel模式运行，端口为26379。</li>
 <li>倒数第二行为sentinel的id信息</li>
 <li>最后一行说明新加了一个哨兵节点监控到master节点，名字为mymaster，ip为172.17.0.2，quorum为2。</li>
 </ul>
 <p>至此，redis-sentinel节点配置完毕，其余两个sentinel节点请读者根据上面配置自行配置完成（很容易）。</p>
-<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3 总结"></a>3 总结</h1><p>本文从配置角度描述了怎么使用Docker搭建redis主从复制，并且添加了哨兵机制，但是并没有对redis进行详细剖析，这里强烈建议读者阅读相关书籍或是到redis官网了解redis运行机制。<br>若有问题，欢迎在评论区留言。<br>本文会定期更新，以便使用跟新版本的redis和docker。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文从配置角度描述了怎么使用Docker搭建redis主从复制，并且添加了哨兵机制，但是并没有对redis进行详细剖析，这里强烈建议读者阅读相关书籍或是到redis官网了解redis运行机制。<br>若有问题，欢迎在评论区留言。<br>本文会定期更新，以便使用跟新版本的redis和docker。</p>
 
       
     </div>
@@ -530,6 +530,22 @@
       
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/14/二叉树-binary-tree/" rel="prev" title="二叉树(binary tree)">
+                二叉树(binary tree) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -603,7 +619,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -614,7 +630,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -625,7 +641,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -658,7 +674,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-拓扑结构"><span class="nav-number">1.</span> <span class="nav-text">1. 拓扑结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-搭建主从复制结构"><span class="nav-number">2.</span> <span class="nav-text">2. 搭建主从复制结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-master节点配置"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 master节点配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-master节点配置文件"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 master节点配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-master节点配置文件详解"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 master节点配置文件详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-在docker中运行redis-master节点服务"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 在docker中运行redis master节点服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-slave节点配置"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 slave节点配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-slave节点配置文件"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 slave节点配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-slave节点配置文件详解"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 slave节点配置文件详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-在docker中运行redis-slave节点服务"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.3 在docker中运行redis slave节点服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-配置redis哨兵"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 配置redis哨兵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-redis哨兵配置文件"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1 redis哨兵配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-在docker容器中启动redis哨兵服务"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.3 在docker容器中启动redis哨兵服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-总结"><span class="nav-number">3.</span> <span class="nav-text">3 总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#拓扑结构"><span class="nav-number">1.</span> <span class="nav-text">拓扑结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建主从复制结构"><span class="nav-number">2.</span> <span class="nav-text">搭建主从复制结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#master节点配置"><span class="nav-number">2.1.</span> <span class="nav-text">master节点配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#master节点配置文件"><span class="nav-number">2.1.1.</span> <span class="nav-text">master节点配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#master节点配置文件详解"><span class="nav-number">2.1.2.</span> <span class="nav-text">master节点配置文件详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在docker中运行redis-master节点服务"><span class="nav-number">2.1.3.</span> <span class="nav-text">在docker中运行redis master节点服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#slave节点配置"><span class="nav-number">2.2.</span> <span class="nav-text">slave节点配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#slave节点配置文件"><span class="nav-number">2.2.1.</span> <span class="nav-text">slave节点配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slave节点配置文件详解"><span class="nav-number">2.2.2.</span> <span class="nav-text">slave节点配置文件详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在docker中运行redis-slave节点服务"><span class="nav-number">2.2.3.</span> <span class="nav-text">在docker中运行redis slave节点服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置redis哨兵"><span class="nav-number">2.3.</span> <span class="nav-text">配置redis哨兵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis哨兵配置文件"><span class="nav-number">2.3.1.</span> <span class="nav-text">redis哨兵配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在docker容器中启动redis哨兵服务"><span class="nav-number">2.3.2.</span> <span class="nav-text">在docker容器中启动redis哨兵服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-37398a32eecf09e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-599cd762c04dbd30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-7965effb0c7662f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-03-14T05:53:56.601Z">
+<meta property="og:updated_time" content="2018-03-14T05:57:39.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Docker搭建Redis主从复制、哨兵机制">
 <meta name="twitter:description" content="1. 拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。 拓扑信息：    角色 ip port     redis-master redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip 6379   redis-slave1 容器启">
@@ -434,7 +434,7 @@
 </table>
 <p>注：master或者master-sentinel或者master-sentinel2或者master-sentinel3都是主节点容器的别名。与之相关联的容器可以通过别称来代替ip访问容器。</p>
 <h1 id="2-搭建主从复制结构"><a href="#2-搭建主从复制结构" class="headerlink" title="2. 搭建主从复制结构"></a>2. 搭建主从复制结构</h1><h2 id="2-1-master节点配置"><a href="#2-1-master节点配置" class="headerlink" title="2.1 master节点配置"></a>2.1 master节点配置</h2><h3 id="2-1-1-master节点配置文件"><a href="#2-1-1-master节点配置文件" class="headerlink" title="2.1.1 master节点配置文件"></a>2.1.1 master节点配置文件</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-43a97ebc46f85167.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="master节点配置文件"></p>
-<h3 id="2-1-2-master节点配置文件详解"><a href="#2-1-2-master节点配置文件详解" class="headerlink" title="2.1.2 master节点配置文件详解"></a>2.1.2 master节点配置文件详解</h3><ul>
+<h3 id="2-1-2-master节点配置文件详解"><a href="#2-1-2-master节点配置文件详解" class="headerlink" title="2.1.2 master节点配置文件详解"></a>2.1.2 master节点配置文件详解<a id="more"></a></h3><ul>
 <li><figure class="highlight plain"><figcaption><span>端口号</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- ```daemonize```：redis采用的是单进程多线程的模式。当redis.conf中选项daemonize设置成yes时，代表开启守护进程模式。在该模式下，redis会在后台运行，并将进程pid号写入至redis.conf选项pidfile设置的文件中，此时redis将一直运行，除非手动kill该进程。</span><br><span class="line">- ```logfile```: 日志文件的名字，在工作目录下自动创建，会记录redis的运行日志。</span><br><span class="line">- ```dbfilename```: dump文件的名字，在工作目录下自动创建。</span><br><span class="line">- ```dir```: 工作目录的路径。</span><br><span class="line"></span><br><span class="line">其他配置请参考redis中文官网：www.redis.cn</span><br><span class="line">### 2.1.3 在docker中运行redis master节点服务</span><br><span class="line">![master节点docker命令](http://upload-images.jianshu.io/upload_images/6287954-eeaded7d794d34f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line">命令说明：</span><br><span class="line">- ```--name```: 命名容器为```redis-master```，一定不要忽略容器命名，为后面```--link```命令命名更容易记住名字。</span><br><span class="line">- ```-v```:将本地的配置文件```~/redis/redis-6379.conf```挂载到容器中的```/redis/redis-6379.conf</span><br></pre></td></tr></table></figure>
 </li>
 </ul>

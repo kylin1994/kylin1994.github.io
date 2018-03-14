@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="1. 拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。拓扑信息：|           角色           |                    ip                    | port  || :——————–: | :————————————–: | :—: ||      redis-master">
+<meta name="description" content="1. 拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。拓扑信息：    角色 ip port     redis-master redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip 6379   redis-slave1 容器启动">
 <meta name="keywords" content="Docker,Redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Docker搭建Redis主从复制、哨兵机制">
 <meta property="og:url" content="https://kylin1994.github.io/2018/03/14/使用Docker搭建Redis主从复制、哨兵机制/index.html">
 <meta property="og:site_name" content="Kylin Xiang&#39;s Blog">
-<meta property="og:description" content="1. 拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。拓扑信息：|           角色           |                    ip                    | port  || :——————–: | :————————————–: | :—: ||      redis-master">
+<meta property="og:description" content="1. 拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。拓扑信息：    角色 ip port     redis-master redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip 6379   redis-slave1 容器启动">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-78c11a101a34e462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-43a97ebc46f85167.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -101,10 +101,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-37398a32eecf09e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-599cd762c04dbd30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6287954-7965effb0c7662f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-03-14T07:31:24.476Z">
+<meta property="og:updated_time" content="2018-03-14T07:34:59.672Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Docker搭建Redis主从复制、哨兵机制">
-<meta name="twitter:description" content="1. 拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。拓扑信息：|           角色           |                    ip                    | port  || :——————–: | :————————————–: | :—: ||      redis-master">
+<meta name="twitter:description" content="1. 拓扑结构本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。拓扑信息：    角色 ip port     redis-master redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip 6379   redis-slave1 容器启动">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6287954-78c11a101a34e462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -397,7 +397,49 @@
       
 
       
-        <h1 id="1-拓扑结构"><a href="#1-拓扑结构" class="headerlink" title="1. 拓扑结构"></a>1. 拓扑结构</h1><p>本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。<br><img src="http://upload-images.jianshu.io/upload_images/6287954-78c11a101a34e462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="redis拓扑结构"><br>拓扑信息：<br>|           角色           |                    ip                    | port  |<br>| :——————–: | :————————————–: | :—: |<br>|      redis-master      | redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip | 6379  |<br>|      redis-slave1      |               容器启动时自动分配的ip               | 6380  |<br>|      redis-slave2      |               容器启动时自动分配的ip               | 6381  |<br>| redis-master-sentinel  |               容器启动时自动分配的ip               | 26379 |<br>| redis-master-sentinel2 |               容器启动时自动分配的ip               | 26380 |<br>| redis-master-sentinel3 |               容器启动时自动分配的ip               | 26381 |<br>注：master或者master-sentinel或者master-sentinel2或者master-sentinel3都是主节点容器的别名。与之相关联的容器可以通过别称来代替ip访问容器。</p>
+        <h1 id="1-拓扑结构"><a href="#1-拓扑结构" class="headerlink" title="1. 拓扑结构"></a>1. 拓扑结构</h1><p>本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。<br><img src="http://upload-images.jianshu.io/upload_images/6287954-78c11a101a34e462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="redis拓扑结构"><br>拓扑信息：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">角色</th>
+<th style="text-align:center">ip</th>
+<th style="text-align:center">port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">redis-master</td>
+<td style="text-align:center">redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip</td>
+<td style="text-align:center">6379</td>
+</tr>
+<tr>
+<td style="text-align:center">redis-slave1</td>
+<td style="text-align:center">容器启动时自动分配的ip</td>
+<td style="text-align:center">6380</td>
+</tr>
+<tr>
+<td style="text-align:center">redis-slave2</td>
+<td style="text-align:center">容器启动时自动分配的ip</td>
+<td style="text-align:center">6381</td>
+</tr>
+<tr>
+<td style="text-align:center">redis-master-sentinel</td>
+<td style="text-align:center">容器启动时自动分配的ip</td>
+<td style="text-align:center">26379</td>
+</tr>
+<tr>
+<td style="text-align:center">redis-master-sentinel2</td>
+<td style="text-align:center">容器启动时自动分配的ip</td>
+<td style="text-align:center">26380</td>
+</tr>
+<tr>
+<td style="text-align:center">redis-master-sentinel3</td>
+<td style="text-align:center">容器启动时自动分配的ip</td>
+<td style="text-align:center">26381</td>
+</tr>
+</tbody>
+</table>
+<p>注：master或者master-sentinel或者master-sentinel2或者master-sentinel3都是主节点容器的别名。与之相关联的容器可以通过别称来代替ip访问容器。</p>
 <h1 id="2-搭建主从复制结构"><a href="#2-搭建主从复制结构" class="headerlink" title="2. 搭建主从复制结构"></a>2. 搭建主从复制结构</h1><h2 id="2-1-master节点配置"><a href="#2-1-master节点配置" class="headerlink" title="2.1 master节点配置"></a>2.1 master节点配置</h2><h3 id="2-1-1-master节点配置文件"><a href="#2-1-1-master节点配置文件" class="headerlink" title="2.1.1 master节点配置文件"></a>2.1.1 master节点配置文件</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-43a97ebc46f85167.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="master节点配置文件"></p>
 <h3 id="2-1-2-master节点配置文件详解"><a href="#2-1-2-master节点配置文件详解" class="headerlink" title="2.1.2 master节点配置文件详解"></a>2.1.2 master节点配置文件详解</h3><ul>
 <li><code>port</code>：端口号</li>
@@ -484,22 +526,6 @@
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/03/14/test2/" rel="next" title="test2">
-                <i class="fa fa-chevron-left"></i> test2
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-          </div>
-        </div>
-      
 
       
       
@@ -572,7 +598,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -583,7 +609,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -594,7 +620,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kylin1994.github.io/schedule/index.html</loc>
+    
+    <lastmod>2018-03-15T15:48:44.570Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kylin1994.github.io/about/index.html</loc>
+    
+    <lastmod>2018-03-15T15:46:29.886Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kylin1994.github.io/tags/index.html</loc>
     
     <lastmod>2018-03-15T15:43:56.208Z</lastmod>
@@ -12,20 +26,6 @@
     <loc>https://kylin1994.github.io/sitemap/index.html</loc>
     
     <lastmod>2018-03-15T15:43:42.627Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kylin1994.github.io/schedule/index.html</loc>
-    
-    <lastmod>2018-03-15T15:43:30.459Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kylin1994.github.io/about/index.html</loc>
-    
-    <lastmod>2018-03-15T15:43:06.698Z</lastmod>
     
   </url>
   

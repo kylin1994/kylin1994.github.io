@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kylin1994.github.io/"/>
-  <updated>2018-03-29T15:16:48.289Z</updated>
+  <updated>2018-03-29T15:24:34.410Z</updated>
   <id>https://kylin1994.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker学习笔记（3）- Docker仓库</title>
+    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89-Docker%E4%BB%93%E5%BA%93/"/>
+    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（3）-Docker仓库/</id>
+    <published>2018-03-29T15:23:43.000Z</published>
+    <updated>2018-03-29T15:24:34.410Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="访问Docker仓库"><a href="#访问Docker仓库" class="headerlink" title="访问Docker仓库"></a>访问Docker仓库</h1><p>仓库（Repository）是集中存放镜像的地方，分公共仓库和私有仓库。一个容器混淆的概念是注册服务器（Registry)。实际上注册服务器是存放仓库的具体服务器，一个服务器上可以有多个仓库，而每个仓库下面可以有多个镜像。从这方面来说，可以将仓库看做一个具体的项目和目录。例如对于仓库地址private-docker.com/ubuntu来说，private-docker.com是注册服务器地址，ubuntu是仓库名。</p><h1 id="Docker-Hub公共镜像市场"><a href="#Docker-Hub公共镜像市场" class="headerlink" title="Docker Hub公共镜像市场"></a>Docker Hub公共镜像市场</h1><p>目前Docker官方维护了一个公共镜像仓库<a href="http://hub.docker.com，其中包括超过15000个镜像。大部分镜像需求，都可以通过在Docker" target="_blank" rel="noopener">http://hub.docker.com，其中包括超过15000个镜像。大部分镜像需求，都可以通过在Docker</a> Hub中直接下载镜像来实现。</p><h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p><code>docker login</code>命令来输入用户名、密码登录。</p><p><img src="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/1010D5F997E047E1AE1078322EA03D13/1111" alt="img"></p><h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p>用户无需登录即可通过docker search命令来查找官方仓库中的镜像，并利用<code>docker pull</code>命令来下载到本地。</p><p><img src="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/FB2B25063AD84C6CA600D59B5D1B524C/1119" alt="img"></p><p>根据是否为官方提供，可将这些镜像资源分为两类。一种是类似centos这样的基础镜像，成为基础或根镜像。这些镜像是由Docker公司创建、验证、支持、提供。这样的镜像往往使用单个单词名字。</p><p>还有一种类型，比如ansible/centos7-ansible镜像，它是由用户ansible创建并维护的，带有用户名为前缀，表明是用户下的某仓库。可以通过用户名称前缀user_name/镜像名称来指定使用某个用户提供的镜像。</p><p>另外在查找的时候，通过-s N参数可以指定显示评价为N星以上的镜像。</p><p>下载centos镜像到本地，如下所示：</p><p><img src="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/7CF18142B4D84B88A3BE1915CC2CF54F/1131" alt="img"></p><p>用户也可以通过<code>docker push</code>命令来将本地镜像推送到Docker Hub。</p><p>提示：Ansible是知名自动化部署配置管理工具。</p><h2 id="自动创建"><a href="#自动创建" class="headerlink" title="自动创建"></a>自动创建</h2><p>自动创建（Automated Builds）功能对于需要经常升级镜像内程序来说，十分方便。有时候，用户创建了镜像，安装了某个软件，如果软件版本发布新版本则需要手动跟新。</p><p>而自动创建允许用户通过Docker Hub指定跟踪一个目标网站（目前支持GitHub或BitBucket)上的项目，一旦项目发生新的提交，则自动执行创建。</p><p>要配置自动创建，包括如下的步骤：</p><ol><li>创建并登陆Docker Hub，以及目标网站；并在目标网站中链接账户到Docker Hub；</li><li>在Docker Hub中配置一个“自动创建”；</li><li>选取一个目标网站中的项目（需要含Dockerfile）和分支；</li><li>指定Dockerfile位置，并且提交创建</li></ol><h1 id="搭建本地仓库"><a href="#搭建本地仓库" class="headerlink" title="搭建本地仓库"></a>搭建本地仓库</h1><h2 id="使用registry镜像创建私有仓库"><a href="#使用registry镜像创建私有仓库" class="headerlink" title="使用registry镜像创建私有仓库"></a>使用registry镜像创建私有仓库</h2><p>安装docker后，可以通过官方提供的registry镜像来简单搭建一套本地私有仓库环境：</p><p><code>$docker run -d -p 5000:5000 regitry</code></p><p>这将自动下载并启动一个registry容器，创建本地的私有仓库服务。</p><p>默认情况下，会将仓库创建在容器的/tmp/registry目录下。可以通过<code>-v</code>参数来将镜像文件夹存放在本地的指定路径，例如下面的例子将镜像放到/Users/xiangqilin/registry</p><p><img src="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/1CF315C9C3504BD2A41F116304C34B1C/1169" alt="img"></p><p>注意registry:2是ash shell，如果执行<code>$docker exec -it nifty_mahavira /bin/bash</code>会报错</p><p>向搭建好的本地仓库push成功之后，<code>-v</code>参数指定的映射目录也会存储上传的镜像</p><p><img src="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/84C8FDE6F02142B5934072BECCDA6D5E/1177" alt="img"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;访问Docker仓库&quot;&gt;&lt;a href=&quot;#访问Docker仓库&quot; class=&quot;headerlink&quot; title=&quot;访问Docker仓库&quot;&gt;&lt;/a&gt;访问Docker仓库&lt;/h1&gt;&lt;p&gt;仓库（Repository）是集中存放镜像的地方，分公共仓库和私有仓库。一个
+      
+    
+    </summary>
+    
+      <category term="docker" scheme="https://kylin1994.github.io/categories/docker/"/>
+    
+    
+      <category term="docker" scheme="https://kylin1994.github.io/tags/docker/"/>
+    
+      <category term="容器" scheme="https://kylin1994.github.io/tags/%E5%AE%B9%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker学习笔记（2）- Docker容器</title>

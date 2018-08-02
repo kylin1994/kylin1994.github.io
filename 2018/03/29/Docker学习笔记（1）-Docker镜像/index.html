@@ -117,7 +117,7 @@
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/155F214C0267429EB427B1413EF067EE/785">
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/6EAB5D97BEF841BB8822192C9F0D7529/818">
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/19D8F559D1E74BDDAD1B10A03308B9B2/829">
-<meta property="og:updated_time" content="2018-03-29T14:53:54.886Z">
+<meta property="og:updated_time" content="2018-04-15T09:20:08.234Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习笔记（1）- Docker镜像">
 <meta name="twitter:description" content="获取镜像$docker pull NAME[:TAG] 如果不加TAG则表示下载最新的镜像，一个镜像由“名称”+“标签决定” 使用不同镜像仓库服务器情况下，可能会出现镜像重名： 严格的将，镜像的仓库名称中还应该添加仓库地址（即registry，注册服务器）作为前缀，如果使用Docker Hub服务，该前缀可以忽略。 即：$docker pull ubuntu:14.04相当于$docker pul">
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,211
+                  2,291
                 </span>
               
 
@@ -609,7 +609,7 @@
 <p>要直接导入一个镜像，可以使用OpenVZ提供的模板来创建，或者用其他已导出的镜像模板来创建。OPENVZ模板的下载地址为<a href="http://openvz.org/Dowload/templates/precreated" target="_blank" rel="noopener">http://openvz.org/Dowload/templates/precreated</a></p>
 <p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/55C245062B994CD6AEA86F025E9A777C/808" alt="img"></p>
 <hr>
-<h1 id="存出和载入镜像"><a href="#存出和载入镜像" class="headerlink" title="存出和载入镜像"></a>存出和载入镜像</h1><p>用户可以使用docker save和docker load命令来存出和载入镜像。</p>
+<h1 id="存出和载入镜像"><a href="#存出和载入镜像" class="headerlink" title="存出和载入镜像"></a>存出和载入镜像</h1><p>用户可以使用docker save和docker load命令来存出和载入镜像。docker load一般只用于导入由docker save导出的镜像，导入后的镜像跟原镜像一模一样，拥有相同的镜像id和分层内容。docker import不能用于导入标准的Docker镜像，而是用于导入包含根文件系统的归档，并将之变成Docker镜像。</p>
 <h2 id="存出镜像"><a href="#存出镜像" class="headerlink" title="存出镜像"></a>存出镜像</h2><p><code>docker save</code>：将指定镜像保存成tar归档文件。</p>
 <p>语法：<code>docker save [OPTIONS] IMAGE [IMAGE…]</code></p>
 <p>OPTIONS说明：</p>
@@ -795,7 +795,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -806,7 +806,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -817,7 +817,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -915,7 +915,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">21.6k</span>
+    <span title="Site words total count">23.0k</span>
   
 </div>
 

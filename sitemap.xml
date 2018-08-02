@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kylin1994.github.io/2018/08/02/kubernetes-pod-%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/</loc>
+    
+    <lastmod>2018-08-02T02:39:43.804Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-Docker%E9%95%9C%E5%83%8F/</loc>
+    
+    <lastmod>2018-04-15T09:20:08.234Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89-Dockerfile/</loc>
     
     <lastmod>2018-03-29T15:54:49.039Z</lastmod>
@@ -33,13 +47,6 @@
     <loc>https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89-Docker%E5%AE%B9%E5%99%A8/</loc>
     
     <lastmod>2018-03-29T15:16:48.289Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-Docker%E9%95%9C%E5%83%8F/</loc>
-    
-    <lastmod>2018-03-29T14:53:54.886Z</lastmod>
     
   </url>
   

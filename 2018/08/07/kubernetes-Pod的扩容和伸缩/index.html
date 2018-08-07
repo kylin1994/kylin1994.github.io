@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="docker,容器," />
+  <meta name="keywords" content="kubernetes,pod,HPA," />
 
 
 
@@ -82,24 +82,28 @@
 
 
 
-<meta name="description" content="访问Docker仓库仓库（Repository）是集中存放镜像的地方，分公共仓库和私有仓库。一个容器混淆的概念是注册服务器（Registry)。实际上注册服务器是存放仓库的具体服务器，一个服务器上可以有多个仓库，而每个仓库下面可以有多个镜像。从这方面来说，可以将仓库看做一个具体的项目和目录。例如对于仓库地址private-docker.com/ubuntu来说，private-docker.com">
-<meta name="keywords" content="docker,容器">
+<meta name="description" content="Kubernetes Pod的扩容和伸缩此笔记来自于《Kubernetes权威指南：从Docker到Kubernetes实践全接触（第二版）》2.4.9节，由于Kubernetes的版本的不断迭代跟新，书中有些教程由于版本原因，不在适用于高版本k8s，本笔记在原著教程基础上做了适当调整，已适用于目前版本的K8s。  1. 通过kubectl scale命令首先创建expansion-test.ya">
+<meta name="keywords" content="kubernetes,pod,HPA">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker学习笔记（3）- Docker仓库">
-<meta property="og:url" content="https://kylin1994.github.io/2018/03/29/Docker学习笔记（3）-Docker仓库/index.html">
+<meta property="og:title" content="kubernetes Pod的扩容和伸缩">
+<meta property="og:url" content="https://kylin1994.github.io/2018/08/07/kubernetes-Pod的扩容和伸缩/index.html">
 <meta property="og:site_name" content="Kylin Xiang&#39;s Blog">
-<meta property="og:description" content="访问Docker仓库仓库（Repository）是集中存放镜像的地方，分公共仓库和私有仓库。一个容器混淆的概念是注册服务器（Registry)。实际上注册服务器是存放仓库的具体服务器，一个服务器上可以有多个仓库，而每个仓库下面可以有多个镜像。从这方面来说，可以将仓库看做一个具体的项目和目录。例如对于仓库地址private-docker.com/ubuntu来说，private-docker.com">
+<meta property="og:description" content="Kubernetes Pod的扩容和伸缩此笔记来自于《Kubernetes权威指南：从Docker到Kubernetes实践全接触（第二版）》2.4.9节，由于Kubernetes的版本的不断迭代跟新，书中有些教程由于版本原因，不在适用于高版本k8s，本笔记在原著教程基础上做了适当调整，已适用于目前版本的K8s。  1. 通过kubectl scale命令首先创建expansion-test.ya">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/1010D5F997E047E1AE1078322EA03D13/1111">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/FB2B25063AD84C6CA600D59B5D1B524C/1119">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/7CF18142B4D84B88A3BE1915CC2CF54F/1131">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/1CF315C9C3504BD2A41F116304C34B1C/1169">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/84C8FDE6F02142B5934072BECCDA6D5E/1177">
-<meta property="og:updated_time" content="2018-03-29T15:24:34.410Z">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/0069RVTdgy1fu0dfy83p2j30qy086q3u.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/0069RVTdgy1fu0dfzc4ljj30za05idhn.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/0069RVTdgy1fu0dfyor6jj311u07etb6.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/0069RVTdgy1fu0dg00nbcj30g602f0t8.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/0069RVTdgy1fu0dfx7rxgj30dv020gm0.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/0069RVTdgy1fu0dfw6zyij30ja02g74y.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/0069RVTdgy1fu0dg10kzqj312802y75d.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/0069RVTdgy1fu0dfvuuh2j30fu02ugm3.jpg">
+<meta property="og:image" content="https://kylin1994.github.io/Users/xiangqilin/Desktop/WX20180807-094211.png">
+<meta property="og:updated_time" content="2018-08-07T01:58:02.747Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker学习笔记（3）- Docker仓库">
-<meta name="twitter:description" content="访问Docker仓库仓库（Repository）是集中存放镜像的地方，分公共仓库和私有仓库。一个容器混淆的概念是注册服务器（Registry)。实际上注册服务器是存放仓库的具体服务器，一个服务器上可以有多个仓库，而每个仓库下面可以有多个镜像。从这方面来说，可以将仓库看做一个具体的项目和目录。例如对于仓库地址private-docker.com/ubuntu来说，private-docker.com">
-<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/1010D5F997E047E1AE1078322EA03D13/1111">
+<meta name="twitter:title" content="kubernetes Pod的扩容和伸缩">
+<meta name="twitter:description" content="Kubernetes Pod的扩容和伸缩此笔记来自于《Kubernetes权威指南：从Docker到Kubernetes实践全接触（第二版）》2.4.9节，由于Kubernetes的版本的不断迭代跟新，书中有些教程由于版本原因，不在适用于高版本k8s，本笔记在原著教程基础上做了适当调整，已适用于目前版本的K8s。  1. 通过kubectl scale命令首先创建expansion-test.ya">
+<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/0069RVTdgy1fu0dfy83p2j30qy086q3u.jpg">
 
 
 
@@ -129,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="https://kylin1994.github.io/2018/03/29/Docker学习笔记（3）-Docker仓库/"/>
+  <link rel="canonical" href="https://kylin1994.github.io/2018/08/07/kubernetes-Pod的扩容和伸缩/"/>
 
 
 
 
 
-  <title>Docker学习笔记（3）- Docker仓库 | Kylin Xiang's Blog</title>
+  <title>kubernetes Pod的扩容和伸缩 | Kylin Xiang's Blog</title>
   
 
 
@@ -314,7 +318,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kylin1994.github.io/2018/03/29/Docker学习笔记（3）-Docker仓库/">
+    <link itemprop="mainEntityOfPage" href="https://kylin1994.github.io/2018/08/07/kubernetes-Pod的扩容和伸缩/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kylin Xiang">
@@ -331,7 +335,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Docker学习笔记（3）- Docker仓库</h1>
+          <h1 class="post-title" itemprop="name headline">kubernetes Pod的扩容和伸缩</h1>
         
 
         <div class="post-meta">
@@ -343,8 +347,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-29T23:23:43+08:00">
-                2018-03-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T09:54:46+08:00">
+                2018-08-07
               </time>
             
 
@@ -366,8 +370,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index">
+                    <span itemprop="name">kubernetes</span>
                   </a>
                 </span>
 
@@ -383,7 +387,7 @@
 
           
           
-             <span id="/2018/03/29/Docker学习笔记（3）-Docker仓库/" class="leancloud_visitors" data-flag-title="Docker学习笔记（3）- Docker仓库">
+             <span id="/2018/08/07/kubernetes-Pod的扩容和伸缩/" class="leancloud_visitors" data-flag-title="kubernetes Pod的扩容和伸缩">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -408,7 +412,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  882
+                  1,397
                 </span>
               
 
@@ -424,7 +428,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  6
                 </span>
               
             </div>
@@ -445,36 +449,58 @@
       
 
       
-        <h1 id="访问Docker仓库"><a href="#访问Docker仓库" class="headerlink" title="访问Docker仓库"></a>访问Docker仓库</h1><p>仓库（Repository）是集中存放镜像的地方，分公共仓库和私有仓库。一个容器混淆的概念是注册服务器（Registry)。实际上注册服务器是存放仓库的具体服务器，一个服务器上可以有多个仓库，而每个仓库下面可以有多个镜像。从这方面来说，可以将仓库看做一个具体的项目和目录。例如对于仓库地址private-docker.com/ubuntu来说，private-docker.com是注册服务器地址，ubuntu是仓库名。</p>
-<h1 id="Docker-Hub公共镜像市场"><a href="#Docker-Hub公共镜像市场" class="headerlink" title="Docker Hub公共镜像市场"></a>Docker Hub公共镜像市场</h1><p>目前Docker官方维护了一个公共镜像仓库<a href="http://hub.docker.com，其中包括超过15000个镜像。大部分镜像需求，都可以通过在Docker" target="_blank" rel="noopener">http://hub.docker.com，其中包括超过15000个镜像。大部分镜像需求，都可以通过在Docker</a> Hub中直接下载镜像来实现。</p>
-<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p><code>docker login</code>命令来输入用户名、密码登录。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/1010D5F997E047E1AE1078322EA03D13/1111" alt="img"></p>
-<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p>用户无需登录即可通过docker search命令来查找官方仓库中的镜像，并利用<code>docker pull</code>命令来下载到本地。</p>
-<p><img src="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/FB2B25063AD84C6CA600D59B5D1B524C/1119" alt="img"></p>
-<p>根据是否为官方提供，可将这些镜像资源分为两类。一种是类似centos这样的基础镜像，成为基础或根镜像。这些镜像是由Docker公司创建、验证、支持、提供。这样的镜像往往使用单个单词名字。</p>
-<p>还有一种类型，比如ansible/centos7-ansible镜像，它是由用户ansible创建并维护的，带有用户名为前缀，表明是用户下的某仓库。可以通过用户名称前缀user_name/镜像名称来指定使用某个用户提供的镜像。</p>
-<p>另外在查找的时候，通过-s N参数可以指定显示评价为N星以上的镜像。</p>
-<p>下载centos镜像到本地，如下所示：</p>
-<p><img src="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/7CF18142B4D84B88A3BE1915CC2CF54F/1131" alt="img"></p>
-<p>用户也可以通过<code>docker push</code>命令来将本地镜像推送到Docker Hub。</p>
-<p>提示：Ansible是知名自动化部署配置管理工具。</p>
-<h2 id="自动创建"><a href="#自动创建" class="headerlink" title="自动创建"></a>自动创建</h2><p>自动创建（Automated Builds）功能对于需要经常升级镜像内程序来说，十分方便。有时候，用户创建了镜像，安装了某个软件，如果软件版本发布新版本则需要手动跟新。</p>
-<p>而自动创建允许用户通过Docker Hub指定跟踪一个目标网站（目前支持GitHub或BitBucket)上的项目，一旦项目发生新的提交，则自动执行创建。</p>
-<p>要配置自动创建，包括如下的步骤：</p>
-<ol>
-<li>创建并登陆Docker Hub，以及目标网站；并在目标网站中链接账户到Docker Hub；</li>
-<li>在Docker Hub中配置一个“自动创建”；</li>
-<li>选取一个目标网站中的项目（需要含Dockerfile）和分支；</li>
-<li>指定Dockerfile位置，并且提交创建</li>
-</ol>
-<h1 id="搭建本地仓库"><a href="#搭建本地仓库" class="headerlink" title="搭建本地仓库"></a>搭建本地仓库</h1><h2 id="使用registry镜像创建私有仓库"><a href="#使用registry镜像创建私有仓库" class="headerlink" title="使用registry镜像创建私有仓库"></a>使用registry镜像创建私有仓库</h2><p>安装docker后，可以通过官方提供的registry镜像来简单搭建一套本地私有仓库环境：</p>
-<p><code>$docker run -d -p 5000:5000 regitry</code></p>
-<p>这将自动下载并启动一个registry容器，创建本地的私有仓库服务。</p>
-<p>默认情况下，会将仓库创建在容器的/tmp/registry目录下。可以通过<code>-v</code>参数来将镜像文件夹存放在本地的指定路径，例如下面的例子将镜像放到/Users/xiangqilin/registry</p>
-<p><img src="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/1CF315C9C3504BD2A41F116304C34B1C/1169" alt="img"></p>
-<p>注意registry:2是ash shell，如果执行<code>$docker exec -it nifty_mahavira /bin/bash</code>会报错</p>
-<p>向搭建好的本地仓库push成功之后，<code>-v</code>参数指定的映射目录也会存储上传的镜像</p>
-<p><img src="https://note.youdao.com/yws/public/resource/9ee59c7424a8431f0dafee44a7c9458c/xmlnote/84C8FDE6F02142B5934072BECCDA6D5E/1177" alt="img"></p>
+        <h1 id="Kubernetes-Pod的扩容和伸缩"><a href="#Kubernetes-Pod的扩容和伸缩" class="headerlink" title="Kubernetes Pod的扩容和伸缩"></a>Kubernetes Pod的扩容和伸缩</h1><p>此笔记来自于《Kubernetes权威指南：从Docker到Kubernetes实践全接触（第二版）》2.4.9节，由于Kubernetes的版本的不断迭代跟新，书中有些教程由于版本原因，不在适用于高版本k8s，本笔记在原著教程基础上做了适当调整，已适用于目前版本的K8s。</p>
+<p><img src="https://ws2.sinaimg.cn/large/0069RVTdgy1fu0dfy83p2j30qy086q3u.jpg" alt="版本信息"></p>
+<h2 id="1-通过kubectl-scale命令"><a href="#1-通过kubectl-scale命令" class="headerlink" title="1. 通过kubectl scale命令"></a>1. 通过<code>kubectl scale</code>命令</h2><p>首先创建expansion-test.yaml文件。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicationController</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">expansion-test</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">replicas:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">selector:</span></span><br><span class="line"><span class="attr">test:</span> <span class="string">expansion</span></span><br><span class="line"><span class="attr">template:</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">labels:</span></span><br><span class="line"><span class="attr">test:</span> <span class="string">expansion</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">containers:</span></span><br><span class="line"><span class="attr">- name:</span> <span class="string">expansion-test</span></span><br><span class="line"><span class="attr">image:</span> <span class="string">tomcat</span></span><br><span class="line"><span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br></pre></td></tr></table></figure></p>
+<p>执行命令<code>kubectl create -f expansion-test.yaml</code></p>
+<p><img src="https://ws1.sinaimg.cn/large/0069RVTdgy1fu0dfzc4ljj30za05idhn.jpg" alt="执行命令及结果"></p>
+<p>如上图所示，已经成共创建了一个名为expansion-test的ReplicationController，使用<code>kubectl get pod</code>命令查看创建的Pod，一共有两个，因为<code>spec.replicas=2</code>。</p>
+<p>现在使用<code>kubectl scale rc expansion-test —replicas=4</code>命令，将expansion-test的副本数增加至4。</p>
+<p><img src="https://ws3.sinaimg.cn/large/0069RVTdgy1fu0dfyor6jj311u07etb6.jpg" alt="执行命令及结果"></p>
+<p>然后查看Pod数量，已经增加至4。</p>
+<h2 id="2-基于CPU使用率的Pod自动扩容和伸缩"><a href="#2-基于CPU使用率的Pod自动扩容和伸缩" class="headerlink" title="2. 基于CPU使用率的Pod自动扩容和伸缩"></a>2. 基于CPU使用率的Pod自动扩容和伸缩</h2><p>Kubernetes v1.1增加了Horizontal Pod Autoscaler(HPA)控制器，用于实现CUP利用率的Pod扩缩容功能。HPA控制器基于Master的kube-controller-manager服务启动参数<code>—horizontal-pod-autoscaler-sync-period</code>定义的时长（默认为30秒），周期性的检测目标Pod的CPU使用率，并在满足条件时对ReplicationController或Deployment中的Pod数量进行调整，以符合用户定义的平均Pod CPU使用率。Pod CPU使用率来源于heapster组件，所以需要预先安装好heapster。</p>
+<p>创建HPA时可以用kubectl scale命令进行快速创建或者使用yaml配置文件进行创建。<strong>在创建HPA之前，需要存在一个RC或者Deployment对象，并且该RC或Deployment中的Pod必须定义resources.requests.cpu的资源请求值，如果不设置该值，则heapster将无法采集到该Pod的CPU使用情况，会导致HPA无法正常工作。</strong></p>
+<h3 id="2-1-安装heapster组件："><a href="#2-1-安装heapster组件：" class="headerlink" title="2.1 安装heapster组件："></a>2.1 安装heapster组件：</h3><p><code>git clone git@github.com:kubernetes/heapster.git</code></p>
+<p><code>kubectl create -f ./deploy/kube-config/influxdb/</code></p>
+<p>创建上述的Deployment时，需要用到</p>
+<ul>
+<li>k8s.gcr.io/heapster-amd64:v1.5.4</li>
+<li>k8s.gcr.io/heapster-grafana-amd64:v5.0.4</li>
+<li>k8s.gcr.io/heapster-influxdb-amd64:v1.5.2</li>
+</ul>
+<p>三个镜像，因此执行上面第二条命令需要配置docker代理，当然读者也可以通过Alibaba、DaoCloud等提供的镜像仓库中获取。</p>
+<h3 id="2-2-创建ReplicationController"><a href="#2-2-创建ReplicationController" class="headerlink" title="2.2 创建ReplicationController"></a>2.2 创建ReplicationController</h3><p>因为创建HPA之前，要先存在一个RC或者Deployment，并且必须在该RC或Deployment中的Pod必须定义<code>resources.requests.cpu</code>的资源请求值，所以这里以RC为例，其<code>requests.cpu=200m</code>，没有limits限制。</p>
+<p>首先创建php-apache-rc.yaml配置文件。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicationController</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">php-apche</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">template:</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">php-apache</span></span><br><span class="line"><span class="attr">labels:</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">php-apache</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">containers:</span></span><br><span class="line"><span class="attr">- name:</span> <span class="string">php-apache</span></span><br><span class="line"><span class="attr">image:</span> <span class="string">gcr.io/google_containers/hpa-example</span></span><br><span class="line"><span class="attr">resources:</span></span><br><span class="line"><span class="attr">requests:</span></span><br><span class="line"><span class="attr">cpu:</span> <span class="number">200</span><span class="string">m</span></span><br><span class="line"><span class="attr">ports:</span></span><br><span class="line"><span class="attr">- containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+<p>创建RC: <code>kubectl create -f php-apache-rc.yaml</code></p>
+<p><img src="https://ws4.sinaimg.cn/large/0069RVTdgy1fu0dg00nbcj30g602f0t8.jpg" alt="执行命令及结果"></p>
+<p>上图status为imagePullBackOff，可以使用<code>kubectl logs</code>命令查看日志，原因是被qiang了。因为pull gcr.io/google_containers/hpa-example镜像需要配置docker代理。这里可以自己百度一下docker代理配置，很简单~ 配置好代理之后，删除当前Pod，由于rc中<code>replicas=1</code>，所以rc会自动重新创建一个新的Pod，当status为running时，Pod创建成功。</p>
+<h3 id="2-3-创建Service"><a href="#2-3-创建Service" class="headerlink" title="2.3 创建Service"></a>2.3 创建Service</h3><p>创建一个php-apache的Service，供客户端访问。首先先创建如下php-apache-svc.yaml。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">php-apache</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">ports:</span></span><br><span class="line"><span class="attr">- port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">selector:</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">php-apache</span></span><br></pre></td></tr></table></figure>
+<p>执行<code>kubectl get svc</code>创建Service，然后查看创建情况，创建成功。</p>
+<p><img src="https://ws4.sinaimg.cn/large/0069RVTdgy1fu0dfx7rxgj30dv020gm0.jpg" alt="执行命令及结果"></p>
+<h3 id="2-4-创建HPA控制器"><a href="#2-4-创建HPA控制器" class="headerlink" title="2.4 创建HPA控制器"></a>2.4 创建HPA控制器</h3><p>创建HPA时可以用kubectl scale命令进行快速创建或者使用yaml配置文件进行创建。</p>
+<h4 id="2-4-1-使用kubectl-scale命令创建HPA"><a href="#2-4-1-使用kubectl-scale命令创建HPA" class="headerlink" title="2.4.1 使用kubectl scale命令创建HPA"></a>2.4.1 使用kubectl scale命令创建HPA</h4><p>可以使用以下命令来创建HPA，最大Pod数量为10，最小Pod数量为1，平均CPU利用率维持在50%。</p>
+<figure class="highlight plain"><figcaption><span>autoscale rc php-apache —min</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 2.4.2 使用yaml配置文件创建HPA</span><br><span class="line"></span><br><span class="line">首先先创建如下图所示的hpa-php-apache.yaml文件。</span><br><span class="line"></span><br><span class="line">```yaml</span><br><span class="line">apiVersion: autoscaling/v1</span><br><span class="line">kind: HorizontalPodAutoscaler</span><br><span class="line">metadata:</span><br><span class="line">name: hpa-php-apache</span><br><span class="line">namespace: default</span><br><span class="line">spec:</span><br><span class="line">scaleTargetRef:</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ReplicationController</span><br><span class="line">name: php-apache</span><br><span class="line">minReplicas: 1</span><br><span class="line">maxReplicas: 10</span><br><span class="line">targetCPUUtilizationPercentage: 50</span><br></pre></td></tr></table></figure>
+<p>创建HPA并查看结果。</p>
+<p><img src="https://ws1.sinaimg.cn/large/0069RVTdgy1fu0dfw6zyij30ja02g74y.jpg" alt="执行命令及结果"></p>
+<p>如上图所示，使用<code>kubectl get hpa</code>命令查看创建情况，发现 target一栏中使用的CPU为\&lt;unknown>，说明HPA从heapster获取CPU数据失败，这是因为k8s 1.9 之前kube-controller-manager 参数<code>--horizontal-pod-autoscaler-use-rest-clients</code>为false，1.9之后true。当然，最简单的方式就是修改其值为false，具体详见<a href="https://github.com/kubernetes/kubernetes/issues/57673" target="_blank" rel="noopener">官方issue</a>。</p>
+<p>更好的办法是安装metrix server组件，步骤如下：</p>
+<p><code>git clone git@github.com:kubernetes-incubator/metrics-server.git</code></p>
+<p>1.8以上：<code>kubectl create -f deploy/1.8+/</code></p>
+<p>1.7或以下：<code>kubectl create -f deploy/1.7/</code></p>
+<p>安装完之后，删除当前的HPA：<code>kubectl delete hpa hpa-php-apache</code>，重新创建：<code>kubectl create -f hpa-php-apache.yml</code>。</p>
+<p><img src="https://ws3.sinaimg.cn/large/0069RVTdgy1fu0dg10kzqj312802y75d.jpg" alt="HPA创建成功"></p>
+<p>此时可以看到target那一栏\&lt;unknown>变为了0%说明当前的CPU使用率为0%。</p>
+<p>接下来对php-apache service进行压测，首先先创建busybox-pod.yaml文件。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">busybox</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">containers:</span></span><br><span class="line"><span class="attr">- name:</span> <span class="string">busybox</span></span><br><span class="line"><span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line"><span class="attr">command:</span> <span class="string">[</span> <span class="string">"sleep"</span><span class="string">,</span> <span class="string">"3600"</span> <span class="string">]</span></span><br></pre></td></tr></table></figure>
+<p>然后执行<code>kubectl create -f busybox-pod.yaml</code>创建Pod。</p>
+<p><img src="https://ws3.sinaimg.cn/large/0069RVTdgy1fu0dfvuuh2j30fu02ugm3.jpg" alt="执行命令及结果"></p>
+<p>然后登陆到上面创建的busybox中：<code>kubectl exec -it busybox /bin/sh</code></p>
+<p>然后在容器中执行<code>while true; do wget -q -O- http://php-apache &gt; /dev/null; done</code>，不断向php-apache Service发送请求，过一段时间后观察HPA搜集到PodCPU使用率。</p>
+<p><code>kubectl get hpa</code></p>
+<p><img src="/Users/xiangqilin/Desktop/WX20180807-094211.png" alt="查看HPA使用情况"></p>
+<p>可以看出，CPU占用率不断升高，HPA通过不断增加Replicas来使CPU平均使用率保持在设定的50%。</p>
 
       
     </div>
@@ -521,9 +547,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/docker/" rel="tag"><i class="fa fa-tag"></i> docker</a>
+            <a href="/tags/kubernetes/" rel="tag"><i class="fa fa-tag"></i> kubernetes</a>
           
-            <a href="/tags/容器/" rel="tag"><i class="fa fa-tag"></i> 容器</a>
+            <a href="/tags/pod/" rel="tag"><i class="fa fa-tag"></i> pod</a>
+          
+            <a href="/tags/HPA/" rel="tag"><i class="fa fa-tag"></i> HPA</a>
           
         </div>
       
@@ -536,8 +564,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/29/Docker学习笔记（2）-Docker容器/" rel="next" title="Docker学习笔记（2）- Docker容器">
-                <i class="fa fa-chevron-left"></i> Docker学习笔记（2）- Docker容器
+              <a href="/2018/08/02/kubernetes-pod-配置详解/" rel="next" title="kubernetes pod 配置详解">
+                <i class="fa fa-chevron-left"></i> kubernetes pod 配置详解
               </a>
             
           </div>
@@ -545,10 +573,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/29/Docker学习笔记（4）-Docker数据卷/" rel="prev" title="Docker学习笔记（4）- Docker数据卷">
-                Docker学习笔记（4）- Docker数据卷 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -718,7 +742,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#访问Docker仓库"><span class="nav-number">1.</span> <span class="nav-text">访问Docker仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-Hub公共镜像市场"><span class="nav-number">2.</span> <span class="nav-text">Docker Hub公共镜像市场</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#登录"><span class="nav-number">2.1.</span> <span class="nav-text">登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作"><span class="nav-number">2.2.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动创建"><span class="nav-number">2.3.</span> <span class="nav-text">自动创建</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建本地仓库"><span class="nav-number">3.</span> <span class="nav-text">搭建本地仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用registry镜像创建私有仓库"><span class="nav-number">3.1.</span> <span class="nav-text">使用registry镜像创建私有仓库</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kubernetes-Pod的扩容和伸缩"><span class="nav-number">1.</span> <span class="nav-text">Kubernetes Pod的扩容和伸缩</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-通过kubectl-scale命令"><span class="nav-number">1.1.</span> <span class="nav-text">1. 通过kubectl scale命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基于CPU使用率的Pod自动扩容和伸缩"><span class="nav-number">1.2.</span> <span class="nav-text">2. 基于CPU使用率的Pod自动扩容和伸缩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装heapster组件："><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 安装heapster组件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-创建ReplicationController"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 创建ReplicationController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-创建Service"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 创建Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-创建HPA控制器"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 创建HPA控制器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-1-使用kubectl-scale命令创建HPA"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">2.4.1 使用kubectl scale命令创建HPA</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

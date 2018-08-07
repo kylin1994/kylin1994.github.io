@@ -98,8 +98,8 @@
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/0069RVTdgy1fu0dfw6zyij30ja02g74y.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/0069RVTdgy1fu0dg10kzqj312802y75d.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/0069RVTdgy1fu0dfvuuh2j30fu02ugm3.jpg">
-<meta property="og:image" content="https://kylin1994.github.io/Users/xiangqilin/Desktop/WX20180807-094211.png">
-<meta property="og:updated_time" content="2018-08-07T01:58:02.747Z">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/0069RVTdgy1fu0wmmjqahj30j9090acy.jpg">
+<meta property="og:updated_time" content="2018-08-07T01:59:53.090Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes Pod的扩容和伸缩">
 <meta name="twitter:description" content="Kubernetes Pod的扩容和伸缩此笔记来自于《Kubernetes权威指南：从Docker到Kubernetes实践全接触（第二版）》2.4.9节，由于Kubernetes的版本的不断迭代跟新，书中有些教程由于版本原因，不在适用于高版本k8s，本笔记在原著教程基础上做了适当调整，已适用于目前版本的K8s。  1. 通过kubectl scale命令首先创建expansion-test.ya">
@@ -499,7 +499,7 @@
 <p>然后登陆到上面创建的busybox中：<code>kubectl exec -it busybox /bin/sh</code></p>
 <p>然后在容器中执行<code>while true; do wget -q -O- http://php-apache &gt; /dev/null; done</code>，不断向php-apache Service发送请求，过一段时间后观察HPA搜集到PodCPU使用率。</p>
 <p><code>kubectl get hpa</code></p>
-<p><img src="/Users/xiangqilin/Desktop/WX20180807-094211.png" alt="查看HPA使用情况"></p>
+<p><img src="https://ws4.sinaimg.cn/large/0069RVTdgy1fu0wmmjqahj30j9090acy.jpg" alt="查看HPA使用情况"></p>
 <p>可以看出，CPU占用率不断升高，HPA通过不断增加Replicas来使CPU平均使用率保持在设定的50%。</p>
 
       

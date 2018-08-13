@@ -1942,7 +1942,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff377c;
+  background: #e782dd;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3030,10 +3030,4 @@ hr {
   border-radius: 20px;
   padding: 30px 60px 30px 60px;
   background: rgba(255,255,255,0.8) none repeat scroll;
-}
-body {
-  background-image: url("/images/background.jpg");
-  background-attachment: fixed;
-  background-repeat: repeat;
-  background-size: contain;
 }

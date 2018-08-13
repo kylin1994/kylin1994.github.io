@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kylin1994.github.io/"/>
-  <updated>2018-08-07T02:12:08.758Z</updated>
+  <updated>2018-08-13T02:41:06.021Z</updated>
   <id>https://kylin1994.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kubernetes service配置详解</title>
+    <link href="https://kylin1994.github.io/2018/08/13/kubernetes-service%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/"/>
+    <id>https://kylin1994.github.io/2018/08/13/kubernetes-service配置详解/</id>
+    <published>2018-08-13T02:35:06.000Z</published>
+    <updated>2018-08-13T02:41:06.021Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span>             <span class="comment"># string     Required    版本</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span>              <span class="comment"># string     Required    资源类型</span></span><br><span class="line"><span class="attr">metadata:</span>                  <span class="comment"># Object     Required    元数据</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">string</span>               <span class="comment"># string     Required    Service名称</span></span><br><span class="line"><span class="attr">namespace:</span> <span class="string">string</span>          <span class="comment"># string     Required    命名空间，默认default</span></span><br><span class="line"><span class="attr">labels:</span>                    <span class="comment"># list       Required    自定义标签属性列表</span></span><br><span class="line"><span class="attr">- name:</span> <span class="string">string</span></span><br><span class="line"><span class="attr">annotations:</span>               <span class="comment"># list       Required    自定义注解属性列表</span></span><br><span class="line"><span class="attr">- name:</span> <span class="string">string</span></span><br><span class="line"><span class="attr">spec:</span>                      <span class="comment"># Object     Required    详细描述</span></span><br><span class="line"><span class="attr">selector:</span> <span class="string">[]</span>               <span class="comment"># list       Required    Label Selector配置，将选择具有指定Label标签的Pod作为管理范围</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">string</span>               <span class="comment"># string     Required    Service的类型，指定Service的访问方式，默认为ClusterIP</span></span><br><span class="line">                           <span class="comment"># ClusterIP：虚拟的服务IP地址，改地址用于Kubernetes集群内部的Pod访问，在Node上kube-proxy通过设置iptables规则进行转发</span></span><br><span class="line">                           <span class="comment"># NodePort:  使用宿主机的端口，使能够访问个Node的外部客户端通过Node的IP地址和端口号就能访问服务</span></span><br><span class="line">                           <span class="comment"># LoadBalancer: 使用外接负载均衡完成到服务的负载分发，需要在spec.status.loadBalancer字段指定外部负载均衡器的IP地址，</span></span><br><span class="line">                           <span class="comment">#               并同时定义nodePort和clusterIP，用于公有云环境</span></span><br><span class="line"><span class="attr">clusterIP:</span> <span class="string">string</span>          <span class="comment"># string     虚拟服务IP地址，当type=ClusterIP时，如果不指定，则系统自动分配，也可以手动指定；当type=LoaderBalancer需要指定</span></span><br><span class="line"><span class="attr">sessionAffinity:</span> <span class="string">string</span>    <span class="comment"># string     是否支持Session，可选值为ClientIP，默认为空</span></span><br><span class="line">                           <span class="comment"># ClientIP:  表示将同一个客户端（根据IP地址决定）的访问请求都转发到同一个后端Pod</span></span><br><span class="line"><span class="attr">ports:</span>                     <span class="comment"># list       需要暴露的端口列表</span></span><br><span class="line"><span class="attr">- name:</span> <span class="string">string</span>             <span class="comment"># 端口名称</span></span><br><span class="line"><span class="attr">protocol:</span> <span class="string">string</span>           <span class="comment"># 端口协议    支持tcp和udp，默认为tcp</span></span><br><span class="line"><span class="attr">port:</span> <span class="string">int</span>                  <span class="comment"># 服务监听的端口号</span></span><br><span class="line"><span class="attr">targetPort:</span> <span class="string">int</span>            <span class="comment"># 需要转发到后端Pod的端口号</span></span><br><span class="line"><span class="attr">nodePort:</span> <span class="string">int</span>              <span class="comment"># 当spec.type=NodePort时，指定映射到物理机的端口号</span></span><br><span class="line"><span class="attr">status:</span>                  <span class="comment"># 当spec.type=LoadBalancer时，设置外部负载均衡器的地址，用于公有云环境</span></span><br><span class="line"><span class="attr">loadBalancer:</span>          <span class="comment"># 外部负载均衡器</span></span><br><span class="line"><span class="attr">ingress:</span>             <span class="comment"># 外部负载均衡器</span></span><br><span class="line"><span class="attr">ip:</span> <span class="string">string</span>         <span class="comment"># 外部负载均衡器的IP地址</span></span><br><span class="line"><span class="attr">hostname:</span> <span class="string">string</span>   <span class="comment"># 外部负载均衡器的主机名</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight yaml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=
+      
+    
+    </summary>
+    
+      <category term="kubernetes" scheme="https://kylin1994.github.io/categories/kubernetes/"/>
+    
+    
+      <category term="kubernetes" scheme="https://kylin1994.github.io/tags/kubernetes/"/>
+    
+      <category term="service" scheme="https://kylin1994.github.io/tags/service/"/>
+    
+  </entry>
   
   <entry>
     <title>kubernetes Pod的扩容和伸缩</title>

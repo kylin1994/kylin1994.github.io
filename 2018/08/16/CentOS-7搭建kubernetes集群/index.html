@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="kubernetes,cluster,flannel," />
 
 
 
@@ -82,16 +82,18 @@
 
 
 
-<meta name="description" content="IT/Java/Microservice">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Kylin Xiang&#39;s Blog">
-<meta property="og:url" content="https://kylin1994.github.io/tags/Redis/index.html">
+<meta name="description" content="CentOS 7 搭建Kubernetes集群安装Dockeryum install -y docker systemctl enable docker &amp;amp;&amp;amp; systemctl start docker 设置master node和work node的时间为了最后join成功，需要集群每个node之间时间保持一致，在每一台服务器上执行以下命令，指定时区。最后可以通过date命令查">
+<meta name="keywords" content="kubernetes,cluster,flannel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 7搭建kubernetes集群">
+<meta property="og:url" content="https://kylin1994.github.io/2018/08/16/CentOS-7搭建kubernetes集群/index.html">
 <meta property="og:site_name" content="Kylin Xiang&#39;s Blog">
-<meta property="og:description" content="IT/Java/Microservice">
+<meta property="og:description" content="CentOS 7 搭建Kubernetes集群安装Dockeryum install -y docker systemctl enable docker &amp;amp;&amp;amp; systemctl start docker 设置master node和work node的时间为了最后join成功，需要集群每个node之间时间保持一致，在每一台服务器上执行以下命令，指定时区。最后可以通过date命令查">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-16T03:09:27.060Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kylin Xiang&#39;s Blog">
-<meta name="twitter:description" content="IT/Java/Microservice">
+<meta name="twitter:title" content="CentOS 7搭建kubernetes集群">
+<meta name="twitter:description" content="CentOS 7 搭建Kubernetes集群安装Dockeryum install -y docker systemctl enable docker &amp;amp;&amp;amp; systemctl start docker 设置master node和work node的时间为了最后join成功，需要集群每个node之间时间保持一致，在每一台服务器上执行以下命令，指定时区。最后可以通过date命令查">
 
 
 
@@ -121,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://kylin1994.github.io/tags/Redis/"/>
+  <link rel="canonical" href="https://kylin1994.github.io/2018/08/16/CentOS-7搭建kubernetes集群/"/>
 
 
 
 
 
-  <title>标签: Redis | Kylin Xiang's Blog</title>
+  <title>CentOS 7搭建kubernetes集群 | Kylin Xiang's Blog</title>
   
 
 
@@ -148,7 +150,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -292,54 +294,301 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Redis<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kylin1994.github.io/2018/08/16/CentOS-7搭建kubernetes集群/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kylin Xiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/image/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kylin Xiang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/03/14/使用Docker搭建Redis主从复制、哨兵机制/" itemprop="url">
-              
-                <span itemprop="name">使用Docker搭建Redis主从复制、哨兵机制</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">CentOS 7搭建kubernetes集群</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-14T13:37:47+08:00"
-              content="2018-03-14" >
-          03-14
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T11:06:55+08:00">
+                2018-08-16
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index">
+                    <span itemprop="name">kubernetes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/08/16/CentOS-7搭建kubernetes集群/" class="leancloud_visitors" data-flag-title="CentOS 7搭建kubernetes集群">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,069
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    </div>
+      
 
+      
+        <h1 id="CentOS-7-搭建Kubernetes集群"><a href="#CentOS-7-搭建Kubernetes集群" class="headerlink" title="CentOS 7 搭建Kubernetes集群"></a>CentOS 7 搭建Kubernetes集群</h1><h2 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h2><p><code>yum install -y docker</code></p>
+<p><code>systemctl enable docker &amp;&amp; systemctl start docker</code></p>
+<h2 id="设置master-node和work-node的时间"><a href="#设置master-node和work-node的时间" class="headerlink" title="设置master node和work node的时间"></a>设置master node和work node的时间</h2><p>为了最后join成功，需要集群每个node之间时间保持一致，在每一台服务器上执行以下命令，指定时区。最后可以通过<code>date</code>命令查看设置是否生效。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum install -y chrony</span><br><span class="line">systemctl start chronyd</span><br><span class="line">systemctl enable chronyd</span><br><span class="line">timedatectl set-timezone Asia/Shanghai</span><br><span class="line">timedatectl set-ntp yes</span><br><span class="line"></span><br><span class="line">date</span><br></pre></td></tr></table></figure>
+<h2 id="安装kubeadm"><a href="#安装kubeadm" class="headerlink" title="安装kubeadm"></a>安装kubeadm</h2><p>参考自：<a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/" target="_blank" rel="noopener">kubeadm官方安装教程</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">repo_gpgcheck=1</span><br><span class="line">gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg</span><br><span class="line">exclude=kube*</span><br><span class="line">EOF</span><br><span class="line">setenforce 0</span><br><span class="line">yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes</span><br><span class="line">systemctl enable kubelet &amp;&amp; systemctl start kubelet</span><br><span class="line"></span><br><span class="line">cat &lt;&lt;EOF &gt;  /etc/sysctl.d/k8s.conf</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">net.bridge.bridge-nf-call-iptables = 1</span><br><span class="line">EOF</span><br><span class="line">sysctl --system</span><br></pre></td></tr></table></figure>
+<h2 id="初始化Master节点"><a href="#初始化Master节点" class="headerlink" title="初始化Master节点"></a>初始化Master节点</h2><p>安装好kubeadm之后，在master node上执行<code>kubeadm init</code>命令：</p>
+<p><code>kubeadm init --pod-network-cidr=10.244.0.0/16</code></p>
+<p>可能出现<code>kubeadm init</code>报以下错：</p>
+<p><code>running with swap on is not supported. Please disable swap</code></p>
+<p>执行命令disable swap：<code>sudo swapoff -a</code></p>
+<p><strong>Note</strong></p>
+<ol>
+<li>每次重新init之前需要执行命令：<code>kubeadm reset</code>，清空之前的残留。</li>
+<li>若出现<code>&quot;systemd&quot; is different from docker cgroup driver: &quot;cgroupfs&quot;。</code>错误，原因是docker和kubelet的cgroup不一致导致的（改docker或者kubelet的cgroup）。<a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/" target="_blank" rel="noopener">解决方案(install docker部分)</a></li>
+<li>master节点重启后必须执行：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.bridge.bridge-nf-call-iptables=1</span><br><span class="line">sudo swapoff -a</span><br></pre></td></tr></table></figure>
+<p><code>kubeadm init</code>命令执行成功之后，会出现以下提示消息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">You can now join any number of machines by running the following on each node</span><br><span class="line">as root:</span><br><span class="line"></span><br><span class="line">  kubeadm join --token &lt;token&gt; &lt;master-ip&gt;:&lt;master-port&gt; --discovery-token-ca-cert-hash sha256:&lt;hash&gt;</span><br></pre></td></tr></table></figure>
+<p>上述命令用于后面work节点的join操作。</p>
+<p>如果不是Root用户，可以执行以下命令让你的<code>kubectl</code>生效：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p $HOME/.kube</span><br><span class="line">sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config</span><br><span class="line">sudo chown $(id -u):$(id -g) $HOME/.kube/config</span><br></pre></td></tr></table></figure>
+<p>如果你是Root用户，直接执行以下命令，使<code>kubectl</code>生效：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export KUBECONFIG=/etc/kubernetes/admin.conf</span><br></pre></td></tr></table></figure>
+<p>为了不让终端断开之后每次都执行一次，可以在/etc/profile文件末尾加上<code>export KUBECONFIG=&quot;/etc/kubernetes/admin.conf&quot;</code>，然后<code>source /etc/profile</code>。</p>
+<h2 id="安装Pod-网络插件"><a href="#安装Pod-网络插件" class="headerlink" title="安装Pod 网络插件"></a>安装Pod 网络插件</h2><p>必须安装Pod网络插件才能使Pod之间能正常通信，这里我们使用Flannel插件。</p>
+<p>为了让Flannel正常工作，必须注意：</p>
+<ol>
+<li>设置<code>kubeadm init</code>的运行参数为<code>--pod-network-cidr=10.244.0.0/16</code>（前面已经设置）。</li>
+<li>执行<code>sysctl net.bridge.bridge-nf-call-iptables=1</code></li>
+</ol>
+<p>安装Flannel：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml</span><br></pre></td></tr></table></figure>
+<p>一旦Pod network安装成功，可以使用<code>kubectl get pods —all-namespaces</code>来查看CoreDNS pod状态是否为running，如果是，则表示可以join其他work nodes。如果不是running状态，参考<a href="https://kubernetes.io/docs/setup/independent/troubleshooting-kubeadm/" target="_blank" rel="noopener">troubleshooting</a>。</p>
+<h2 id="Join-work-node"><a href="#Join-work-node" class="headerlink" title="Join work node"></a>Join work node</h2><p>为了更加直观的反应节点名称，可以修改每个node的/etc/hosts文件，比如Master node的ip为10.141.211.163，设置host name为CENTOS-MASTER：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">10.141.211.163 CENTOS-MASTER</span><br><span class="line">10.141.211.164 CENTOS-MINION-1</span><br><span class="line">10.141.211.177 CENTOS-MINION-2</span><br></pre></td></tr></table></figure>
+<p>然后reboot所有的节点，master节点重启后必须执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.bridge.bridge-nf-call-iptables=1</span><br><span class="line">sudo swapoff -a</span><br></pre></td></tr></table></figure>
+<p>使用<code>kubeadm join</code>work node加入集群：</p>
+<ol>
+<li>使用ssh连接远端服务器</li>
+<li>切换root用户(sudo su -)</li>
+<li>执行<code>kubeadm join</code>命令，实例：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join --token &lt;token&gt; &lt;master-ip&gt;:&lt;master-port&gt; --discovery-token-ca-cert-hash sha256:&lt;hash&gt;</span><br></pre></td></tr></table></figure>
+<p>第3步中的命令可以在<code>kubeadm init</code>后，在控制台输出中找到。</p>
+<p><strong>Note</strong></p>
+<ol>
+<li>如果没有token可以在master节点使用<code>kubeadm token list</code>获取。</li>
+<li>token默认的有效期为24小时，如果过期，可以在master节点使用<code>kubeadm token create</code>生成新的token。</li>
+<li>如果没有<code>—discovery-token-ca-cert-hash</code>可以使用<code>openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2&gt;/dev/null | \   openssl dgst -sha256 -hex | sed &#39;s/^.* //&#39;</code>获取。</li>
+</ol>
+<p>至此，集群搭建就成功了，可以在Master节点查看<code>kubectl get nodes</code>。</p>
+<h2 id="拆除集群"><a href="#拆除集群" class="headerlink" title="拆除集群"></a>拆除集群</h2><p>要撤消kubeadm所执行的操作，您应首先排空节点，并确保节点在关闭之前为空。在Master节点执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl drain &lt;node name&gt; --delete-local-data --force --ignore-daemonsets</span><br><span class="line">kubectl delete node &lt;node name&gt;</span><br></pre></td></tr></table></figure>
+<p>在对应的work node上执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm reset</span><br></pre></td></tr></table></figure>
+<h2 id="集群维护"><a href="#集群维护" class="headerlink" title="集群维护"></a><a href="https://kubernetes.io/docs/tasks/administer-cluster/kubeadm" target="_blank" rel="noopener">集群维护</a></h2><h2 id="其他插件"><a href="#其他插件" class="headerlink" title="其他插件"></a><a href="https://kubernetes.io/docs/concepts/cluster-administration/addons/" target="_blank" rel="noopener">其他插件</a></h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，你的支持将鼓励我继续前行！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/image/wechatpay.jpg" alt="Kylin Xiang 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/image/alipay.jpg" alt="Kylin Xiang 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kubernetes/" rel="tag"><i class="fa fa-tag"></i> kubernetes</a>
+          
+            <a href="/tags/cluster/" rel="tag"><i class="fa fa-tag"></i> cluster</a>
+          
+            <a href="/tags/flannel/" rel="tag"><i class="fa fa-tag"></i> flannel</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/13/kubernetes-service配置详解/" rel="next" title="kubernetes service配置详解">
+                <i class="fa fa-chevron-left"></i> kubernetes service配置详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -347,6 +596,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNDg3MS8xMTQwOA=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -367,8 +625,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -461,6 +728,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CentOS-7-搭建Kubernetes集群"><span class="nav-number">1.</span> <span class="nav-text">CentOS 7 搭建Kubernetes集群</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Docker"><span class="nav-number">1.1.</span> <span class="nav-text">安装Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置master-node和work-node的时间"><span class="nav-number">1.2.</span> <span class="nav-text">设置master node和work node的时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装kubeadm"><span class="nav-number">1.3.</span> <span class="nav-text">安装kubeadm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化Master节点"><span class="nav-number">1.4.</span> <span class="nav-text">初始化Master节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Pod-网络插件"><span class="nav-number">1.5.</span> <span class="nav-text">安装Pod 网络插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Join-work-node"><span class="nav-number">1.6.</span> <span class="nav-text">Join work node</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拆除集群"><span class="nav-number">1.7.</span> <span class="nav-text">拆除集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群维护"><span class="nav-number">1.8.</span> <span class="nav-text">集群维护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他插件"><span class="nav-number">1.9.</span> <span class="nav-text">其他插件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -613,6 +896,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -641,6 +928,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 

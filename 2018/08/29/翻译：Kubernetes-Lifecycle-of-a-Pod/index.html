@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="kubernetes,pod,lifecycle," />
 
 
 
@@ -82,16 +82,21 @@
 
 
 
-<meta name="description" content="IT/Java/Microservice">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Kylin Xiang&#39;s Blog">
-<meta property="og:url" content="https://kylin1994.github.io/tags/HPA/index.html">
+<meta name="description" content="翻译： Kubernetes: Lifecycle of a Pod查看Kubernetes pod的生命周期可以帮助了解可以在流行的容器软件中调度的最小工作单元发生了什么。 在Kubernetes中，Pod是能被调度的最小工作单元。一个Pod封装了一个应用的容器，存贮资源，唯一的网络IP和管理容器运行的其他选项。理想情况下，Pod并不会被集群直接部署，而是用更高层次的抽象层。应用通常通过更高层的">
+<meta name="keywords" content="kubernetes,pod,lifecycle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="翻译：Kubernetes: Lifecycle of a Pod">
+<meta property="og:url" content="https://kylin1994.github.io/2018/08/29/翻译：Kubernetes-Lifecycle-of-a-Pod/index.html">
 <meta property="og:site_name" content="Kylin Xiang&#39;s Blog">
-<meta property="og:description" content="IT/Java/Microservice">
+<meta property="og:description" content="翻译： Kubernetes: Lifecycle of a Pod查看Kubernetes pod的生命周期可以帮助了解可以在流行的容器软件中调度的最小工作单元发生了什么。 在Kubernetes中，Pod是能被调度的最小工作单元。一个Pod封装了一个应用的容器，存贮资源，唯一的网络IP和管理容器运行的其他选项。理想情况下，Pod并不会被集群直接部署，而是用更高层次的抽象层。应用通常通过更高层的">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://kylin1994.github.io/Users/xiangqilin/Downloads/1_WDJmiyarVfcsDp6X1-lLFQ.png">
+<meta property="og:image" content="https://kylin1994.github.io/Users/xiangqilin/Downloads/Termination.jpg">
+<meta property="og:updated_time" content="2018-08-29T13:30:17.617Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kylin Xiang&#39;s Blog">
-<meta name="twitter:description" content="IT/Java/Microservice">
+<meta name="twitter:title" content="翻译：Kubernetes: Lifecycle of a Pod">
+<meta name="twitter:description" content="翻译： Kubernetes: Lifecycle of a Pod查看Kubernetes pod的生命周期可以帮助了解可以在流行的容器软件中调度的最小工作单元发生了什么。 在Kubernetes中，Pod是能被调度的最小工作单元。一个Pod封装了一个应用的容器，存贮资源，唯一的网络IP和管理容器运行的其他选项。理想情况下，Pod并不会被集群直接部署，而是用更高层次的抽象层。应用通常通过更高层的">
+<meta name="twitter:image" content="https://kylin1994.github.io/Users/xiangqilin/Downloads/1_WDJmiyarVfcsDp6X1-lLFQ.png">
 
 
 
@@ -121,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="https://kylin1994.github.io/tags/HPA/"/>
+  <link rel="canonical" href="https://kylin1994.github.io/2018/08/29/翻译：Kubernetes-Lifecycle-of-a-Pod/"/>
 
 
 
 
 
-  <title>标签: HPA | Kylin Xiang's Blog</title>
+  <title>翻译：Kubernetes: Lifecycle of a Pod | Kylin Xiang's Blog</title>
   
 
 
@@ -148,7 +153,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -292,54 +297,316 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>HPA<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kylin1994.github.io/2018/08/29/翻译：Kubernetes-Lifecycle-of-a-Pod/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kylin Xiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/image/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kylin Xiang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/08/07/kubernetes-Pod的扩容和伸缩/" itemprop="url">
-              
-                <span itemprop="name">kubernetes Pod的扩容和伸缩</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">翻译：Kubernetes: Lifecycle of a Pod</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-07T09:54:46+08:00"
-              content="2018-08-07" >
-          08-07
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-29T21:28:15+08:00">
+                2018-08-29
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index">
+                    <span itemprop="name">kubernetes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/08/29/翻译：Kubernetes-Lifecycle-of-a-Pod/" class="leancloud_visitors" data-flag-title="翻译：Kubernetes: Lifecycle of a Pod">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,777
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="翻译：-Kubernetes-Lifecycle-of-a-Pod"><a href="#翻译：-Kubernetes-Lifecycle-of-a-Pod" class="headerlink" title="翻译： Kubernetes: Lifecycle of a Pod"></a>翻译： Kubernetes: Lifecycle of a Pod</h1><p>查看Kubernetes pod的生命周期可以帮助了解可以在流行的容器软件中调度的最小工作单元发生了什么。</p>
+<p>在Kubernetes中，Pod是能被调度的最小工作单元。一个Pod封装了一个应用的容器，存贮资源，唯一的网络IP和管理容器运行的其他选项。理想情况下，Pod并不会被集群直接部署，而是用更高层次的抽象层。应用通常通过更高层的资源对象部署，比如：Deployments, Replication Sets, Daemon Sets, Stateful Sets或者Jobs。和Pod进行交互主要用来解决问题，因此深入Pod是很重要的。</p>
+<h2 id="Pod的状态"><a href="#Pod的状态" class="headerlink" title="Pod的状态"></a>Pod的状态</h2><p>整个Pod的声明周期中，可以达到以下状态：</p>
+<p>Pending：Pod被Kubernetes系统接收（accepted），但是没有其容器还没有被完全创建。</p>
+<p>Running：Pod被调度到某一个Node上，<strong>所有的</strong>容器都被创建并且<strong>至少有一个</strong>容器是Running状态。</p>
+<p>Succeeded：Pod中所有的容器都以状态0退出并且不会重启。</p>
+<p>Failed：Pod中所有的容器都已经退出，但是至少有一个容器退出状态不为0。</p>
+<p>CrashLoopBackoff：容器启动失败并且会被不断重试。</p>
+<h2 id="容器的诞生"><a href="#容器的诞生" class="headerlink" title="容器的诞生"></a>容器的诞生</h2><p>现在我们来看看导致一个容器创建的所有事件。</p>
+<p><img src="/Users/xiangqilin/Downloads/1_WDJmiyarVfcsDp6X1-lLFQ.png" alt="1_WDJmiyarVfcsDp6X1-lLFQ"></p>
+<ul>
+<li>kubectl或者其他API客户端提交Pod spec到API server。</li>
+<li>API server会将Pod对象写到etcd数据存储中。一旦写操作成功，一个ack将会被发送回API server和客户端。</li>
+<li>现在API server反映了etcd的状态变化。</li>
+<li>所有的Kubernetes组件通过watch API保持对API server相关变化的检测。</li>
+<li>当前情况下，kube-scheduler（通过watcher）发现一个新的Pod通过API server被创建，但是还没有绑定到任何一个node。</li>
+<li>Kube-scheduler会给当前新创建的Pod分配一个node，并跟新API server。</li>
+<li>“Pod被分配到某个节点”这个变化将会被传递给etcd数据存储。API server也会在其Pod project上体现出节点分配。</li>
+<li>每个节点上的Kubelet也会运行watcher，对API server持续监控。在目标node上，kubelet知道一个新的Pod已经分配。</li>
+<li>Kubelet在node上通过调用Docker启动Pod，并且将跟新的容器状态发送回API server。</li>
+<li>API server将Pod状态持久化到etcd中。h</li>
+<li>一旦etcd发送成功写操作的ack到API server，API server 会回复Kubelet一个ack，表示事件已经被接收。</li>
+</ul>
+<h2 id="Pod生命周期中的活动"><a href="#Pod生命周期中的活动" class="headerlink" title="Pod生命周期中的活动"></a>Pod生命周期中的活动</h2><h3 id="初始容器"><a href="#初始容器" class="headerlink" title="初始容器"></a>初始容器</h3><p>初始容器是<strong>运行在主应用程序启动之前的</strong>容器。他们有两个重要的特征：</p>
+<ul>
+<li>总是运行至完成状态</li>
+<li>每一个初始容器都必须在下一个启动之前完成</li>
+</ul>
+<p>初始容器能在主容器启动之前做一些必要的初始化操作。</p>
+<p>比如：拷贝配置文件和修改配置。初始容器使用不同的Linux命名空间，所以他们有不同的文件系统视图，所以他们可以被允许访问可能不适合在主应用程序内共享的秘密。</p>
+<h3 id="Lifecycle-Hooks"><a href="#Lifecycle-Hooks" class="headerlink" title="Lifecycle Hooks"></a>Lifecycle Hooks</h3><p>kubelet 可以运行被<a href="https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details" target="_blank" rel="noopener">Container Lifecycle Hooks</a>触发的代码。这允许用户在容器生命周期指定事件期间运行指定的代码。</p>
+<p>存在两个被暴露出来的hook：</p>
+<ul>
+<li>PostStart：这种hook在容器后立即运行，但是没有办法保证在容器的ENTRYPOINT之后运行。</li>
+<li>PreStop：这种hook在容器终止前被执行，是阻塞的，意味着必须在删除容器的调用之前完成hook的执行。</li>
+</ul>
+<p>上面提到的两种hook都不能带参数。</p>
+<p>容器可以通过实现的和注册该hook的handler来访问hook。有两种类型的hook handler可以被容器应用：</p>
+<ul>
+<li>Exec：在Container的cgroups和名称空间内执行特定命令，例如<code>pre-stop.sh</code>，命令执行的资源消耗算在容器内。</li>
+<li>HTTP：对容器上指定的endpoint执行HTTP请求。</li>
+</ul>
+<h3 id="容器探针"><a href="#容器探针" class="headerlink" title="容器探针"></a>容器探针</h3><p>除了Lifecycle hooks之外，在Pod生命周期中发生的另一个重要事情就是容器探针的执行。</p>
+<p>容器探针是由容器上的kubelet执行的诊断。 kubelet可以在运行容器上运行两种探针：</p>
+<ul>
+<li>livenessProbe：指示容器是否正在运行。如果活动探测失败，则kubelet会杀死容器，并且容器会受到其重新启动策略的影响。</li>
+<li>readnessProbe：指示容器是否已准备好为请求提供服务。如果此探测失败，则endpoint controller将从与Pod匹配的所有服务的端点列表中删除容器IP。</li>
+</ul>
+<p>有三种方式实现一个探针：</p>
+<ul>
+<li>ExecAction：在容器内部执行命令。如果命令返回0，则为诊断成功。</li>
+<li>TCPSocketAction：对容器IP和指定端口执行TCP套接字检查。如果端口打开，则诊断被认为是成功的。</li>
+<li>HTTPGetAction：使用指定的端口和路径对容器IP执行HTTP GET操作。如果响应的状态代码在200到400之间，则认为诊断成功。</li>
+</ul>
+<h2 id="容器的终止"><a href="#容器的终止" class="headerlink" title="容器的终止"></a>容器的终止</h2><p><img src="/Users/xiangqilin/Downloads/Termination.jpg" alt="Termination"></p>
+<ol>
+<li>用户执行一个命令删除一个Pod</li>
+<li>API服务器中的Pod对象将随着Pod被认为“死亡”（默认为30秒）的时间以及宽限期而更新。</li>
+<li>下面的行为将会并行执行：<ul>
+<li>在客户端命令中列出时，状态为“Terminating”。</li>
+<li>当Kubelet看到因为设置了第二点中的时间而将Pod标记为终止时，它开始pod关闭过程。</li>
+<li>端点控制器监视即将删除的pod，因此从该pod提供服务的所有端点中删除该pod。</li>
+</ul>
+</li>
+<li>如果Pod已经定义了preStop hook，并且在Pod内被调用。如果preStop hook在Grace time超时后，任然为运行状态，然后用小的（2秒）扩展宽限期调用步骤2。</li>
+<li>Kubelet向Docker发送TERM信号。</li>
+<li>当Grace period超时，任何运行在Pod上的进程都会被SIGKILL杀死。</li>
+<li>Kubelet将通过设置宽限期0（立即删除）完成删除API服务器上的Pod。 Pod从API中消失，不再从客户端可见。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章的想法来自Kubernetes创始人Joe Beda的精彩文章，他解释了Kubernetes架构的主要组成部分和watch概念，这对于理解APIServer如何工作和etcd功能以及Pod的诞生至关重要。</p>
+<p>我们可以看到有多种方式来控制在POD的生命周期内发生的事件。初始容器可以帮助移除与容器引导相关的许多复杂性，从而帮助保持主容器内的逻辑简单。类似地，启动preStart lifecycle hook可以帮助运行容器启动后需要运行的任何代码（例如向监视系统或服务网格注册）。liveness probe和readness probe有助于在开始危害任何客户之前移除坏的Pod。优雅的shutdown可以作为一个pre-stop lifecycle hook运行，允许更优雅的退出。了解上述控制机制有助于更好地设计Pod和支持使用案例。</p>
+<p>原文出处：<a href="https://dzone.com/articles/kubernetes-lifecycle-of-a-pod" target="_blank" rel="noopener">https://dzone.com/articles/kubernetes-lifecycle-of-a-pod</a></p>
+<p>参考：<a href="https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details" target="_blank" rel="noopener">https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details</a></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，你的支持将鼓励我继续前行！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/image/wechatpay.jpg" alt="Kylin Xiang 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/image/alipay.jpg" alt="Kylin Xiang 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kubernetes/" rel="tag"><i class="fa fa-tag"></i> kubernetes</a>
+          
+            <a href="/tags/pod/" rel="tag"><i class="fa fa-tag"></i> pod</a>
+          
+            <a href="/tags/lifecycle/" rel="tag"><i class="fa fa-tag"></i> lifecycle</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/29/使用JWT访问Kubernetes-API-server-REST-API/" rel="next" title="使用JWT访问Kubernetes API-server REST API">
+                <i class="fa fa-chevron-left"></i> 使用JWT访问Kubernetes API-server REST API
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -347,6 +614,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNDg3MS8xMTQwOA=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -367,8 +643,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -461,6 +746,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#翻译：-Kubernetes-Lifecycle-of-a-Pod"><span class="nav-number">1.</span> <span class="nav-text">翻译： Kubernetes: Lifecycle of a Pod</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod的状态"><span class="nav-number">1.1.</span> <span class="nav-text">Pod的状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器的诞生"><span class="nav-number">1.2.</span> <span class="nav-text">容器的诞生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod生命周期中的活动"><span class="nav-number">1.3.</span> <span class="nav-text">Pod生命周期中的活动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始容器"><span class="nav-number">1.3.1.</span> <span class="nav-text">初始容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lifecycle-Hooks"><span class="nav-number">1.3.2.</span> <span class="nav-text">Lifecycle Hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器探针"><span class="nav-number">1.3.3.</span> <span class="nav-text">容器探针</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器的终止"><span class="nav-number">1.4.</span> <span class="nav-text">容器的终止</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -613,6 +914,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -641,6 +946,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 

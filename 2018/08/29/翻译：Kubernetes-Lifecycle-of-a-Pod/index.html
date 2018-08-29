@@ -90,13 +90,13 @@
 <meta property="og:site_name" content="Kylin Xiang&#39;s Blog">
 <meta property="og:description" content="翻译： Kubernetes: Lifecycle of a Pod查看Kubernetes pod的生命周期可以帮助了解可以在流行的容器软件中调度的最小工作单元发生了什么。 在Kubernetes中，Pod是能被调度的最小工作单元。一个Pod封装了一个应用的容器，存贮资源，唯一的网络IP和管理容器运行的其他选项。理想情况下，Pod并不会被集群直接部署，而是用更高层次的抽象层。应用通常通过更高层的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://kylin1994.github.io/Users/xiangqilin/Downloads/1_WDJmiyarVfcsDp6X1-lLFQ.png">
-<meta property="og:image" content="https://kylin1994.github.io/Users/xiangqilin/Downloads/Termination.jpg">
-<meta property="og:updated_time" content="2018-08-29T13:30:17.617Z">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fuqwbhu81lj30xg0mczmn.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fuqwbilzmkj30sc0l9aca.jpg">
+<meta property="og:updated_time" content="2018-08-29T13:33:36.590Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="翻译：Kubernetes: Lifecycle of a Pod">
 <meta name="twitter:description" content="翻译： Kubernetes: Lifecycle of a Pod查看Kubernetes pod的生命周期可以帮助了解可以在流行的容器软件中调度的最小工作单元发生了什么。 在Kubernetes中，Pod是能被调度的最小工作单元。一个Pod封装了一个应用的容器，存贮资源，唯一的网络IP和管理容器运行的其他选项。理想情况下，Pod并不会被集群直接部署，而是用更高层次的抽象层。应用通常通过更高层的">
-<meta name="twitter:image" content="https://kylin1994.github.io/Users/xiangqilin/Downloads/1_WDJmiyarVfcsDp6X1-lLFQ.png">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fuqwbhu81lj30xg0mczmn.jpg">
 
 
 
@@ -451,7 +451,7 @@
 <p>Failed：Pod中所有的容器都已经退出，但是至少有一个容器退出状态不为0。</p>
 <p>CrashLoopBackoff：容器启动失败并且会被不断重试。</p>
 <h2 id="容器的诞生"><a href="#容器的诞生" class="headerlink" title="容器的诞生"></a>容器的诞生</h2><p>现在我们来看看导致一个容器创建的所有事件。</p>
-<p><img src="/Users/xiangqilin/Downloads/1_WDJmiyarVfcsDp6X1-lLFQ.png" alt="1_WDJmiyarVfcsDp6X1-lLFQ"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fuqwbhu81lj30xg0mczmn.jpg" alt="1_WDJmiyarVfcsDp6X1-lLFQ"></p>
 <ul>
 <li>kubectl或者其他API客户端提交Pod spec到API server。</li>
 <li>API server会将Pod对象写到etcd数据存储中。一旦写操作成功，一个ack将会被发送回API server和客户端。</li>
@@ -496,7 +496,7 @@
 <li>TCPSocketAction：对容器IP和指定端口执行TCP套接字检查。如果端口打开，则诊断被认为是成功的。</li>
 <li>HTTPGetAction：使用指定的端口和路径对容器IP执行HTTP GET操作。如果响应的状态代码在200到400之间，则认为诊断成功。</li>
 </ul>
-<h2 id="容器的终止"><a href="#容器的终止" class="headerlink" title="容器的终止"></a>容器的终止</h2><p><img src="/Users/xiangqilin/Downloads/Termination.jpg" alt="Termination"></p>
+<h2 id="容器的终止"><a href="#容器的终止" class="headerlink" title="容器的终止"></a>容器的终止</h2><p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fuqwbilzmkj30sc0l9aca.jpg" alt="Termination"></p>
 <ol>
 <li>用户执行一个命令删除一个Pod</li>
 <li>API服务器中的Pod对象将随着Pod被认为“死亡”（默认为30秒）的时间以及宽限期而更新。</li>

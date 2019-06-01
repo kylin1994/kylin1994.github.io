@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kylin1994.github.io/2019/06/02/Serverless%E6%9E%B6%E6%9E%84/</loc>
+    
+    <lastmod>2019-06-01T16:07:51.993Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kylin1994.github.io/2018/08/29/%E7%BF%BB%E8%AF%91%EF%BC%9AKubernetes-Lifecycle-of-a-Pod/</loc>
     
     <lastmod>2018-08-29T13:33:36.590Z</lastmod>

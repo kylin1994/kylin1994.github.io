@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Docker学习笔记（5）- 端口映射与容器互联 | Kylin Xiang&#39;s Blog
+  </title>
+  <meta name="description" content="IT/Java/Microservice">
+  
+  <meta name="keywords" content="
+  docker,容器
+  ">
+  
+  <meta name="author" content="Kylin Xiang">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="theme-color" content="#1e2327">
+  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
+
+  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://octodex.github.com/images/baracktocat.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 16 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 20 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 5 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">Kylin Xiang&#39;s Blog</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    Kylin Xiang
+
+    <span class="post-date float-right" title="{{moment(1522337753000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1522337753000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Docker学习笔记（5）- 端口映射与容器互联</h1>
+    <h1 id="端口映射与容器互联"><a href="#端口映射与容器互联" class="headerlink" title="端口映射与容器互联"></a>端口映射与容器互联</h1><p>除了通过网络访问外，Docker还提供了两个很方便的功能来满足服务访问的基本需求：一个是允许映射容器内应用的服务端口到本地宿主主机；另一个是互联机制实现多个容器间通过容器名来快速访问。</p>
+<h1 id="端口映射实现访问容器"><a href="#端口映射实现访问容器" class="headerlink" title="端口映射实现访问容器"></a>端口映射实现访问容器</h1><h2 id="从外部访问容器应用"><a href="#从外部访问容器应用" class="headerlink" title="从外部访问容器应用"></a>从外部访问容器应用</h2><p>在启动容器的时候，如果不指定对应的参数，在容器外部是无法通过网络来访问容器内的网络和服务的。</p>
+<p>当容器中运行一些网络应用，要让外部访问这些应用时，可以通过-P或-p参数来指定端口映射。</p>
+<p>当使用-P标记时，Docker会随机映射一个49000~49900的端口到内部容器开放的网络端口。</p>
+<h2 id="映射所有接口地址"><a href="#映射所有接口地址" class="headerlink" title="映射所有接口地址"></a>映射所有接口地址</h2><p>hostPort:containerPort：将本地的5000端口映射到容器的5000端口</p>
+<p><img src="https://note.youdao.com/yws/public/resource/7d9af4005a499484f5f6ec8a85ca1c29/xmlnote/F9C603BC5765440C9CCDD4064451E82C/1347" alt="img"></p>
+<p>此时会绑定本地所有接口上的所有地址，多次使用-p标记可以绑定多个端口。</p>
+<h2 id="映射到指定地址的端口"><a href="#映射到指定地址的端口" class="headerlink" title="映射到指定地址的端口"></a>映射到指定地址的端口</h2><p>ip::containerPort：映射到指定地址的任意的端口：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/7d9af4005a499484f5f6ec8a85ca1c29/xmlnote/6199C869B8054DB3920A645B2F1EB347/1356" alt="img"></p>
+<p>使用 ip::containerPort 绑定 localhost 的任意端口到容器的 5000 端口，本地主机会自动分配一个端口。</p>
+<h2 id="映射到指定地址的端口-1"><a href="#映射到指定地址的端口-1" class="headerlink" title="映射到指定地址的端口"></a>映射到指定地址的端口</h2><p>当使用-p 标记时 则可以指定要映射的端口，并且，在一个指定端口上只可以绑定一个容器。支持的格式有 ：</p>
+<p>ip:hostPort:containerPort ：指定映射使用一个特定地址，比如localhost地址127.0.0.1:</p>
+<p><img src="https://note.youdao.com/yws/public/resource/7d9af4005a499484f5f6ec8a85ca1c29/xmlnote/5CABE520A1B9438198A67DB3EB54AAE5/1352" alt="img"></p>
+<h2 id="查看映射端口配置"><a href="#查看映射端口配置" class="headerlink" title="查看映射端口配置"></a>查看映射端口配置</h2><p>使用docker port命令来查看当前映射的端口配置，可以查看到绑定的地址。</p>
+<p>$ docker port &lt;container_id | container_name&gt;</p>
+<p>注意：容易有自己的内部网络和IP地址，使用docker inspect + 容器Id可以获取容器的具体信息。</p>
+<h1 id="互联机制实现便捷访问"><a href="#互联机制实现便捷访问" class="headerlink" title="互联机制实现便捷访问"></a>互联机制实现便捷访问</h1><p>容器的互联（linking)是一种让多个容器中应用进行快速交互的方式。他会在源和接收容器之间创建连接关系，接收容器可以通过容器名快速访问到容器源，而不用指定具体的IP地址。</p>
+<h2 id="自定义容器命名"><a href="#自定义容器命名" class="headerlink" title="自定义容器命名"></a>自定义容器命名</h2><p>连接系统依据容器的名称来执行。因此需要定义一个好记的容器的名字。</p>
+<p>虽然当创建容器的时候，系统会默认分配一个名字，单自定义容器名字有两个好处：</p>
+<ul>
+<li>自定义命名比较好记，比如一个Web容器，我们可以起名为web，一目了然；</li>
+<li>当要连接其他容器时，即便重启，也可以使用容器名而不用改变，比如web容器连接到db容器。</li>
+</ul>
+<p>使用–name标记可以为容器自定义命名：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/7d9af4005a499484f5f6ec8a85ca1c29/xmlnote/0096671A946E44D5B9CAFC3672FFF443/1388" alt="img"></p>
+<p>使用docker inspect命名查看</p>
+<p><img src="https://note.youdao.com/yws/public/resource/7d9af4005a499484f5f6ec8a85ca1c29/xmlnote/9079812ACA0949F3BA646C2780B2279C/1390" alt="img"></p>
+<p>注意：</p>
+<p>容器的名称是唯一的。如果已经命名了一个叫web的容器，当你要再次使用web这个名称的时候，需要先用docker rm来删除之前创建的同名容器。</p>
+<p>在执行docker run的时候，如果添加–rm标记，则容器在终止后会立刻删除。注意，–rm和-d参数不能同时使用。</p>
+<h2 id="容器互联"><a href="#容器互联" class="headerlink" title="容器互联"></a>容器互联</h2><p>使用–link参数可以让容器之间安全地进行交互。</p>
+<p>下面先创建一个新的数据库容器</p>
+<p><img src="https://note.youdao.com/yws/public/resource/7d9af4005a499484f5f6ec8a85ca1c29/xmlnote/2CA3E2204480443A86C547B5E692BF5B/1398" alt="img"></p>
+<p>查看创建的容器信息</p>
+<p><img src="https://note.youdao.com/yws/public/resource/7d9af4005a499484f5f6ec8a85ca1c29/xmlnote/250F7B30D2044009898FE0AB4FCE02B0/1400" alt="img"></p>
+<p>然后创建一个新的web容器，并将它连接到db容器</p>
+<p><img src="https://note.youdao.com/yws/public/resource/7d9af4005a499484f5f6ec8a85ca1c29/xmlnote/68FE311B757A4860BF556B637CA9F0D1/1404" alt="img"></p>
+<p>此时，db容器和web容器建立互联关系</p>
+<p>–link参数的格式为–link name:alias，其中name是要连接的容器名称，alias是这个连接的别名。</p>
+<p>使用docekr ps来查看容器的连接，如下图所示：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/7d9af4005a499484f5f6ec8a85ca1c29/xmlnote/230D1E24A31B49969919431D798849FA/1411" alt="img"></p>
+<p>Docker相当于在两个互联的容器之间创建了一个虚机通道，而且不用映射他们的端口到宿主主机上。在启动db容器的时候并没有使用-p和-P标记，从而避免了暴露数据库服务端口到外部网络上。</p>
+<p>Docker通过两种方式为为容器公开连接信息：</p>
+<ul>
+<li>更新环境变量；</li>
+<li>更新/etc/hosts文件。</li>
+</ul>
+<p>使用env命名来查看web容器环境变量：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/7d9af4005a499484f5f6ec8a85ca1c29/xmlnote/16F38EF01BF04A49B4427E64C39AAD1E/1419" alt="img"></p>
+<p>其中DB_开头大写的环境变量是供web容器连接db容器使用的，前缀采用大写的连接别名。</p>
+<p>除了环境变量之外，Docker还添加host信息到父容器的/etc/hosts文件。下面是父容器web的hosts文件：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/7d9af4005a499484f5f6ec8a85ca1c29/xmlnote/6518E53EE6624F95876FE7C7A8F4E9EF/1427" alt="img"></p>
+<p>这里有两个hosts信息，第一个是web容器，web容器用自己的id作为默认主机名，第二个是容器的ip和容器的别名以及id。</p>
+<p>可以在web容器中安装Ping命令来测试与db容器的连通：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/7d9af4005a499484f5f6ec8a85ca1c29/xmlnote/F894CCE2C55F4F29B946C33900FB7799/1434" alt="img"></p>
+<p>用Ping来测试db容器，他会解析成172.17.0.5。用户可以连接多个子容器到父容器，比如可以连接多个web到同一个db容器上。</p>
+<h1 id="本文小结"><a href="#本文小结" class="headerlink" title="本文小结"></a>本文小结</h1><p>毫无疑问，容器服务的访问是很关键的一个用途。本文通过具体案例讲解了Docker容器服务访问的两大基本操作，包括基础的容器端口映射机制和容器的互联机制。同时，Docker目前可以成熟的支持Linux系统自带的网络服务和功能，这既可以利用现有成熟的技术提供稳定支持，又可以实现快速的高性能转发。</p>
+<p>在生产环境中，网络方面的需求更加复杂多变，包括跨主机甚至夸数据中心的通信，这时候往往就需要引入额外的机制，例如SDN或NFV（网络功能虚拟化）的相关技术。</p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://kylin1994.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2019 Kylin Xiang</li>
+      <li><a href="https://kylin1994.github.io">Home</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

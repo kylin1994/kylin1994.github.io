@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Docker学习笔记（1）- Docker镜像 | Kylin Xiang&#39;s Blog
+  </title>
+  <meta name="description" content="IT/Java/Microservice">
+  
+  <meta name="keywords" content="
+  docker,容器
+  ">
+  
+  <meta name="author" content="Kylin Xiang">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="theme-color" content="#1e2327">
+  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
+
+  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://octodex.github.com/images/baracktocat.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 16 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 20 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 5 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">Kylin Xiang&#39;s Blog</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    Kylin Xiang
+
+    <span class="post-date float-right" title="{{moment(1522335124000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1522335124000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Docker学习笔记（1）- Docker镜像</h1>
+    <h1 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h1><p><code>$docker pull NAME[:TAG]</code></p>
+<p>如果不加TAG则表示下载最新的镜像，一个镜像由“名称”+“标签决定”</p>
+<p>使用不同镜像仓库服务器情况下，可能会出现镜像重名：</p>
+<p>严格的将，镜像的仓库名称中还应该添加仓库地址（即registry，注册服务器）作为前缀，如果使用Docker Hub服务，该前缀可以忽略。</p>
+<p>即：<code>$docker pull ubuntu:14.04</code>相当于<code>$docker pull registry.hub.docker.com/ubuntu:14.04</code></p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/C30BD33888FA448FAFD6A03C698F362E/591" alt="img"></p>
+<h2 id="pull子命令："><a href="#pull子命令：" class="headerlink" title="pull子命令："></a>pull子命令：</h2><ul>
+<li><code>-a, --all-tags=true|false</code>：是否获取仓库中的所有镜像，默认为否。</li>
+</ul>
+<p>使用镜像：例如利用该镜像创建一个容器，在其中运行bash应用，执行ping localhost:</p>
+<p><code>$docker run -it unbuntu[:TAG] bash</code></p>
+<p><code>root@f46310567509:/# ping localhost</code></p>
+<hr>
+<p>如果提示command not found，则</p>
+<p><code>$apt-get update</code></p>
+<p><code>$apt-get install iputils-ping</code></p>
+<p>详细见：<a href="http://blog.csdn.net/silentwolfyh/article/details/52336007" target="_blank" rel="noopener">http://blog.csdn.net/silentwolfyh/article/details/52336007</a></p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/8AA55A75228A4173BFE2B96006FD17AF/593" alt="运行容器，执行ping"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/B791541986D0454EA15A7027F9619532/595" alt="安装ping"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/44BE2D27116045F992AD7FDFA8F9F7F5/597" alt="执行ping"></p>
+<hr>
+<h1 id="查看镜像信息"><a href="#查看镜像信息" class="headerlink" title="查看镜像信息"></a>查看镜像信息</h1><p><code>docker images [OPTIONS][REPOSITORY[:TAG]]</code></p>
+<p>OPTIONS说明：</p>
+<ul>
+<li><code>-a</code> :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</li>
+<li><code>—digests</code> :显示镜像的摘要信息；</li>
+<li><code>-f</code> :显示满足条件的镜像；</li>
+<li><code>—format</code> :指定返回值的模板文件；</li>
+<li><code>--no-trunc</code> :显示完整的镜像信息；</li>
+<li><code>-q</code> :只显示镜像ID。</li>
+</ul>
+<p>使用<code>docker images</code>命令列出镜像</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/5E8410E5DC7D470994922E0E0CA89217/599" alt="img"></p>
+<ul>
+<li>镜像的仓库：ubuntu的系列镜像由ubuntu仓库保存</li>
+<li>标签</li>
+<li>镜像ID，镜像的唯一标识</li>
+<li>创建的时间，说明镜像最后跟新时间</li>
+<li>镜像大小</li>
+</ul>
+<hr>
+<h1 id="镜像标签"><a href="#镜像标签" class="headerlink" title="镜像标签"></a>镜像标签</h1><p>使用tag命令添加镜像标签，可以发现多了一个myubuntu:latest标签，其id和ubuntu:latest是一样的，其实他们都指向同一个镜像，只是别名不同，标签相当于起到了链接的作用。</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/2B82CF74F5A742598E5B443B885E9DB7/608" alt="img"></p>
+<hr>
+<h1 id="查看镜像详细信息"><a href="#查看镜像详细信息" class="headerlink" title="查看镜像详细信息"></a>查看镜像详细信息</h1><p>使用<code>docker inspect</code>命令查看详细信息，包括制作者、适应架构、各层的数字摘要等：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/FC62799740A74A4B8F07E1CB22CA0F91/618" alt="img"></p>
+<p>输出一个json文件</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">　　&#123;</span><br><span class="line">　　　　<span class="attr">"Id"</span>:<span class="string">"sha256:8b72bba4485f1004e8378bc6bc42775f8d4fb851c750c6c0329d3770b3a09086"</span>,</span><br><span class="line">　　　　<span class="attr">"RepoTags"</span>:[</span><br><span class="line">　　　　　　<span class="string">"myubuntu:latest"</span>,</span><br><span class="line">　　　　　　<span class="string">"ubuntu:latest"</span></span><br><span class="line">　　　　],</span><br><span class="line">　　　　<span class="attr">"RepoDigests"</span>:[</span><br><span class="line">　　　　　　<span class="string">"ubuntu@sha256:2b9285d3e340ae9d4297f83fed6a9563493945935fc787e98cc32a69f5687641"</span></span><br><span class="line">　　　　],</span><br><span class="line">　　　　<span class="attr">"Parent"</span>:<span class="string">""</span>,</span><br><span class="line">　　　　<span class="attr">"Comment"</span>:<span class="string">""</span>,</span><br><span class="line">　　　　<span class="attr">"Created"</span>:<span class="string">"2017-09-13T03:58:50.383839319Z"</span>,</span><br><span class="line">　　　　<span class="attr">"Container"</span>:<span class="string">"ee87d884293ece0d9fa040a43ffb75097264185f94437a0d1fc2ddfd3c82ca4b"</span>,</span><br><span class="line">　　　　<span class="attr">"ContainerConfig"</span>:&#123;</span><br><span class="line">　　　　　　<span class="attr">"Hostname"</span>:<span class="string">"ee87d884293e"</span>,</span><br><span class="line">　　　　　　<span class="attr">"Domainname"</span>:<span class="string">""</span>,</span><br><span class="line">　　　　　　<span class="attr">"User"</span>:<span class="string">""</span>,</span><br><span class="line">　　　　　　<span class="attr">"AttachStdin"</span>:<span class="literal">false</span>,</span><br><span class="line">　　　　　　<span class="attr">"AttachStdout"</span>:<span class="literal">false</span>,</span><br><span class="line">　　　　　　<span class="attr">"AttachStderr"</span>:<span class="literal">false</span>,</span><br><span class="line">　　　　　　<span class="attr">"Tty"</span>:<span class="literal">false</span>,</span><br><span class="line">　　　　　　<span class="attr">"OpenStdin"</span>:<span class="literal">false</span>,</span><br><span class="line">　　　　　　<span class="attr">"StdinOnce"</span>:<span class="literal">false</span>,</span><br><span class="line">　　　　　　<span class="attr">"Env"</span>:[</span><br><span class="line">　　　　　　　　<span class="string">"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"</span></span><br><span class="line">　　　　　　],</span><br><span class="line">　　　　　　<span class="attr">"Cmd"</span>:[</span><br><span class="line">　　　　　　　　<span class="string">"/bin/sh"</span>,</span><br><span class="line">　　　　　　　　<span class="string">"-c"</span>,</span><br><span class="line">　　　　　　　　<span class="string">"#(nop) "</span>,</span><br><span class="line">　　　　　　　　<span class="string">"CMD ["</span>/bin/bash<span class="string">"]"</span></span><br><span class="line">　　　　　　],</span><br><span class="line">　　　　　　<span class="attr">"ArgsEscaped"</span>:<span class="literal">true</span>,</span><br><span class="line">　　　　　　<span class="attr">"Image"</span>:<span class="string">"sha256:5bf9c8f025cb9bdfec431fbf2a39e1d25117a94ce2b10db01db9630addfc5e37"</span>,</span><br><span class="line">　　　　　　<span class="attr">"Volumes"</span>:<span class="literal">null</span>,</span><br><span class="line">　　　　　　<span class="attr">"WorkingDir"</span>:<span class="string">""</span>,</span><br><span class="line">　　　　　　<span class="attr">"Entrypoint"</span>:<span class="literal">null</span>,</span><br><span class="line">　　　　　　<span class="attr">"OnBuild"</span>:<span class="literal">null</span>,</span><br><span class="line">　　　　　　<span class="attr">"Labels"</span>:&#123;</span><br><span class="line"></span><br><span class="line">　　　　　　&#125;</span><br><span class="line">　　　　&#125;,</span><br><span class="line">　　　　<span class="attr">"DockerVersion"</span>:<span class="string">"17.06.2-ce"</span>,</span><br><span class="line">　　　　<span class="attr">"Author"</span>:<span class="string">""</span>,</span><br><span class="line">　　　　<span class="attr">"Config"</span>:&#123;</span><br><span class="line">　　　　　　<span class="attr">"Hostname"</span>:<span class="string">""</span>,</span><br><span class="line">　　　　　　<span class="attr">"Domainname"</span>:<span class="string">""</span>,</span><br><span class="line">　　　　　　<span class="attr">"User"</span>:<span class="string">""</span>,</span><br><span class="line">　　　　　　<span class="attr">"AttachStdin"</span>:<span class="literal">false</span>,</span><br><span class="line">　　　　　　<span class="attr">"AttachStdout"</span>:<span class="literal">false</span>,</span><br><span class="line">　　　　　　<span class="attr">"AttachStderr"</span>:<span class="literal">false</span>,</span><br><span class="line">　　　　　　<span class="attr">"Tty"</span>:<span class="literal">false</span>,</span><br><span class="line">　　　　　　<span class="attr">"OpenStdin"</span>:<span class="literal">false</span>,</span><br><span class="line">　　　　　　<span class="attr">"StdinOnce"</span>:<span class="literal">false</span>,</span><br><span class="line">　　　　　　<span class="attr">"Env"</span>:[</span><br><span class="line">　　　　　　　　<span class="string">"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"</span></span><br><span class="line">　　　　　　],</span><br><span class="line">　　　　　　<span class="attr">"Cmd"</span>:[</span><br><span class="line">　　　　　　　　<span class="string">"/bin/bash"</span></span><br><span class="line">　　　　　　],</span><br><span class="line">　　　　　　<span class="attr">"ArgsEscaped"</span>:<span class="literal">true</span>,</span><br><span class="line">　　　　　　<span class="attr">"Image"</span>:<span class="string">"sha256:5bf9c8f025cb9bdfec431fbf2a39e1d25117a94ce2b10db01db9630addfc5e37"</span>,</span><br><span class="line">　　　　　　<span class="attr">"Volumes"</span>:<span class="literal">null</span>,</span><br><span class="line">　　　　　　<span class="attr">"WorkingDir"</span>:<span class="string">""</span>,</span><br><span class="line">　　　　　　<span class="attr">"Entrypoint"</span>:<span class="literal">null</span>,</span><br><span class="line">　　　　　　<span class="attr">"OnBuild"</span>:<span class="literal">null</span>,</span><br><span class="line">　　　　　　<span class="attr">"Labels"</span>:<span class="literal">null</span></span><br><span class="line">　　　　&#125;,</span><br><span class="line">　　　　<span class="attr">"Architecture"</span>:<span class="string">"amd64"</span>,</span><br><span class="line">　　　　<span class="attr">"Os"</span>:<span class="string">"linux"</span>,</span><br><span class="line">　　　　<span class="attr">"Size"</span>:<span class="number">120102168</span>,</span><br><span class="line">　　　　<span class="attr">"VirtualSize"</span>:<span class="number">120102168</span>,</span><br><span class="line">　　　　<span class="attr">"GraphDriver"</span>:&#123;</span><br><span class="line">　　　　　　<span class="attr">"Data"</span>:&#123;</span><br><span class="line">　　　　　　　　<span class="attr">"LowerDir"</span>:<span class="string">"/var/lib/docker/overlay2/579119ec0ba94ba9c2b510b75228f366c14fc1a29302f29a7c915946f9038c54/diff:/var/lib/docker/overlay2/2286560d99b26f3e25b0cb65f100915b2bf3848ff483b2b46f036a782fe92e87/diff:/var/lib/docker/overlay2/90c4f96886f317dfc958dededefa77f9a648011b7002e42c458b61022e950ab9/diff:/var/lib/docker/overlay2/fba0d170b11c979215b1fe227f86b3499427f1908f3f70dbddde2f94d433ee77/diff"</span>,</span><br><span class="line">　　　　　　　　<span class="attr">"MergedDir"</span>:<span class="string">"/var/lib/docker/overlay2/95395204f6fdd03d04da60ee7d1c1e7ff4bf7e96eb789eca0cdeedf58125aecb/merged"</span>,</span><br><span class="line">　　　　　　　　<span class="attr">"UpperDir"</span>:<span class="string">"/var/lib/docker/overlay2/95395204f6fdd03d04da60ee7d1c1e7ff4bf7e96eb789eca0cdeedf58125aecb/diff"</span>,</span><br><span class="line">　　　　　　　　<span class="attr">"WorkDir"</span>:<span class="string">"/var/lib/docker/overlay2/95395204f6fdd03d04da60ee7d1c1e7ff4bf7e96eb789eca0cdeedf58125aecb/work"</span></span><br><span class="line">　　　　　　&#125;,</span><br><span class="line">　　　　　　<span class="attr">"Name"</span>:<span class="string">"overlay2"</span></span><br><span class="line">　　　　&#125;,</span><br><span class="line">　　　　<span class="attr">"RootFS"</span>:&#123;</span><br><span class="line">　　　　　　<span class="attr">"Type"</span>:<span class="string">"layers"</span>,</span><br><span class="line">　　　　　　<span class="attr">"Layers"</span>:[</span><br><span class="line">　　　　　　　　<span class="string">"sha256:8aa4fcad5eeb286fe9696898d988dc85503c6392d1a2bd9023911fb0d6d27081"</span>,</span><br><span class="line">　　　　　　　　<span class="string">"sha256:ebf3d6975c708f538b14a5267afd2c4c64e8243d195aa11d878e566a7e64c727"</span>,</span><br><span class="line">　　　　　　　　<span class="string">"sha256:a76db6d8fac422acd5fb6c28166c906c202639e4e833cf88c7d4965b806c5437"</span>,</span><br><span class="line">　　　　　　　　<span class="string">"sha256:cd1d6655b4e44bb95df75bd2ecde4ad6799dd23337a9dedadf6e0b7f0efdc27e"</span>,</span><br><span class="line">　　　　　　　　<span class="string">"sha256:3996d0debc49f9a96c25d4ab7a5c9e824229c09976551b80ab0da70fa993a10d"</span></span><br><span class="line">　　　　　　]</span><br><span class="line">　　　　&#125;</span><br><span class="line">　　&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>可以使用<code>-f</code>参数来指定获取某一项参数：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/BD060BC1234E44109F3F2B1D2E1496A5/623" alt="img"></p>
+<p>参考<a href="http://www.cnblogs.com/boshen-hzb/p/6376674.html" target="_blank" rel="noopener">http://www.cnblogs.com/boshen-hzb/p/6376674.html</a></p>
+<hr>
+<h1 id="镜像历史"><a href="#镜像历史" class="headerlink" title="镜像历史"></a>镜像历史</h1><p>使用<code>history</code>命令查看镜像历史。</p>
+<p>镜像文件由多个层组成，可以用history命令，显示各层的创建信息。</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/31F6AAD8AFF74782886B649CD2849A25/629" alt="img"></p>
+<hr>
+<h1 id="搜寻镜像"><a href="#搜寻镜像" class="headerlink" title="搜寻镜像"></a>搜寻镜像</h1><p>使用<code>docker search</code>命令可以搜索远端仓库中共享的镜像，默认搜索官方仓库总的镜像。用法为docker search TERM，支持的主要参数包括：</p>
+<ul>
+<li><code>--automated=true|false</code>:仅显示自动创建的镜像，默认为否</li>
+<li><code>--no-trunc=true|false</code>:输出信息不截断显示，默认为否</li>
+<li><code>-s, --stars=X</code>：指定仅显示评价为指定星级以上的镜像，默认为0，即输出所有镜像。</li>
+</ul>
+<p>例如，搜索所有自动创建的3星级以上的带 nginx关键字的镜像:</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/003643E5FDB0423080109C8CE213E381/644" alt="img"></p>
+<hr>
+<h1 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h1><p>使用<code>docker rmi</code>命令可以删除镜像，命令格式为<code>docker rmi IMAGE [IMAGE]</code>，其中IMAGE可以为标签或ID。</p>
+<p>例如，要删除掉myubuntu:latest镜像，可以使用如下命令</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/1B52469AA5A74255BAC4AEA7DAF64A2F/653" alt="img"></p>
+<p>可以看出，如果一个镜像有多个标签，只会删除多个标签中指定的标签而已，镜像不会受影响。</p>
+<p>如果某个镜像只有一个标签时，则要注意，删除标签就会删除镜像。</p>
+<p>现在只有一个标签，然后尝试删除镜像：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/A1958B7248B742398513774A95811404/664" alt="img"></p>
+<p>删除失败，因为有容器还在镜像上面运行</p>
+<p>可以使用<code>docker ps -a</code>命令查看本机上的所有容器：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/D8D492098F2143AA9A7963AC0CC8AB9B/672" alt="img"></p>
+<p>可以看出有容器在镜像上运行，所以不能直接删除，当然可以使用命令</p>
+<p><code>$docker rmi -f ubuntu:latest</code>来强制删除，但是不建议这样做，建议先删除容器，然后删除镜像：</p>
+<p>我们先使用<code>-f</code>参数来删除httpd镜像：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/6F91C2E66304497FBD452055E4117D4A/680" alt="img"></p>
+<p>但是发现镜像依然存在</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/0D9E2DCCBA9C47B9AE3B2919FFCA4983/682" alt="img"></p>
+<p>再次使用<code>$docker ps -a</code>命令来查看容器，发现仍然有容器运行</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/204793EAAFAB4847B91D404898DF4FE1/688" alt="img"></p>
+<p>所以并不推荐使用<code>-f</code>参数来强制删除，下面是正确的步骤，先删除运行在镜像上面的容器，然后再删除镜像。</p>
+<p>现在先使用<code>$docker rm CONTAINER_ID</code>删除容器，有一个错误，</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/DDCADB0FB46E4A53AF821EF8330A42FD/691" alt="img"></p>
+<p>可以看出id为a420…的容器还在运行，所以不能删除，使用<code>$docker ps -a</code>查看删除情况，</p>
+<p>状态为未运行的容器已经删除，然而运行状态的并没有删除</p>
+<p>所以现在需要先使用<code>$docker stop CONTAINER_ID</code>停止运行的容器</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/ED76ACB5064E458B88EA752F4F3E6E41/695" alt="img"></p>
+<p>可以看出id为a420…的容器状态已经改变，现在可以删除了</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/2971685EBC7D496CA70EAF43065D56EA/697" alt="img"></p>
+<p>可以看出，容器已经被删除了，现在就可以去删除httpd镜像了：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/5F1A9E192F2B4EECAC324535A525CB6D/706" alt="img"></p>
+<p>使用<code>$docker rmi IMAGE_ID</code>删除镜像，然后使用$docker images查看删除情况，可以看出httpd镜像已经全部删除完了。</p>
+<p>一次性删除所有容器</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/0DEA574AC1454361A4C8D7F68EDE2C65/712" alt="img"></p>
+<hr>
+<h1 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h1><p>创建镜像的方法主要有三种：</p>
+<ol>
+<li>基于已有镜像的容器创建</li>
+<li>基于本地模板导入</li>
+<li>基于Dockerfile创建</li>
+</ol>
+<p>这里主要介绍前两种方法，第三种方法后续学习笔记介绍。</p>
+<h2 id="基于已有镜像的容器创建"><a href="#基于已有镜像的容器创建" class="headerlink" title="基于已有镜像的容器创建"></a>基于已有镜像的容器创建</h2><p>主要使用<code>docker commit</code>命令。命令格式为</p>
+<p> <code>docker commit [OPTIONS]   CONTAINER   [REPOSITORY [:TAG]]</code></p>
+<p>​                           所基于的容器        创建的镜像的标签</p>
+<p>主要的选项包括：</p>
+<ul>
+<li><code>-a, author=&quot;&quot;</code>：作者信息</li>
+<li><code>-c, --change=[]</code>：提交的时候执行Dockerfile命令，包括<code>CMD|ENTRYPOINT|ENV|EXPOSE|LABEL|USER|VOLUME|WORKDIR</code>等</li>
+<li><code>-m, --message=&quot;&quot;</code>：提交消息</li>
+<li><code>-p, --pause=true</code>：提交时暂停容器运行</li>
+</ul>
+<p>下面演示怎么根据已有镜像的容器创建一个新的镜像。</p>
+<p>首先启动一个镜像，然后进行进行一些操作，例如创建一个test文件，然后退出：</p>
+<p><code>$docker run -it ubuntu:latest /bin/bash</code></p>
+<p><code>root@3548583db1bb:/# touch test</code></p>
+<p><code>root@3548583db1bb:/# exit</code></p>
+<p>记住容器的ID为3548583db1bb。</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/0E79CC4C57B141BE9A2D17FA2DA82DB9/744" alt="img"></p>
+<p>然后使用<code>docker images</code>命令查看刚才创建的镜像，也可以使用<code>docker ps -a</code>来查看容器。</p>
+<p>接下来使用·docker commit·命令根据容器3548583db1bb来创建一个新的镜像。</p>
+<ul>
+<li>提交信为：Added a new file</li>
+<li>作者信息为：Docker Newbee</li>
+<li>源容器：3548583db1bb</li>
+<li>被创建的容器的标签：test:0.1</li>
+</ul>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/82CB543EDBD14FBDBA53E848EF2182CD/748" alt="img"></p>
+<p>使用docker image命令查看刚才创建的test:0.1镜像</p>
+<h2 id="基于本地模板导入"><a href="#基于本地模板导入" class="headerlink" title="基于本地模板导入"></a>基于本地模板导入</h2><p>用户可以直接从一个操作系统模板文件导入一个镜像文件，主要使用docker import命令。命令格式为</p>
+<p><code>docker import [OPTIONS] file |URL| -[REPOSITORY[:TAG]]</code></p>
+<p>OPTIONS说明：</p>
+<ul>
+<li>-c：应用docker指令创建镜像文件</li>
+<li>-m：提交信息</li>
+</ul>
+<p>要直接导入一个镜像，可以使用OpenVZ提供的模板来创建，或者用其他已导出的镜像模板来创建。OPENVZ模板的下载地址为<a href="http://openvz.org/Dowload/templates/precreated" target="_blank" rel="noopener">http://openvz.org/Dowload/templates/precreated</a></p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/55C245062B994CD6AEA86F025E9A777C/808" alt="img"></p>
+<hr>
+<h1 id="存出和载入镜像"><a href="#存出和载入镜像" class="headerlink" title="存出和载入镜像"></a>存出和载入镜像</h1><p>用户可以使用docker save和docker load命令来存出和载入镜像。docker load一般只用于导入由docker save导出的镜像，导入后的镜像跟原镜像一模一样，拥有相同的镜像id和分层内容。docker import不能用于导入标准的Docker镜像，而是用于导入包含根文件系统的归档，并将之变成Docker镜像。</p>
+<h2 id="存出镜像"><a href="#存出镜像" class="headerlink" title="存出镜像"></a>存出镜像</h2><p><code>docker save</code>：将指定镜像保存成tar归档文件。</p>
+<p>语法：<code>docker save [OPTIONS] IMAGE [IMAGE…]</code></p>
+<p>OPTIONS说明：</p>
+<ul>
+<li><code>-o</code>：输出到文件</li>
+</ul>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/155F214C0267429EB427B1413EF067EE/785" alt="img"></p>
+<p>得到了my_ubuntu.tar归档</p>
+<h2 id="载入镜像"><a href="#载入镜像" class="headerlink" title="载入镜像"></a>载入镜像</h2><p>可以使用<code>docker load</code>将导出的tar文件再导入到本地文件镜像库，例如从文件my_ubuntu.tar</p>
+<p>docker load：从一个在stdin上的tar归档文件中装载镜像</p>
+<p>OPTIONS说明：</p>
+<ul>
+<li><code>-i, --input=&quot;&quot;</code>  从一个tar归档文件中读入，而不是从stdin中</li>
+</ul>
+<p><code>$docker load --input my_ubuntu.tar</code></p>
+<p>或</p>
+<p><code>$docker load &lt; my_ubuntu.tar</code></p>
+<hr>
+<h1 id="上传镜像"><a href="#上传镜像" class="headerlink" title="上传镜像"></a>上传镜像</h1><p>可以使用<code>docker push</code>命令上传镜像到仓库，默认上传到Docker Hub官方仓库（需要登录）。</p>
+<p>命令格式为：</p>
+<p><code>docker push NAME[:TAG] | REGISTRY_HOST[:REGISTRY_PORT] /]NAME [:TAG]</code></p>
+<p>先给需要push的镜像打上标签，因为的我用户名叫kylinxiang，所以改为kylinxiang/push_test:1.0</p>
+<p>默认是Push到Docker Hub，所以可以看到最后push到的仓库为docker.io/kylinxiang</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/6EAB5D97BEF841BB8822192C9F0D7529/818" alt="img"></p>
+<p>之后就可以在Docker Hub上面就可以查看Push的镜像</p>
+<p><img src="https://note.youdao.com/yws/public/resource/a34f55ec7d91131151ad36c6ec5bed92/xmlnote/19D8F559D1E74BDDAD1B10A03308B9B2/829" alt="img"></p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://kylin1994.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2019 Kylin Xiang</li>
+      <li><a href="https://kylin1994.github.io">Home</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

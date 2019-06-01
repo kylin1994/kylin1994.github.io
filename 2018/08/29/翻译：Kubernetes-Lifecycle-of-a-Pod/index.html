@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    翻译：Kubernetes: Lifecycle of a Pod | Kylin Xiang&#39;s Blog
+  </title>
+  <meta name="description" content="IT/Java/Microservice">
+  
+  <meta name="keywords" content="
+  kubernetes,pod,lifecycle
+  ">
+  
+  <meta name="author" content="Kylin Xiang">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="theme-color" content="#1e2327">
+  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
+
+  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://octodex.github.com/images/baracktocat.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 16 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 20 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 5 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">Kylin Xiang&#39;s Blog</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    Kylin Xiang
+
+    <span class="post-date float-right" title="{{moment(1535549295000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1535549295000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>翻译：Kubernetes: Lifecycle of a Pod</h1>
+    <h1 id="翻译：-Kubernetes-Lifecycle-of-a-Pod"><a href="#翻译：-Kubernetes-Lifecycle-of-a-Pod" class="headerlink" title="翻译： Kubernetes: Lifecycle of a Pod"></a>翻译： Kubernetes: Lifecycle of a Pod</h1><p>查看Kubernetes pod的生命周期可以帮助了解可以在流行的容器软件中调度的最小工作单元发生了什么。</p>
+<p>在Kubernetes中，Pod是能被调度的最小工作单元。一个Pod封装了一个应用的容器，存贮资源，唯一的网络IP和管理容器运行的其他选项。理想情况下，Pod并不会被集群直接部署，而是用更高层次的抽象层。应用通常通过更高层的资源对象部署，比如：Deployments, Replication Sets, Daemon Sets, Stateful Sets或者Jobs。和Pod进行交互主要用来解决问题，因此深入Pod是很重要的。</p>
+<h2 id="Pod的状态"><a href="#Pod的状态" class="headerlink" title="Pod的状态"></a>Pod的状态</h2><p>整个Pod的声明周期中，可以达到以下状态：</p>
+<p>Pending：Pod被Kubernetes系统接收（accepted），但是没有其容器还没有被完全创建。</p>
+<p>Running：Pod被调度到某一个Node上，<strong>所有的</strong>容器都被创建并且<strong>至少有一个</strong>容器是Running状态。</p>
+<p>Succeeded：Pod中所有的容器都以状态0退出并且不会重启。</p>
+<p>Failed：Pod中所有的容器都已经退出，但是至少有一个容器退出状态不为0。</p>
+<p>CrashLoopBackoff：容器启动失败并且会被不断重试。</p>
+<h2 id="容器的诞生"><a href="#容器的诞生" class="headerlink" title="容器的诞生"></a>容器的诞生</h2><p>现在我们来看看导致一个容器创建的所有事件。</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fuqwbhu81lj30xg0mczmn.jpg" alt="1_WDJmiyarVfcsDp6X1-lLFQ"></p>
+<ul>
+<li>kubectl或者其他API客户端提交Pod spec到API server。</li>
+<li>API server会将Pod对象写到etcd数据存储中。一旦写操作成功，一个ack将会被发送回API server和客户端。</li>
+<li>现在API server反映了etcd的状态变化。</li>
+<li>所有的Kubernetes组件通过watch API保持对API server相关变化的检测。</li>
+<li>当前情况下，kube-scheduler（通过watcher）发现一个新的Pod通过API server被创建，但是还没有绑定到任何一个node。</li>
+<li>Kube-scheduler会给当前新创建的Pod分配一个node，并跟新API server。</li>
+<li>“Pod被分配到某个节点”这个变化将会被传递给etcd数据存储。API server也会在其Pod project上体现出节点分配。</li>
+<li>每个节点上的Kubelet也会运行watcher，对API server持续监控。在目标node上，kubelet知道一个新的Pod已经分配。</li>
+<li>Kubelet在node上通过调用Docker启动Pod，并且将跟新的容器状态发送回API server。</li>
+<li>API server将Pod状态持久化到etcd中。h</li>
+<li>一旦etcd发送成功写操作的ack到API server，API server 会回复Kubelet一个ack，表示事件已经被接收。</li>
+</ul>
+<h2 id="Pod生命周期中的活动"><a href="#Pod生命周期中的活动" class="headerlink" title="Pod生命周期中的活动"></a>Pod生命周期中的活动</h2><h3 id="初始容器"><a href="#初始容器" class="headerlink" title="初始容器"></a>初始容器</h3><p>初始容器是<strong>运行在主应用程序启动之前的</strong>容器。他们有两个重要的特征：</p>
+<ul>
+<li>总是运行至完成状态</li>
+<li>每一个初始容器都必须在下一个启动之前完成</li>
+</ul>
+<p>初始容器能在主容器启动之前做一些必要的初始化操作。</p>
+<p>比如：拷贝配置文件和修改配置。初始容器使用不同的Linux命名空间，所以他们有不同的文件系统视图，所以他们可以被允许访问可能不适合在主应用程序内共享的秘密。</p>
+<h3 id="Lifecycle-Hooks"><a href="#Lifecycle-Hooks" class="headerlink" title="Lifecycle Hooks"></a>Lifecycle Hooks</h3><p>kubelet 可以运行被<a href="https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details" target="_blank" rel="noopener">Container Lifecycle Hooks</a>触发的代码。这允许用户在容器生命周期指定事件期间运行指定的代码。</p>
+<p>存在两个被暴露出来的hook：</p>
+<ul>
+<li>PostStart：这种hook在容器后立即运行，但是没有办法保证在容器的ENTRYPOINT之后运行。</li>
+<li>PreStop：这种hook在容器终止前被执行，是阻塞的，意味着必须在删除容器的调用之前完成hook的执行。</li>
+</ul>
+<p>上面提到的两种hook都不能带参数。</p>
+<p>容器可以通过实现的和注册该hook的handler来访问hook。有两种类型的hook handler可以被容器应用：</p>
+<ul>
+<li>Exec：在Container的cgroups和名称空间内执行特定命令，例如<code>pre-stop.sh</code>，命令执行的资源消耗算在容器内。</li>
+<li>HTTP：对容器上指定的endpoint执行HTTP请求。</li>
+</ul>
+<h3 id="容器探针"><a href="#容器探针" class="headerlink" title="容器探针"></a>容器探针</h3><p>除了Lifecycle hooks之外，在Pod生命周期中发生的另一个重要事情就是容器探针的执行。</p>
+<p>容器探针是由容器上的kubelet执行的诊断。 kubelet可以在运行容器上运行两种探针：</p>
+<ul>
+<li>livenessProbe：指示容器是否正在运行。如果活动探测失败，则kubelet会杀死容器，并且容器会受到其重新启动策略的影响。</li>
+<li>readnessProbe：指示容器是否已准备好为请求提供服务。如果此探测失败，则endpoint controller将从与Pod匹配的所有服务的端点列表中删除容器IP。</li>
+</ul>
+<p>有三种方式实现一个探针：</p>
+<ul>
+<li>ExecAction：在容器内部执行命令。如果命令返回0，则为诊断成功。</li>
+<li>TCPSocketAction：对容器IP和指定端口执行TCP套接字检查。如果端口打开，则诊断被认为是成功的。</li>
+<li>HTTPGetAction：使用指定的端口和路径对容器IP执行HTTP GET操作。如果响应的状态代码在200到400之间，则认为诊断成功。</li>
+</ul>
+<h2 id="容器的终止"><a href="#容器的终止" class="headerlink" title="容器的终止"></a>容器的终止</h2><p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fuqwbilzmkj30sc0l9aca.jpg" alt="Termination"></p>
+<ol>
+<li>用户执行一个命令删除一个Pod</li>
+<li>API服务器中的Pod对象将随着Pod被认为“死亡”（默认为30秒）的时间以及宽限期而更新。</li>
+<li>下面的行为将会并行执行：<ul>
+<li>在客户端命令中列出时，状态为“Terminating”。</li>
+<li>当Kubelet看到因为设置了第二点中的时间而将Pod标记为终止时，它开始pod关闭过程。</li>
+<li>端点控制器监视即将删除的pod，因此从该pod提供服务的所有端点中删除该pod。</li>
+</ul>
+</li>
+<li>如果Pod已经定义了preStop hook，并且在Pod内被调用。如果preStop hook在Grace time超时后，任然为运行状态，然后用小的（2秒）扩展宽限期调用步骤2。</li>
+<li>Kubelet向Docker发送TERM信号。</li>
+<li>当Grace period超时，任何运行在Pod上的进程都会被SIGKILL杀死。</li>
+<li>Kubelet将通过设置宽限期0（立即删除）完成删除API服务器上的Pod。 Pod从API中消失，不再从客户端可见。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章的想法来自Kubernetes创始人Joe Beda的精彩文章，他解释了Kubernetes架构的主要组成部分和watch概念，这对于理解APIServer如何工作和etcd功能以及Pod的诞生至关重要。</p>
+<p>我们可以看到有多种方式来控制在POD的生命周期内发生的事件。初始容器可以帮助移除与容器引导相关的许多复杂性，从而帮助保持主容器内的逻辑简单。类似地，启动preStart lifecycle hook可以帮助运行容器启动后需要运行的任何代码（例如向监视系统或服务网格注册）。liveness probe和readness probe有助于在开始危害任何客户之前移除坏的Pod。优雅的shutdown可以作为一个pre-stop lifecycle hook运行，允许更优雅的退出。了解上述控制机制有助于更好地设计Pod和支持使用案例。</p>
+<p>原文出处：<a href="https://dzone.com/articles/kubernetes-lifecycle-of-a-pod" target="_blank" rel="noopener">https://dzone.com/articles/kubernetes-lifecycle-of-a-pod</a></p>
+<p>参考：<a href="https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details" target="_blank" rel="noopener">https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details</a></p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://kylin1994.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2019 Kylin Xiang</li>
+      <li><a href="https://kylin1994.github.io">Home</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

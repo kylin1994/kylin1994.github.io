@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Docker学习笔记（2）- Docker容器 | Kylin Xiang&#39;s Blog
+  </title>
+  <meta name="description" content="IT/Java/Microservice">
+  
+  <meta name="keywords" content="
+  docker,容器
+  ">
+  
+  <meta name="author" content="Kylin Xiang">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="theme-color" content="#1e2327">
+  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
+
+  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://octodex.github.com/images/baracktocat.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 16 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 20 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 5 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">Kylin Xiang&#39;s Blog</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    Kylin Xiang
+
+    <span class="post-date float-right" title="{{moment(1522336508000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1522336508000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Docker学习笔记（2）- Docker容器</h1>
+    <h1 id="docker容器"><a href="#docker容器" class="headerlink" title="docker容器"></a>docker容器</h1><p>容器是Docker一个核心概念。简单来说，容器是镜像的一个运行示例。所不同的是，镜像是静态的只读文件，而容器带有运行时需要的可写层文件。如果认为虚拟机是模拟运行的一整套操作系统（包括内核、应用运行态环境和其他系统环境）和跑在上面的应用，那么Docker容器就是独立运行的一个（或一组）应用，以及他们必要的运行环境。</p>
+<h1 id="创建容器"><a href="#创建容器" class="headerlink" title="创建容器"></a>创建容器</h1><h2 id="新建容器"><a href="#新建容器" class="headerlink" title="新建容器"></a>新建容器</h2><p>可以使用<code>docer create</code>命令新建一个容器，例如：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/53C415527A674AB48FD58A0318D0837B/848" alt="img"></p>
+<p>使用<code>docker create</code>命令新建的容器处于停止状态，可以使用docker start命令来启动它。</p>
+<p><code>create</code>命令和<code>run</code>命令支持的选项都十分复杂，主要包括如下几大类：</p>
+<ul>
+<li>与容器运行模式相关</li>
+<li>与容器和环境配置相关</li>
+<li>与容器资源限制和安全保护相关</li>
+</ul>
+<p>表1 create命令与容器运行模式相关的选项</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/ECB6CC7C1C0A4D41929497D827A4E2F8/858" alt="img"></p>
+<p>表2 create命令与容器环境和配置相关的选项</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/1F26ADCD7C9D460B9A4FD155BFF42662/862" alt="img"></p>
+<p>表3 create命令与容器资源限制和安全保护相关的选项</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/95431AC495994AF7830B0BF2ADBD797D/868" alt="img"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/32D2A829409042BA8CDDEB4223530A44/867" alt="img"></p>
+<p>其他还比较重要的选项：</p>
+<ul>
+<li><code>-l, --label=[]</code>：以键值对方式指定容器的标签信息</li>
+<li><code>--label-file=[]</code>：从文件中读取标签信息</li>
+</ul>
+<h2 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h2><p>使用<code>docker start</code>命令来启动一个已经创建的容器，例如启动刚才创建的容器</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/5F52896E932E441D9545B5D29D283263/876" alt="img"></p>
+<p>可以看出 <code>$docker start aae</code>命令启动了刚才状态为created的容器，参数aae是该容器id的前三个字符，说明只要可以唯一区别一个容器，id可以简写。</p>
+<h2 id="新建并启动容器"><a href="#新建并启动容器" class="headerlink" title="新建并启动容器"></a>新建并启动容器</h2><p>除了创建容器后通过start命令来启动，可以直接新建并启动容器。所需要的命令主要为<code>docker run</code>，等价于docker create命令，在执行<code>docker start</code>命令。</p>
+<p>用下面的命令启动一个容器，并在容器中打印“docker run test”</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/C65CB3DEAC1947B88720E1DECDA03C60/885" alt="img"></p>
+<p>查看容器，可以发现，执行完命令之后，就退出了，状态变为exited</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/4CC83B31ADB54905BDF6E7F681F026C6/884" alt="img"></p>
+<p>当利用docker run来创建并启动容器时，Docker在后台运行的标准操作标准包括：</p>
+<ol>
+<li>检查本地是否存在指定的镜像，不存在就从共有仓库下载</li>
+<li>利用镜像创建一个容器，并启动该容器</li>
+<li>分配一个文件系统给容器，并在只读的镜像层外面挂载一层可读写层</li>
+<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中</li>
+<li>从网桥的地址池配置一个IP地址给容器</li>
+<li>执行用户指定的应用程序</li>
+<li>执行完毕后容器被自动终止</li>
+</ol>
+<p>下面的命令创建并运行了一个容器，还启动了一个bash终端，允许和用户交互</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/D4CDC94076DB4BC28B273C92BFA3F85D/896" alt="img"></p>
+<p>其中<code>-t</code>选项让Docker分配了一个伪终端（pseudo-tty）并绑定到容器的标准输入上，<code>-i</code>则让容器的标准输入保持打开。下面用<code>ps</code>命令来查看进程，只有bash和ps命令，没有其他进程。最后用exit命令退出或者ctrl+d</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/12358CA547964C6FB6096B5D4937C94F/904" alt="img"></p>
+<p>某些时候，执行<code>docker run</code>会出错，因为命令无法正常执行容器会直接退出，此时可以查看退出的错误代码。</p>
+<p>默认情况下，常见错误代码包括：</p>
+<ul>
+<li>125：Docker daemon执行出错，例如指定不支持的Docker命令参数；</li>
+<li>126：所指定的命令无法执行，例如权限出错。</li>
+<li>127：容器内命令无法找到</li>
+</ul>
+<p>命令执行出错后，会默认返回错误码。</p>
+<h2 id="守护态运行"><a href="#守护态运行" class="headerlink" title="守护态运行"></a>守护态运行</h2><p>守护进程：守护进程是一个在后台运行并且不受任何终端控制的进程。Unix操作系统有很多典型的守护进程(其数目根据需要或20—50不等)，它们在后台运行，执行不同的管理任务。 —-百度</p>
+<p>更多的时候，需要让Docker容器在后台以守护态（Daemonized）形式运行。此时，可以通过添加<code>-d</code>参数来实现。</p>
+<p>例如下面的命令会在后台容器运行：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/29BFCA023EEE4724B7CE6089B209AC6A/922" alt="img"></p>
+<p>此时，要获取容器的输出信息，可以如下使用<code>docker logs</code>命令：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/3C4B56C554DC4064834084CFE111C2EB/926" alt="img"></p>
+<h1 id="终止容器"><a href="#终止容器" class="headerlink" title="终止容器"></a>终止容器</h1><p>可以使用<code>docker stop</code>来终止一个运行中的容器。该命令格式为</p>
+<p><code>$docker stop [-t | --time[=10]][CONTAINER…]</code></p>
+<p>首先向容器发送SIGTERM信号，等待一段超时时间（默认10秒）后，再发送SIGKILL信号来终止容器</p>
+<p>注意：</p>
+<p><code>docker kill</code>命令会直接发送SIGKILL信号来强行终止容器。</p>
+<p>此外，当Docker容器中指定的应用终结时，容器也会自动终止。例如对于上一节中只启动了一个终端的容器，用户通过exit命令或Ctrl+D来退出终端时，所创建的容器立刻终止，处于exited状态。</p>
+<p>可以通过start命令来使终止态的容器重新启动</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/12F084B3FE09477DB217038F9F6EC478/951" alt="img"></p>
+<p>可以使用restart命令先终止容器，再重新启动。</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/E09A28E9FA1243229561B6948985A685/948" alt="img"></p>
+<h1 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h1><p>在使用<code>-d</code>参数时，容器启动后会进入后台，用户无法看到容器中的信息，也无法进行操作。</p>
+<p>这个时候如果需要进入容器进行操作，有多种方法，包括官方的<code>attach</code>或<code>exec</code>命令，以及第三方的nsenter工具等。</p>
+<h2 id="attach命令"><a href="#attach命令" class="headerlink" title="attach命令"></a>attach命令</h2><p><code>attacn</code>是<code>docker</code>自带的命令，命令格式为：</p>
+<p><code>docker attach [--detach-keys[=[]]][--no-stdin] [--sig-proxy[=true]] CONTAINER</code></p>
+<p>支持三个主要选项：</p>
+<ul>
+<li><code>--detach-keys=[=[]]</code>：指定退出attach模式的快捷键序列，默认为CTRL-P,CTRL-Q;</li>
+<li><code>--no-sdtin=true|false</code>：是否关闭标准输出，默认是保持打开的；</li>
+<li><code>--sig-proxy=true|false</code>：是否代理收到的系统信号给应用进程，默认为true。</li>
+</ul>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/947402F1C3A04217AEA6D13E4446F51C/976" alt="img"></p>
+<p>但是有时候使用<code>attach</code>命令并不方便。当多个窗口同时用<code>attach</code>命令连到同一个容器时，多有窗口都会同步显示。当某个窗口因为命令阻塞时，其他窗口也无法执行操作了。</p>
+<h2 id="exec命令"><a href="#exec命令" class="headerlink" title="exec命令"></a>exec命令</h2><p>Docker从1.3.0.版本起提供了一个更加方便的<code>exec</code>命令，可以在容器内直接执行任意命令。</p>
+<p><code>docker exec [-d|--detach][--detach-key[=[]]] [-i|--interactive][—privileged] [-t|--tty][-u|--user[=USER]] CONTAINER COMMAND [ARG…]</code></p>
+<p>比较重要的参数：</p>
+<ul>
+<li><code>-i, --interactive=true|false</code>：打开标准输入接受用户输入命令，默认为false；</li>
+<li><code>--privileged=true|false</code>：是否给执行命令以高权限，默认为false；</li>
+<li><code>-t, --tty=true|false</code>：分配伪终端，默认为false。</li>
+<li><code>-u, --user=&quot;&quot;</code>：执行命令的用户或id</li>
+</ul>
+<p>例如进入刚才的容器，并启动一个bash：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/B3FC55A5670240ADBE3935332171AD3A/1000" alt="img"></p>
+<p>从上面可以看出，只能在一个运行的容器才能使用<code>exec</code>命令；</p>
+<p>先启动容器，在执行<code>exec</code>命令：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/BC34B0D96E6149F196AC59A28FAF65EC/1005" alt="img"></p>
+<p>可以看到，一个bash终端打开了，在不影响容器内其他应用的前提下，用户可以很容易与容器进行交互。</p>
+<p>注意：通过指定-it参数来保持标准输入打开，并且分配一个伪终端。通过exec命令对容器执行操作是最为推荐的方式。</p>
+<h2 id="nsenter工具"><a href="#nsenter工具" class="headerlink" title="nsenter工具"></a>nsenter工具</h2><p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/9E47DE29742D40FC892182811FE28956/1014" alt="img"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/BD8441FB3F4944AB8CF1CA28ECF04466/1016" alt="img"></p>
+<h1 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h1><p>可以使用<code>docker rm</code>命令来删除处于终止或退出状态的容器，命令格式为</p>
+<p><code>docker rm [-f|--force][-l|--link] [-v|--volumes] CONTAINER[CONTAINER…]</code></p>
+<p>主要支持的选项包括：</p>
+<ul>
+<li><code>-f, --force=false</code>：是否强制终止并删除一个运行中的容器；</li>
+<li><code>-l, --link=false</code>：删除容器的链接，但保留容器；</li>
+<li><code>-v, --volumes=false</code>：删除容器挂载的数据卷。</li>
+</ul>
+<p>例如，查看处于终止状态的容器，并删除：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/E69BEF4C773E4982A83843DC377F4CB5/1031" alt="img"></p>
+<p>默认情况下，<code>docker rm</code>命令只能删除处于终止或退出状态的容器，并不能删除还处于运行状态的容器。</p>
+<p>如果直接删除一个运行中的容器，可以添加<code>-f</code>参数。Docker会先发送SIGKILL信号给容器，终止其中的应用，之后强行删除，如下所示：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/CE39CC5627354D99B2C3FA0530568D94/1038" alt="img"></p>
+<h1 id="导入和导出容器"><a href="#导入和导出容器" class="headerlink" title="导入和导出容器"></a>导入和导出容器</h1><p>某些时候，需要将容器从一个系统迁移到另外一个系统，此时可以使用Docker的导入和导出的功能。这也是Docker自身提供的一个重要的特性。</p>
+<h2 id="导出容器"><a href="#导出容器" class="headerlink" title="导出容器"></a>导出容器</h2><p>导出容器是指导出一个已经创建的容器到一个文件，不管此时这个容器是否处于运行状态，可以使用</p>
+<p><code>$docker export</code>命令，该命令的格式为：</p>
+<p><code>$docker export [-o|--output[=&quot;&quot;]]</code>CONTAINER。其中，可以通过-o选项来指定导出的tar文件名，也可以通过重定向来实现。</p>
+<p>下面分别使用<code>-o</code>参数和重定向的方式导出容器：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/36068c07cd87a1fe481f04a019c5c31c/xmlnote/AB1FADA84E65447EB5BEC46C45687DEB/1050" alt="img"></p>
+<p>时候可以将导出的tar文件输出到其他的机器上，然后再通过导入命令导入到系统中，从而实现容器的迁移。</p>
+<h2 id="导入容器"><a href="#导入容器" class="headerlink" title="导入容器"></a>导入容器</h2><p>导出的文件又可以使用<code>docker import</code>命令导入变成镜像，该命令格式为：</p>
+<p><code>docker import [-c|--change[=]]][-m|--message[=MESSAGE]] file|URL|-[REPOSITORY[:TAG]]</code></p>
+<p>可以通过<code>-c, --change=[]</code>选项在导入的同时执行对容器进行修改的Dockerfile指令。</p>
+<hr>
+<p>也可以使用<code>docker load</code>命令来导入镜像存储文件到本地镜像库，也可以使用<code>docker import</code>命令来导入一个容器快照到本地镜像库。</p>
+<p>这两者的区别在于容器快照文件将丢失所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也更大。此外，从容器快照导入时可以重新定义标签等元数据。</p>
+<hr>
+<p><code>exported-imported</code>和<code>saved-loaded</code>的区别</p>
+<p>导出后再导入(exported-imported)的镜像会丢失所有的历史，而保存后再加载（saveed-loaded）的镜像没有丢失历史和层(layer)。这意味着使用导出后再导入的方式，你将无法回滚到之前的层(layer)，同时，使用保存后再加载的方式持久化整个镜像，就可以做到层回滚（可以执行docker tag <layer id=""> <image name="">来回滚之前的层）。–百度</image></layer></p>
+<p>小结</p>
+<p>容器是直接提供应用服务的组件，也是docker实现快速启停和高效服务性能的基础。</p>
+<h1 id="命令小结"><a href="#命令小结" class="headerlink" title="命令小结"></a>命令小结</h1><p>create</p>
+<p>start</p>
+<p>restart</p>
+<p>run </p>
+<p>stop</p>
+<p>attach</p>
+<p>exec</p>
+<p>rm</p>
+<p>export</p>
+<p>-————-</p>
+<p>导入和导入镜像一样：</p>
+<p>import–export</p>
+<p>save—-load</p>
+<p>再生产环境中，因为容器自身的轻量级特性，推荐使用容器时在一组容器前引入HA(High Availability，高可靠性）机制。例如使用HAProxy工具来代理容器访问，这样在容器出现故障时，可以快速切换到功能正常的容器。此外，建议通过指定合适的容器重启策略，来自动重启退出的容器。</p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://kylin1994.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2019 Kylin Xiang</li>
+      <li><a href="https://kylin1994.github.io">Home</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

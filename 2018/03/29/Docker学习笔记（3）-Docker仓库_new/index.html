@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Docker学习笔记（3）- Docker仓库 | Kylin Xiang&#39;s Blog
+  </title>
+  <meta name="description" content="IT/Java/Microservice">
+  
+  <meta name="keywords" content="
+  docker,容器
+  ">
+  
+  <meta name="author" content="Kylin Xiang">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="theme-color" content="#1e2327">
+  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
+
+  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://octodex.github.com/images/baracktocat.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 37 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 23 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 6 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">Kylin Xiang&#39;s Blog</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    Kylin Xiang
+
+    <span class="post-date float-right" title="{{moment(1522337023000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1522337023000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Docker学习笔记（3）- Docker仓库</h1>
+    <h1 id="访问Docker仓库"><a href="#访问Docker仓库" class="headerlink" title="访问Docker仓库"></a>访问Docker仓库</h1><p>仓库（Repository）是集中存放镜像的地方，分公共仓库和私有仓库。一个容器混淆的概念是注册服务器（Registry)。实际上注册服务器是存放仓库的具体服务器，一个服务器上可以有多个仓库，而每个仓库下面可以有多个镜像。从这方面来说，可以将仓库看做一个具体的项目和目录。例如对于仓库地址private-docker.com/ubuntu来说，private-docker.com是注册服务器地址，ubuntu是仓库名。</p>
+<h1 id="Docker-Hub公共镜像市场"><a href="#Docker-Hub公共镜像市场" class="headerlink" title="Docker Hub公共镜像市场"></a>Docker Hub公共镜像市场</h1><p>目前Docker官方维护了一个公共镜像仓库<a href="http://hub.docker.com，其中包括超过15000个镜像。大部分镜像需求，都可以通过在Docker" target="_blank" rel="noopener">http://hub.docker.com，其中包括超过15000个镜像。大部分镜像需求，都可以通过在Docker</a> Hub中直接下载镜像来实现。</p>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p><code>docker login</code>命令来输入用户名、密码登录。</p>
+<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1111" alt="img"></p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p>用户无需登录即可通过docker search命令来查找官方仓库中的镜像，并利用<code>docker pull</code>命令来下载到本地。</p>
+<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1119" alt="img"></p>
+<p>根据是否为官方提供，可将这些镜像资源分为两类。一种是类似centos这样的基础镜像，成为基础或根镜像。这些镜像是由Docker公司创建、验证、支持、提供。这样的镜像往往使用单个单词名字。</p>
+<p>还有一种类型，比如ansible/centos7-ansible镜像，它是由用户ansible创建并维护的，带有用户名为前缀，表明是用户下的某仓库。可以通过用户名称前缀user_name/镜像名称来指定使用某个用户提供的镜像。</p>
+<p>另外在查找的时候，通过-s N参数可以指定显示评价为N星以上的镜像。</p>
+<p>下载centos镜像到本地，如下所示：</p>
+<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1131" alt="img"></p>
+<p>用户也可以通过<code>docker push</code>命令来将本地镜像推送到Docker Hub。</p>
+<p>提示：Ansible是知名自动化部署配置管理工具。</p>
+<h2 id="自动创建"><a href="#自动创建" class="headerlink" title="自动创建"></a>自动创建</h2><p>自动创建（Automated Builds）功能对于需要经常升级镜像内程序来说，十分方便。有时候，用户创建了镜像，安装了某个软件，如果软件版本发布新版本则需要手动跟新。</p>
+<p>而自动创建允许用户通过Docker Hub指定跟踪一个目标网站（目前支持GitHub或BitBucket)上的项目，一旦项目发生新的提交，则自动执行创建。</p>
+<p>要配置自动创建，包括如下的步骤：</p>
+<ol>
+<li>创建并登陆Docker Hub，以及目标网站；并在目标网站中链接账户到Docker Hub；</li>
+<li>在Docker Hub中配置一个“自动创建”；</li>
+<li>选取一个目标网站中的项目（需要含Dockerfile）和分支；</li>
+<li>指定Dockerfile位置，并且提交创建</li>
+</ol>
+<h1 id="搭建本地仓库"><a href="#搭建本地仓库" class="headerlink" title="搭建本地仓库"></a>搭建本地仓库</h1><h2 id="使用registry镜像创建私有仓库"><a href="#使用registry镜像创建私有仓库" class="headerlink" title="使用registry镜像创建私有仓库"></a>使用registry镜像创建私有仓库</h2><p>安装docker后，可以通过官方提供的registry镜像来简单搭建一套本地私有仓库环境：</p>
+<p><code>$docker run -d -p 5000:5000 regitry</code></p>
+<p>这将自动下载并启动一个registry容器，创建本地的私有仓库服务。</p>
+<p>默认情况下，会将仓库创建在容器的/tmp/registry目录下。可以通过<code>-v</code>参数来将镜像文件夹存放在本地的指定路径，例如下面的例子将镜像放到/Users/xiangqilin/registry</p>
+<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1169" alt="img"></p>
+<p>注意registry:2是ash shell，如果执行<code>$docker exec -it nifty_mahavira /bin/bash</code>会报错</p>
+<p>向搭建好的本地仓库push成功之后，<code>-v</code>参数指定的映射目录也会存储上传的镜像</p>
+<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1177" alt="img"></p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://kylin1994.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2019 Kylin Xiang</li>
+      <li><a href="https://kylin1994.github.io">Home</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

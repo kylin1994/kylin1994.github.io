@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    使用JWT访问Kubernetes API-server REST API | Kylin Xiang&#39;s Blog
+  </title>
+  <meta name="description" content="IT/Java/Microservice">
+  
+  <meta name="keywords" content="
+  kubernetes,JWT,API-Server,Authentication
+  ">
+  
+  <meta name="author" content="Kylin Xiang">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="theme-color" content="#1e2327">
+  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
+
+  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://octodex.github.com/images/baracktocat.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 37 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 23 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 6 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">Kylin Xiang&#39;s Blog</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    Kylin Xiang
+
+    <span class="post-date float-right" title="{{moment(1535522685000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1535522685000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>使用JWT访问Kubernetes API-server REST API</h1>
+    <h1 id="使用JWT访问Kubernetes-API-server-REST-API"><a href="#使用JWT访问Kubernetes-API-server-REST-API" class="headerlink" title="使用JWT访问Kubernetes API-server REST API"></a>使用JWT访问Kubernetes API-server REST API</h1><h1 id="生成Token"><a href="#生成Token" class="headerlink" title="生成Token"></a>生成Token</h1><p>首先在kubernetes集群的master节点上获取API-Server 的地址：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")</span><br></pre></td></tr></table></figure>
+<p>在集群的master结点上，运行以下指令，获取具有所有权限的token值：</p>
+<p>创建admin-token.yaml，并输入以下内容</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">admin</span></span><br><span class="line"><span class="attr">  annotations:</span></span><br><span class="line">    <span class="string">rbac.authorization.kubernetes.io/autoupdate:</span> <span class="string">"true"</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line"><span class="attr">  kind:</span> <span class="string">ClusterRole</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">cluster-admin</span></span><br><span class="line"><span class="attr">  apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="attr">  - kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">admin</span></span><br><span class="line"><span class="attr">    namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">admin</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line">    <span class="string">kubernetes.io/cluster-service:</span> <span class="string">"true"</span></span><br><span class="line">    <span class="string">addonmanager.kubernetes.io/mode:</span> <span class="string">Reconcile</span></span><br></pre></td></tr></table></figure>
+<p>执行命令：<code>kubectl create -f admin-token.yaml</code></p>
+<p>执行命令：<code>kubectl get secret -n kube-system|grep admin</code></p>
+<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/006tNbRwgy1fuqiyf4jn4j30xg01kdgb.jpg" alt="1535511448134"></p>
+<p>执行命令：<code>kubectl describe secret admin-token-sdv88 -n kube-system</code></p>
+<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/006tNbRwgy1fuqiym4h2fj31840ekqad.jpg" alt="查看生成的Token"></p>
+<p>可以使用上面生成的JWT来访问API-Server。</p>
+<p>通过Postman访问</p>
+<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/006tNbRwgy1fuqiygaj29j31de12qai1.jpg" alt="使用Postman访问"></p>
+<p>使用RestTemplate访问，配置RestTemplate需要跳过Client对API-Server的认证。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/test"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">testK8sApi</span><span class="params">()</span> <span class="keyword">throws</span> KeyStoreException, NoSuchAlgorithmException, KeyManagementException </span>&#123;</span><br><span class="line">        HttpHeaders headers = <span class="keyword">new</span> HttpHeaders();</span><br><span class="line">        headers.set(<span class="string">"Authorization"</span>, <span class="string">"Bearer "</span> + <span class="string">"eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi10b2tlbi1zZHY4OCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJhZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjlhMzM5NzI1LWE0M2YtMTFlOC1iZGJmLTAwNTA1NmE0MDg0MCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTphZG1pbiJ9.FxoNIIrlVvn0EV5HqTwQh--QO-gL-MTEz6BXvY9hsXEUSe-HuWgwb4cokPGAxEavPLafrbEK8YiL66fT3C-xH0T43my4HN_njJEWMwmBBiFU-G5B5QwMbP7WTSXTtrpkeyQM0G8wysWFhsUsper5Ke-xX8I0eY3CBOxeMchsO7QAd-py13h_ufXVKoPZvz5wAjF_5sLMRiJfpG5FKjOTe9OgCLNCr7yCrHMvcr-TvMVcfja3Eyv3lOJIjes2jpCOwXH8xRJ-dRS0CpPfiXgYDDqgwK3SjTQ7fTOIQgZNBsmRNYmcCPWKQvuQMOlVGwf1ozlaOZmyGggvirSWKJUOlA"</span>);</span><br><span class="line"></span><br><span class="line">        TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -&gt; <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()</span><br><span class="line">                .loadTrustMaterial(<span class="keyword">null</span>, acceptingTrustStrategy)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        SSLConnectionSocketFactory csf = <span class="keyword">new</span> SSLConnectionSocketFactory(sslContext);</span><br><span class="line">        CloseableHttpClient httpClient = HttpClients.custom()</span><br><span class="line">                .setSSLSocketFactory(csf)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        HttpComponentsClientHttpRequestFactory requestFactory =</span><br><span class="line">                <span class="keyword">new</span> HttpComponentsClientHttpRequestFactory();</span><br><span class="line">        requestFactory.setHttpClient(httpClient);</span><br><span class="line"></span><br><span class="line">        RestTemplate restTemplate = <span class="keyword">new</span> RestTemplate(requestFactory);</span><br><span class="line">        HttpEntity&lt;String&gt; entity = <span class="keyword">new</span> HttpEntity&lt;String&gt;(headers);</span><br><span class="line"></span><br><span class="line">        ResponseEntity&lt;String&gt; responseEntity = restTemplate.exchange(<span class="string">"https://10.141.212.142:6443"</span>, HttpMethod.GET, entity, String.class);</span><br><span class="line"></span><br><span class="line">        JsonParser parser = <span class="keyword">new</span> JsonParser();</span><br><span class="line">        JsonObject json = parser.parse(responseEntity.getBody()).getAsJsonObject();</span><br><span class="line"></span><br><span class="line">        Gson gson = <span class="keyword">new</span> GsonBuilder().setPrettyPrinting().create();</span><br><span class="line">        String prettyJson = gson.toJson(json);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> prettyJson;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://kylin1994.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2019 Kylin Xiang</li>
+      <li><a href="https://kylin1994.github.io">Home</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

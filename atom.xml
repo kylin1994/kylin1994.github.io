@@ -18,8 +18,8 @@
   
   <entry>
     <title>serverless</title>
-    <link href="https://kylin1994.github.io/2019/06/02/Serverless%E6%9E%B6%E6%9E%84_new/"/>
-    <id>https://kylin1994.github.io/2019/06/02/Serverless架构_new/</id>
+    <link href="https://kylin1994.github.io/2019/06/02/Serverless%E6%9E%B6%E6%9E%84/"/>
+    <id>https://kylin1994.github.io/2019/06/02/Serverless架构/</id>
     <published>2019-06-02T00:03:04.568Z</published>
     <updated>2019-06-02T00:03:04.569Z</updated>
     
@@ -49,8 +49,8 @@
   
   <entry>
     <title>翻译：Kubernetes: Lifecycle of a Pod</title>
-    <link href="https://kylin1994.github.io/2018/08/29/%E7%BF%BB%E8%AF%91%EF%BC%9AKubernetes-Lifecycle-of-a-Pod_new/"/>
-    <id>https://kylin1994.github.io/2018/08/29/翻译：Kubernetes-Lifecycle-of-a-Pod_new/</id>
+    <link href="https://kylin1994.github.io/2018/08/29/%E7%BF%BB%E8%AF%91%EF%BC%9AKubernetes-Lifecycle-of-a-Pod/"/>
+    <id>https://kylin1994.github.io/2018/08/29/翻译：Kubernetes-Lifecycle-of-a-Pod/</id>
     <published>2018-08-29T13:28:15.000Z</published>
     <updated>2019-06-02T00:03:24.566Z</updated>
     
@@ -78,8 +78,8 @@
   
   <entry>
     <title>使用JWT访问Kubernetes API-server REST API</title>
-    <link href="https://kylin1994.github.io/2018/08/29/%E4%BD%BF%E7%94%A8JWT%E8%AE%BF%E9%97%AEKubernetes-API-server-REST-API_new/"/>
-    <id>https://kylin1994.github.io/2018/08/29/使用JWT访问Kubernetes-API-server-REST-API_new/</id>
+    <link href="https://kylin1994.github.io/2018/08/29/%E4%BD%BF%E7%94%A8JWT%E8%AE%BF%E9%97%AEKubernetes-API-server-REST-API/"/>
+    <id>https://kylin1994.github.io/2018/08/29/使用JWT访问Kubernetes-API-server-REST-API/</id>
     <published>2018-08-29T06:04:45.000Z</published>
     <updated>2019-06-02T00:03:22.250Z</updated>
     
@@ -109,8 +109,8 @@
   
   <entry>
     <title>CentOS 7搭建kubernetes集群</title>
-    <link href="https://kylin1994.github.io/2018/08/16/CentOS-7%E6%90%AD%E5%BB%BAkubernetes%E9%9B%86%E7%BE%A4_new/"/>
-    <id>https://kylin1994.github.io/2018/08/16/CentOS-7搭建kubernetes集群_new/</id>
+    <link href="https://kylin1994.github.io/2018/08/16/CentOS-7%E6%90%AD%E5%BB%BAkubernetes%E9%9B%86%E7%BE%A4/"/>
+    <id>https://kylin1994.github.io/2018/08/16/CentOS-7搭建kubernetes集群/</id>
     <published>2018-08-16T03:06:55.000Z</published>
     <updated>2019-06-02T00:02:18.294Z</updated>
     
@@ -138,8 +138,8 @@
   
   <entry>
     <title>kubernetes service配置详解</title>
-    <link href="https://kylin1994.github.io/2018/08/13/kubernetes-service%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3_new_new/"/>
-    <id>https://kylin1994.github.io/2018/08/13/kubernetes-service配置详解_new_new/</id>
+    <link href="https://kylin1994.github.io/2018/08/13/kubernetes-service%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/"/>
+    <id>https://kylin1994.github.io/2018/08/13/kubernetes-service配置详解/</id>
     <published>2018-08-13T02:35:06.000Z</published>
     <updated>2019-06-02T00:03:09.180Z</updated>
     
@@ -165,8 +165,8 @@
   
   <entry>
     <title>kubernetes Pod的扩容和伸缩</title>
-    <link href="https://kylin1994.github.io/2018/08/07/kubernetes-Pod%E7%9A%84%E6%89%A9%E5%AE%B9%E5%92%8C%E4%BC%B8%E7%BC%A9_new/"/>
-    <id>https://kylin1994.github.io/2018/08/07/kubernetes-Pod的扩容和伸缩_new/</id>
+    <link href="https://kylin1994.github.io/2018/08/07/kubernetes-Pod%E7%9A%84%E6%89%A9%E5%AE%B9%E5%92%8C%E4%BC%B8%E7%BC%A9/"/>
+    <id>https://kylin1994.github.io/2018/08/07/kubernetes-Pod的扩容和伸缩/</id>
     <published>2018-08-07T01:54:46.000Z</published>
     <updated>2019-06-02T00:03:09.176Z</updated>
     
@@ -194,8 +194,8 @@
   
   <entry>
     <title>kubernetes pod 配置详解</title>
-    <link href="https://kylin1994.github.io/2018/08/02/kubernetes-pod-%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3_new_new/"/>
-    <id>https://kylin1994.github.io/2018/08/02/kubernetes-pod-配置详解_new_new/</id>
+    <link href="https://kylin1994.github.io/2018/08/02/kubernetes-pod-%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/"/>
+    <id>https://kylin1994.github.io/2018/08/02/kubernetes-pod-配置详解/</id>
     <published>2018-08-02T02:37:18.000Z</published>
     <updated>2019-06-02T00:03:09.178Z</updated>
     
@@ -221,8 +221,8 @@
   
   <entry>
     <title>Docker学习笔记（6）- Dockerfile</title>
-    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89-Dockerfile_new/"/>
-    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（6）-Dockerfile_new/</id>
+    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89-Dockerfile/"/>
+    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（6）-Dockerfile/</id>
     <published>2018-03-29T15:52:42.000Z</published>
     <updated>2019-06-02T00:03:01.844Z</updated>
     
@@ -248,8 +248,8 @@
   
   <entry>
     <title>Docker学习笔记（5）- 端口映射与容器互联</title>
-    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%885%EF%BC%89-%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%92%E8%81%94_new/"/>
-    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（5）-端口映射与容器互联_new/</id>
+    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%885%EF%BC%89-%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E4%B8%8E%E5%AE%B9%E5%99%A8%E4%BA%92%E8%81%94/"/>
+    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（5）-端口映射与容器互联/</id>
     <published>2018-03-29T15:35:53.000Z</published>
     <updated>2019-06-02T00:03:00.616Z</updated>
     
@@ -275,8 +275,8 @@
   
   <entry>
     <title>Docker学习笔记（4）- Docker数据卷</title>
-    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%884%EF%BC%89-Docker%E6%95%B0%E6%8D%AE%E5%8D%B7_new/"/>
-    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（4）-Docker数据卷_new/</id>
+    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%884%EF%BC%89-Docker%E6%95%B0%E6%8D%AE%E5%8D%B7/"/>
+    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（4）-Docker数据卷/</id>
     <published>2018-03-29T15:30:25.000Z</published>
     <updated>2019-06-02T00:02:53.898Z</updated>
     
@@ -302,8 +302,8 @@
   
   <entry>
     <title>Docker学习笔记（3）- Docker仓库</title>
-    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89-Docker%E4%BB%93%E5%BA%93_new/"/>
-    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（3）-Docker仓库_new/</id>
+    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89-Docker%E4%BB%93%E5%BA%93/"/>
+    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（3）-Docker仓库/</id>
     <published>2018-03-29T15:23:43.000Z</published>
     <updated>2019-06-02T00:02:46.485Z</updated>
     
@@ -329,8 +329,8 @@
   
   <entry>
     <title>Docker学习笔记（2）- Docker容器</title>
-    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89-Docker%E5%AE%B9%E5%99%A8_new/"/>
-    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（2）-Docker容器_new/</id>
+    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89-Docker%E5%AE%B9%E5%99%A8/"/>
+    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（2）-Docker容器/</id>
     <published>2018-03-29T15:15:08.000Z</published>
     <updated>2019-06-02T00:02:29.658Z</updated>
     
@@ -356,8 +356,8 @@
   
   <entry>
     <title>Docker学习笔记（1）- Docker镜像</title>
-    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-Docker%E9%95%9C%E5%83%8F_new/"/>
-    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（1）-Docker镜像_new/</id>
+    <link href="https://kylin1994.github.io/2018/03/29/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-Docker%E9%95%9C%E5%83%8F/"/>
+    <id>https://kylin1994.github.io/2018/03/29/Docker学习笔记（1）-Docker镜像/</id>
     <published>2018-03-29T14:52:04.000Z</published>
     <updated>2019-06-02T00:02:43.562Z</updated>
     
@@ -384,8 +384,8 @@
   
   <entry>
     <title>聊聊JPA Criteria查询中的坑</title>
-    <link href="https://kylin1994.github.io/2018/03/16/%E8%81%8A%E8%81%8AJPA-Criteria%E6%9F%A5%E8%AF%A2%E4%B8%AD%E7%9A%84%E5%9D%91_new/"/>
-    <id>https://kylin1994.github.io/2018/03/16/聊聊JPA-Criteria查询中的坑_new/</id>
+    <link href="https://kylin1994.github.io/2018/03/16/%E8%81%8A%E8%81%8AJPA-Criteria%E6%9F%A5%E8%AF%A2%E4%B8%AD%E7%9A%84%E5%9D%91/"/>
+    <id>https://kylin1994.github.io/2018/03/16/聊聊JPA-Criteria查询中的坑/</id>
     <published>2018-03-16T15:24:46.000Z</published>
     <updated>2019-06-02T00:03:26.828Z</updated>
     
@@ -413,8 +413,8 @@
   
   <entry>
     <title>栈ADT及其应用</title>
-    <link href="https://kylin1994.github.io/2018/03/14/%E6%A0%88ADT%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8_new/"/>
-    <id>https://kylin1994.github.io/2018/03/14/栈ADT及其应用_new/</id>
+    <link href="https://kylin1994.github.io/2018/03/14/%E6%A0%88ADT%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/"/>
+    <id>https://kylin1994.github.io/2018/03/14/栈ADT及其应用/</id>
     <published>2018-03-14T09:12:53.000Z</published>
     <updated>2019-06-02T00:03:23.263Z</updated>
     
@@ -440,8 +440,8 @@
   
   <entry>
     <title>二叉树(binary tree)</title>
-    <link href="https://kylin1994.github.io/2018/03/14/%E4%BA%8C%E5%8F%89%E6%A0%91-binary-tree_new/"/>
-    <id>https://kylin1994.github.io/2018/03/14/二叉树-binary-tree_new/</id>
+    <link href="https://kylin1994.github.io/2018/03/14/%E4%BA%8C%E5%8F%89%E6%A0%91-binary-tree/"/>
+    <id>https://kylin1994.github.io/2018/03/14/二叉树-binary-tree/</id>
     <published>2018-03-14T08:34:57.000Z</published>
     <updated>2019-06-02T00:03:14.193Z</updated>
     
@@ -467,8 +467,8 @@
   
   <entry>
     <title>使用Docker搭建Redis主从复制、哨兵机制</title>
-    <link href="https://kylin1994.github.io/2018/03/14/%E4%BD%BF%E7%94%A8Docker%E6%90%AD%E5%BB%BARedis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E3%80%81%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6_new/"/>
-    <id>https://kylin1994.github.io/2018/03/14/使用Docker搭建Redis主从复制、哨兵机制_new/</id>
+    <link href="https://kylin1994.github.io/2018/03/14/%E4%BD%BF%E7%94%A8Docker%E6%90%AD%E5%BB%BARedis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E3%80%81%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6/"/>
+    <id>https://kylin1994.github.io/2018/03/14/使用Docker搭建Redis主从复制、哨兵机制/</id>
     <published>2018-03-14T05:37:47.000Z</published>
     <updated>2019-06-02T00:03:20.481Z</updated>
     

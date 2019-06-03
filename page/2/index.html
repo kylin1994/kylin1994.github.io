@@ -127,19 +127,39 @@
     <li class="selected">
       <a href="/">Overview</a></li>
     <li class="">
-      <a href="/archives">Posts <span class="counter">17</span></a>
+      <a href="/archives">Posts <span class="counter">18</span></a>
     </li>
     <li class="">
       <a href="/categories">Categories <span
-                class="counter">6</span></a></li>
+                class="counter">7</span></a></li>
     <li class="">
-      <a href="/tags">Tags <span class="counter">23</span></a></li>
+      <a href="/tags">Tags <span class="counter">26</span></a></li>
   </ul>
 </nav>
 
     <div class="body-secondary">
       <p class="right-title">Recent post</p>
       <ul class="recent-post clearfix">
+        
+        <li class="recent-post-item">
+          <div class="clearfix">
+            <h5 class="post-title text-ellipsis">
+              <i class="fa fa-bars"></i>
+              <a href="/2018/03/29/Docker学习笔记（4）-Docker数据卷/">Docker学习笔记（4）- Docker数据卷</a>
+            </h5>
+            <p class="post-description text-ellipsis desktop-only">
+                 Docker数据卷  生产环境中使用Docker的过程中，往往需要对数据进行持久化，或者需要在
+            </p>
+            <p class="post-info desktop-only">
+              <span>
+                
+                  <a class="category-link" href="/categories/docker/"><i class="fa fa-folder-open"></i> docker</a>
+                
+              </span>
+              <span><i class="fa fa-tag"></i> 2 </span>
+            </p>
+          </div>
+        </li>
         
         <li class="recent-post-item">
           <div class="clearfix">
@@ -242,26 +262,6 @@
           </div>
         </li>
         
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2018/03/14/二叉树-binary-tree/">二叉树(binary tree)</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-                 二叉树的定义   二叉树 是n(n&amp;gt;=0)个具有相同类型的元素的有限集合，当n=0时称为
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <a class="category-link" href="/categories/数据结构/"><i class="fa fa-folder-open"></i> 数据结构</a>
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 2 </span>
-            </p>
-          </div>
-        </li>
-        
       </ul>
       <div class="calendar-container" id="calendar">
   <div class="calendar">
@@ -349,7 +349,7 @@
 
 
 <script>
-  var posts = [{"date":"2018-08-02","title":"kubernetes pod 配置详解","url":"https://kylin1994.github.io/2018/08/02/kubernetes-pod-配置详解/"},{"date":"2018-08-07","title":"kubernetes Pod的扩容和伸缩","url":"https://kylin1994.github.io/2018/08/07/kubernetes-Pod的扩容和伸缩/"},{"date":"2018-08-13","title":"kubernetes service配置详解","url":"https://kylin1994.github.io/2018/08/13/kubernetes-service配置详解/"},{"date":"2018-08-16","title":"CentOS 7搭建kubernetes集群","url":"https://kylin1994.github.io/2018/08/16/CentOS-7搭建kubernetes集群/"},{"date":"2018-08-29","title":"使用JWT访问Kubernetes API-server REST API","url":"https://kylin1994.github.io/2018/08/29/使用JWT访问Kubernetes-API-server-REST-API/"},{"date":"2018-08-29","title":"翻译：Kubernetes: Lifecycle of a Pod","url":"https://kylin1994.github.io/2018/08/29/翻译：Kubernetes-Lifecycle-of-a-Pod/"},{"date":"2019-06-02","title":"serverless","url":"https://kylin1994.github.io/2019/06/02/Serverless架构/"}];
+  var posts = [{"date":"2018-08-02","title":"kubernetes pod 配置详解","url":"https://kylin1994.github.io/2018/08/02/kubernetes-pod-配置详解/"},{"date":"2018-08-07","title":"kubernetes Pod的扩容和伸缩","url":"https://kylin1994.github.io/2018/08/07/kubernetes-Pod的扩容和伸缩/"},{"date":"2018-08-13","title":"kubernetes service配置详解","url":"https://kylin1994.github.io/2018/08/13/kubernetes-service配置详解/"},{"date":"2018-08-16","title":"CentOS 7搭建kubernetes集群","url":"https://kylin1994.github.io/2018/08/16/CentOS-7搭建kubernetes集群/"},{"date":"2018-08-29","title":"使用JWT访问Kubernetes API-server REST API","url":"https://kylin1994.github.io/2018/08/29/使用JWT访问Kubernetes-API-server-REST-API/"},{"date":"2018-08-29","title":"翻译：Kubernetes: Lifecycle of a Pod","url":"https://kylin1994.github.io/2018/08/29/翻译：Kubernetes-Lifecycle-of-a-Pod/"},{"date":"2019-06-02","title":"serverless","url":"https://kylin1994.github.io/2019/06/02/Serverless架构/"},{"date":"2019-06-03","title":"DDD笔记1-语言的交流使用","url":"https://kylin1994.github.io/2019/06/03/DDD笔记1-语言的交流使用/"}];
   var today = moment().format('YYYY-MM-DD');
   var oneYearAgo = moment(today).subtract(1, 'years');
   posts = posts.filter(function(post) {

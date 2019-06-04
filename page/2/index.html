@@ -127,19 +127,39 @@
     <li class="selected">
       <a href="/">Overview</a></li>
     <li class="">
-      <a href="/archives">Posts <span class="counter">19</span></a>
+      <a href="/archives">Posts <span class="counter">20</span></a>
     </li>
     <li class="">
       <a href="/categories">Categories <span
                 class="counter">8</span></a></li>
     <li class="">
-      <a href="/tags">Tags <span class="counter">28</span></a></li>
+      <a href="/tags">Tags <span class="counter">29</span></a></li>
   </ul>
 </nav>
 
     <div class="body-secondary">
       <p class="right-title">Recent post</p>
       <ul class="recent-post clearfix">
+        
+        <li class="recent-post-item">
+          <div class="clearfix">
+            <h5 class="post-title text-ellipsis">
+              <i class="fa fa-bars"></i>
+              <a href="/2018/03/29/Docker学习笔记（6）-Dockerfile/">Docker学习笔记（6）- Dockerfile</a>
+            </h5>
+            <p class="post-description text-ellipsis desktop-only">
+                 使用Dockerfile创建镜像  Dockerfile是一个文本格式的配置文件，用户可以使用
+            </p>
+            <p class="post-info desktop-only">
+              <span>
+                
+                  <a class="category-link" href="/categories/docker/"><i class="fa fa-folder-open"></i> docker</a>
+                
+              </span>
+              <span><i class="fa fa-tag"></i> 2 </span>
+            </p>
+          </div>
+        </li>
         
         <li class="recent-post-item">
           <div class="clearfix">
@@ -242,26 +262,6 @@
           </div>
         </li>
         
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2018/03/16/聊聊JPA-Criteria查询中的坑/">聊聊JPA Criteria查询中的坑</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-                 聊聊JPA Criteria查询中的坑  JPA Criteria查询被称作动态安全类型查询，
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <a class="category-link" href="/categories/JPA/"><i class="fa fa-folder-open"></i> JPA</a>
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 3 </span>
-            </p>
-          </div>
-        </li>
-        
       </ul>
       <div class="calendar-container" id="calendar">
   <div class="calendar">
@@ -349,7 +349,7 @@
 
 
 <script>
-  var posts = [{"date":"2018-08-02","title":"kubernetes pod 配置详解","url":"https://kylin1994.github.io/2018/08/02/kubernetes-pod-配置详解/"},{"date":"2018-08-07","title":"kubernetes Pod的扩容和伸缩","url":"https://kylin1994.github.io/2018/08/07/kubernetes-Pod的扩容和伸缩/"},{"date":"2018-08-13","title":"kubernetes service配置详解","url":"https://kylin1994.github.io/2018/08/13/kubernetes-service配置详解/"},{"date":"2018-08-16","title":"CentOS 7搭建kubernetes集群","url":"https://kylin1994.github.io/2018/08/16/CentOS-7搭建kubernetes集群/"},{"date":"2018-08-29","title":"使用JWT访问Kubernetes API-server REST API","url":"https://kylin1994.github.io/2018/08/29/使用JWT访问Kubernetes-API-server-REST-API/"},{"date":"2018-08-29","title":"翻译：Kubernetes: Lifecycle of a Pod","url":"https://kylin1994.github.io/2018/08/29/翻译：Kubernetes-Lifecycle-of-a-Pod/"},{"date":"2019-04-19","title":"微服务架构测试策略","url":"https://kylin1994.github.io/2019/04/19/微服务架构测试策略/"},{"date":"2019-06-02","title":"serverless","url":"https://kylin1994.github.io/2019/06/02/Serverless架构/"},{"date":"2019-06-03","title":"DDD笔记1-语言的交流使用","url":"https://kylin1994.github.io/2019/06/03/DDD笔记1-语言的交流使用/"}];
+  var posts = [{"date":"2018-08-02","title":"kubernetes pod 配置详解","url":"https://kylin1994.github.io/2018/08/02/kubernetes-pod-配置详解/"},{"date":"2018-08-07","title":"kubernetes Pod的扩容和伸缩","url":"https://kylin1994.github.io/2018/08/07/kubernetes-Pod的扩容和伸缩/"},{"date":"2018-08-13","title":"kubernetes service配置详解","url":"https://kylin1994.github.io/2018/08/13/kubernetes-service配置详解/"},{"date":"2018-08-16","title":"CentOS 7搭建kubernetes集群","url":"https://kylin1994.github.io/2018/08/16/CentOS-7搭建kubernetes集群/"},{"date":"2018-08-29","title":"使用JWT访问Kubernetes API-server REST API","url":"https://kylin1994.github.io/2018/08/29/使用JWT访问Kubernetes-API-server-REST-API/"},{"date":"2018-08-29","title":"翻译：Kubernetes: Lifecycle of a Pod","url":"https://kylin1994.github.io/2018/08/29/翻译：Kubernetes-Lifecycle-of-a-Pod/"},{"date":"2019-04-19","title":"微服务架构测试策略","url":"https://kylin1994.github.io/2019/04/19/微服务架构测试策略/"},{"date":"2019-06-02","title":"serverless","url":"https://kylin1994.github.io/2019/06/02/Serverless架构/"},{"date":"2019-06-03","title":"DDD笔记1-语言的交流使用","url":"https://kylin1994.github.io/2019/06/03/DDD笔记1-语言的交流使用/"},{"date":"2019-06-04","title":"DDD笔记2-绑定模型和实现","url":"https://kylin1994.github.io/2019/06/04/DDD笔记2-绑定模型和实现/"}];
   var today = moment().format('YYYY-MM-DD');
   var oneYearAgo = moment(today).subtract(1, 'years');
   posts = posts.filter(function(post) {

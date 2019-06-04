@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    DDD笔记2-绑定模型和实现 | Kylin Xiang&#39;s Blog
+  </title>
+  <meta name="description" content="IT/Java/Microservice">
+  
+  <meta name="keywords" content="
+  DDD,Design,Modeling,domain
+  ">
+  
+  <meta name="author" content="Kylin Xiang">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="theme-color" content="#1e2327">
+  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
+
+  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://octodex.github.com/images/baracktocat.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 20 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 29 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 8 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">Kylin Xiang&#39;s Blog</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    Kylin Xiang
+
+    <span class="post-date float-right" title="{{moment(1559656840301).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1559656840301).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>DDD笔记2-绑定模型和实现</h1>
+    <blockquote>
+<p>本文整理自《领域驱动设计：软件核心复杂性应对之道》第三章</p>
+</blockquote>
+<p>问题：开发人员很难将分析人员分析出的错综复杂的关系转换成可存储、可检索的并且具有事务完整性的单元。</p>
+<p>领域驱动设计要求模型不仅能知道早期的分析工作，更应该成为设计的基础。这种设计方法对代码的编写有重要的暗示作用。</p>
+<p>领域驱动设计需要一种不同的建模方法。</p>
+<h1 id="模式：MODEL-DRIVEN-DESIGN"><a href="#模式：MODEL-DRIVEN-DESIGN" class="headerlink" title="模式：MODEL-DRIVEN DESIGN"></a>模式：MODEL-DRIVEN DESIGN</h1><p><strong>模型和程序设计应该保持紧密的联系。</strong></p>
+<p>分析模型：提倡设计方法和程序设计分离，因为在分析模型时，并没有考虑到程序设计的问题，因此分析模型很有可能无法满足程序设计的需求。</p>
+<p><strong>如果整个程序设计或者其核心部分没有与领域模型相对应，那么这个模型是没有价值的，软件的正确性也值得怀疑。同时，模型和设计功能之间太过复杂的对应关系也是难于理解，在实际项目中改变设计时也无法维护这种关系。分析和设计工作全无关联，导致这两个过程中所获得的知识无法彼此共享。</strong></p>
+<p>分析工作：要抓住领域内的基础概念，简洁地表达出来(可以参考”大声的”建模)。</p>
+<p>设计工作：需要制定一套可以由项目中使用的编程工具创建的组件，是项目可以在目标环境中高效运行，并且能正确解决应用程序遇到的问题。</p>
+<p><strong>Model-Driven Desgin（模型驱动设计）不再将分析模型和程序分离开，而是寻求一种满足这两方面需求的单一模型。</strong></p>
+<p><strong>绑定模型和程序设计</strong>是可行的：有很多方法可以对领域进行抽象，也有很多设计可以解决应用程序的问题。</p>
+<p>模型和设计的绑定需要的是<strong>在分析和程序设计阶段都能发挥良好作用的模型</strong>。</p>
+<p>建模和程序设计是一个统一的迭代开发的过程。</p>
+<p>将领域模型和程序设计紧密联系在一起绝对是必要的。</p>
+<p>因此：</p>
+<p><strong>软件系统的各个部分的设计应该忠实地反应领域模型，以便体现出这二者之间的明确对应的关系。我们应该反复检查并修改模型，在软件中更加自然地实现模型，即使想让它反应出更深层次的领域概念也应如此。我们需要的模型不但应该满足这两种需求，还应该能够支持健壮的UBIQUITOUS LANGUAGE。</strong></p>
+<p><strong>从模型中获取用于程序设计和基本任务分配的术语。程序代码就是模型的表达，修改代码可能就是改变模型。而模型的改变势必会影响到接下来相应的项目活动。</strong></p>
+<p><strong>完全依赖模型的实现通常需要支持建模范式的软件开工具和语言，比如OOP。</strong></p>
+<h1 id="建模范式和工具支持"><a href="#建模范式和工具支持" class="headerlink" title="建模范式和工具支持"></a>建模范式和工具支持</h1><p>为了使<strong>MODEL-DRIVEN DESIGN</strong>发挥作用，一定要在可控范围内严格保证模型与设计之间的一致性。要实现这种严格的一致性，必须要运用软件工具支持的建模范式，它可以直接模拟模型中的概念。</p>
+<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190604200453.png" alt=""></p>
+<p><strong>MODEL-DRIVEN DESIGN</strong>并不适用于面向过程的语言。</p>
+<p><strong>MODEL-DRIVEN DESIGN</strong>并适用于面向对象的语言，因为它基于建模范式，并且为模型构造提供了实现方式。</p>
+<p>在<strong>MODEL-DRIVEN DESIGN</strong>中，建模范式是一种逻辑，而模型则是一组逻辑规则以及这些规则所依据的事实。</p>
+<p>面向对象设计是目前大多数大型项目所使用的建模范式，也是DDD中使用的主要方法。</p>
+<p><strong>MODEL-DRIVEN DESIGN</strong>也为测试提供了方便。它的组件都具有定义完善的接口，可以进行单元测试。</p>
+<h1 id="揭示主旨：为什么模型对客户至关重要"><a href="#揭示主旨：为什么模型对客户至关重要" class="headerlink" title="揭示主旨：为什么模型对客户至关重要"></a>揭示主旨：为什么模型对客户至关重要</h1><p>大多数情况下，没有经过处理的领域模型肯定不便于用户使用。用户界面中出现与领域模型不同的”映像”将会使用户产生迷惑。</p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://kylin1994.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2019 Kylin Xiang</li>
+      <li><a href="https://kylin1994.github.io">Home</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

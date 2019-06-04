@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kylin1994.github.io/"/>
-  <updated>2019-06-03T13:35:43.139Z</updated>
+  <updated>2019-06-04T14:06:05.608Z</updated>
   <id>https://kylin1994.github.io/</id>
   
   <author>
@@ -17,20 +17,23 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>DDD笔记1-语言的交流使用</title>
-    <link href="https://kylin1994.github.io/2019/06/03/DDD%E7%AC%94%E8%AE%B01-%E8%AF%AD%E8%A8%80%E7%9A%84%E4%BA%A4%E6%B5%81%E4%BD%BF%E7%94%A8/"/>
-    <id>https://kylin1994.github.io/2019/06/03/DDD笔记1-语言的交流使用/</id>
-    <published>2019-06-03T01:16:12.956Z</published>
-    <updated>2019-06-03T13:35:43.139Z</updated>
+    <title>DDD笔记2-绑定模型和实现</title>
+    <link href="https://kylin1994.github.io/2019/06/04/DDD%E7%AC%94%E8%AE%B02-%E7%BB%91%E5%AE%9A%E6%A8%A1%E5%9E%8B%E5%92%8C%E5%AE%9E%E7%8E%B0/"/>
+    <id>https://kylin1994.github.io/2019/06/04/DDD笔记2-绑定模型和实现/</id>
+    <published>2019-06-04T14:00:40.301Z</published>
+    <updated>2019-06-04T14:06:05.608Z</updated>
     
-    <content type="html"><![CDATA[<p>[TOC]</p><h1 id="语言的交流使用"><a href="#语言的交流使用" class="headerlink" title="语言的交流使用"></a>语言的交流使用</h1><p><strong>领域模型是软件模型的公共语言的核心</strong>。模型是与项目有关的概念集合，它用<strong>术语</strong>和<strong>关系</strong>反映了领域的深层次含义。<strong>术语</strong>和<strong>关系</strong>提供了模型语言的语义，是一条至关重要的纽带，将<strong>模型与开发活动结合</strong>在一起，并使模型与代码紧密绑定。</p><p>建模需要充分的交流，基于模型提高文本文档的实用性，也提高了敏捷过程中反复强调的非正式和临时交谈的实用性。他提高了代码本身和代码测试的沟通能力。</p><h2 id="模式：通用语言（UBIQUIOUS-LANGUAGE）"><a href="#模式：通用语言（UBIQUIOUS-LANGUAGE）" class="headerlink" title="模式：通用语言（UBIQUIOUS LANGUAGE）"></a>模式：通用语言（UBIQUIOUS LANGUAGE）</h2><p>领域专家和开发人员需要高效地、准确地交流沟通才能使消化的知识变成相应的模型。但领域专家有自己的行话，开发人员用自己的语言从设计角度讨论领域，为了消除这种语言鸿沟，所以领域专家和开发人员需要一种公共语言。<strong>领域模型可以是这种公共语言的核心，同时将团队沟通和软件实现紧密联系到一起。这种公共语言就是整个团队中的UBIQUITOUS LANGUAGE（通用语言）。</strong></p><p><strong>原则</strong>：</p><ul><li>将模型作为语言的中心。确保团队在所有交流活动和代码中坚持使用这种语言。在画图、写东西、特别是讲话时也要使用这种语言。</li><li>通过尝试不同的表示方法（它们反应不同的模型）来消除难点。然后重构代码，并对类、方法和模块重命名，以便与新模型相一致。解决交谈中的术语混淆问题，就像我们队普通词汇形成一个公认的理解一样。</li><li>UBIQUITOUS LANGUAGE的更改就是对模型的更改。</li><li>领域专家应该避免使用拗口或无法表达领域理解的数据或结构，开发人员应该密切监视那些将会妨碍设计的有歧义和不一致的地方。</li></ul><h2 id="模式：”大声地”建模"><a href="#模式：”大声地”建模" class="headerlink" title="模式：”大声地”建模"></a>模式：”大声地”建模</h2><p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190603162751.png" alt=""></p><p>大声地建模强调使用单词和短语，以简单的形式来表述建模过程中的各种元素。</p><p>所以”大声地”建模可以看做是对UBIQUITOUS LANGUAGE模式的一种补充：</p><p>讨论系统时需要结合模型。使用模型的元素以及模型中各元素之间的交互来大声描述场景，并且按照模型允许的方式将各种概念结合到一起。找到更简单的表达方式来讲出你要将的话，然后将这些新的思想应用到图和代码中。</p><h2 id="一个团队，一种语言"><a href="#一个团队，一种语言" class="headerlink" title="一个团队，一种语言"></a>一个团队，一种语言</h2><p>用一个团队中，在语言上不应该有分歧。</p><p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190603165343.png" alt=""></p><p>有了UBIQUITOUS LANGUAGE之后，开发人员之间的对话、领域专家之间的讨论以及代码本身的表达都基于同一种语言，都来自于一个共享的领域模型。</p><h2 id="文档和图"><a href="#文档和图" class="headerlink" title="文档和图"></a>文档和图</h2><p>简洁的小图可以更有效的沟通和解释，而整个对象模型的综合性大图反而失去了沟通和解释的能力，因为会将读者淹没在大量的细节中。因此，我们应该使用只包含对象模型重要概念的简洁的图，这部分对理解设计非常重要。它们体现了设计的纲要。</p><p><strong>设计的重要细节应该在代码中体现出来。</strong></p><p><strong>模型不是图。</strong>图的目的是帮助表达和解释模型，代码可以表述设计细节。</p><h3 id="书面文档设计"><a href="#书面文档设计" class="headerlink" title="书面文档设计"></a>书面文档设计</h3><ul><li>文档必不可少</li><li>文档应作为代码和口头交流的补充</li><li><strong>文档不应在重复表示代码已经明确表达的内容</strong>。代码已经含有各个细节，它本身就是精确的程序行为说明。</li><li>文档应努力寻求生存之道并保持更新。</li><li><p>文档必须深入到各个项目活动中去。</p></li><li><p>根据UBIQUITOUS LANGUAGE及其演变来选择那些需要保持更新并与项目活动紧密交互的文档。</p></li></ul><h2 id="解释模型"><a href="#解释模型" class="headerlink" title="解释模型"></a>解释模型</h2><ul><li>解释模型可以包含提供上下文的那些领域方面，用户澄清范围上收到严格限制的技术模型。</li><li>解释模型提供了一定自由度，可以专门为某个特殊主题定制一些表达更强的风格。</li><li>解释模型还可以以一种不同的方式来呈现领域，各种不同角度的解释有助于人们更好的学习。</li><li>解释模型不必是对象模型，而且最好不是。</li></ul><p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190603213107.png" alt=""></p>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>本文整理自《领域驱动设计：软件核心复杂性应对之道》第三章</p></blockquote><p>问题：开发人员很难将分析人员分析出的错综复杂的关系转换成可存储、可检索的并且具有事务完整性的单元。</p><p>领域驱动设计要求模型不仅能知道早期的分析工作，更应该成为设计的基础。这种设计方法对代码的编写有重要的暗示作用。</p><p>领域驱动设计需要一种不同的建模方法。</p><h1 id="模式：MODEL-DRIVEN-DESIGN"><a href="#模式：MODEL-DRIVEN-DESIGN" class="headerlink" title="模式：MODEL-DRIVEN DESIGN"></a>模式：MODEL-DRIVEN DESIGN</h1><p><strong>模型和程序设计应该保持紧密的联系。</strong></p><p>分析模型：提倡设计方法和程序设计分离，因为在分析模型时，并没有考虑到程序设计的问题，因此分析模型很有可能无法满足程序设计的需求。</p><p><strong>如果整个程序设计或者其核心部分没有与领域模型相对应，那么这个模型是没有价值的，软件的正确性也值得怀疑。同时，模型和设计功能之间太过复杂的对应关系也是难于理解，在实际项目中改变设计时也无法维护这种关系。分析和设计工作全无关联，导致这两个过程中所获得的知识无法彼此共享。</strong></p><p>分析工作：要抓住领域内的基础概念，简洁地表达出来(可以参考”大声的”建模)。</p><p>设计工作：需要制定一套可以由项目中使用的编程工具创建的组件，是项目可以在目标环境中高效运行，并且能正确解决应用程序遇到的问题。</p><p><strong>Model-Driven Desgin（模型驱动设计）不再将分析模型和程序分离开，而是寻求一种满足这两方面需求的单一模型。</strong></p><p><strong>绑定模型和程序设计</strong>是可行的：有很多方法可以对领域进行抽象，也有很多设计可以解决应用程序的问题。</p><p>模型和设计的绑定需要的是<strong>在分析和程序设计阶段都能发挥良好作用的模型</strong>。</p><p>建模和程序设计是一个统一的迭代开发的过程。</p><p>将领域模型和程序设计紧密联系在一起绝对是必要的。</p><p>因此：</p><p><strong>软件系统的各个部分的设计应该忠实地反应领域模型，以便体现出这二者之间的明确对应的关系。我们应该反复检查并修改模型，在软件中更加自然地实现模型，即使想让它反应出更深层次的领域概念也应如此。我们需要的模型不但应该满足这两种需求，还应该能够支持健壮的UBIQUITOUS LANGUAGE。</strong></p><p><strong>从模型中获取用于程序设计和基本任务分配的术语。程序代码就是模型的表达，修改代码可能就是改变模型。而模型的改变势必会影响到接下来相应的项目活动。</strong></p><p><strong>完全依赖模型的实现通常需要支持建模范式的软件开工具和语言，比如OOP。</strong></p><h1 id="建模范式和工具支持"><a href="#建模范式和工具支持" class="headerlink" title="建模范式和工具支持"></a>建模范式和工具支持</h1><p>为了使<strong>MODEL-DRIVEN DESIGN</strong>发挥作用，一定要在可控范围内严格保证模型与设计之间的一致性。要实现这种严格的一致性，必须要运用软件工具支持的建模范式，它可以直接模拟模型中的概念。</p><p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190604200453.png" alt=""></p><p><strong>MODEL-DRIVEN DESIGN</strong>并不适用于面向过程的语言。</p><p><strong>MODEL-DRIVEN DESIGN</strong>并适用于面向对象的语言，因为它基于建模范式，并且为模型构造提供了实现方式。</p><p>在<strong>MODEL-DRIVEN DESIGN</strong>中，建模范式是一种逻辑，而模型则是一组逻辑规则以及这些规则所依据的事实。</p><p>面向对象设计是目前大多数大型项目所使用的建模范式，也是DDD中使用的主要方法。</p><p><strong>MODEL-DRIVEN DESIGN</strong>也为测试提供了方便。它的组件都具有定义完善的接口，可以进行单元测试。</p><h1 id="揭示主旨：为什么模型对客户至关重要"><a href="#揭示主旨：为什么模型对客户至关重要" class="headerlink" title="揭示主旨：为什么模型对客户至关重要"></a>揭示主旨：为什么模型对客户至关重要</h1><p>大多数情况下，没有经过处理的领域模型肯定不便于用户使用。用户界面中出现与领域模型不同的”映像”将会使用户产生迷惑。</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;语言的交流使用&quot;&gt;&lt;a href=&quot;#语言的交流使用&quot; class=&quot;headerlink&quot; title=&quot;语言的交流使用&quot;&gt;&lt;/a&gt;语言的交流使用&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;领域模型是软件模型的公共语言的核心&lt;/strong&gt;。模型
+        &lt;blockquote&gt;
+&lt;p&gt;本文整理自《领域驱动设计：软件核心复杂性应对之道》第三章&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;问题：开发人员很难将分析人员分析出的错综复杂的关系转换成可存储、可检索的并且具有事务完整性的单元。&lt;/p&gt;
+&lt;p&gt;领域驱动设计要求模型不仅能知道早期
       
     
     </summary>
@@ -43,6 +46,42 @@
       <category term="Design" scheme="https://kylin1994.github.io/tags/Design/"/>
     
       <category term="Modeling" scheme="https://kylin1994.github.io/tags/Modeling/"/>
+    
+      <category term="domain" scheme="https://kylin1994.github.io/tags/domain/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DDD笔记1-语言的交流使用</title>
+    <link href="https://kylin1994.github.io/2019/06/03/DDD%E7%AC%94%E8%AE%B01-%E8%AF%AD%E8%A8%80%E7%9A%84%E4%BA%A4%E6%B5%81%E4%BD%BF%E7%94%A8/"/>
+    <id>https://kylin1994.github.io/2019/06/03/DDD笔记1-语言的交流使用/</id>
+    <published>2019-06-03T01:16:12.956Z</published>
+    <updated>2019-06-04T14:06:49.847Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>本文整理自《领域驱动设计：软件核心复杂性应对之道》第二章</p></blockquote><p><strong>领域模型是软件模型的公共语言的核心</strong>。模型是与项目有关的概念集合，它用<strong>术语</strong>和<strong>关系</strong>反映了领域的深层次含义。<strong>术语</strong>和<strong>关系</strong>提供了模型语言的语义，是一条至关重要的纽带，将<strong>模型与开发活动结合</strong>在一起，并使模型与代码紧密绑定。</p><p>建模需要充分的交流，基于模型提高文本文档的实用性，也提高了敏捷过程中反复强调的非正式和临时交谈的实用性。他提高了代码本身和代码测试的沟通能力。</p><h2 id="模式：通用语言（UBIQUIOUS-LANGUAGE）"><a href="#模式：通用语言（UBIQUIOUS-LANGUAGE）" class="headerlink" title="模式：通用语言（UBIQUIOUS LANGUAGE）"></a>模式：通用语言（UBIQUIOUS LANGUAGE）</h2><p>领域专家和开发人员需要高效地、准确地交流沟通才能使消化的知识变成相应的模型。但领域专家有自己的行话，开发人员用自己的语言从设计角度讨论领域，为了消除这种语言鸿沟，所以领域专家和开发人员需要一种公共语言。<strong>领域模型可以是这种公共语言的核心，同时将团队沟通和软件实现紧密联系到一起。这种公共语言就是整个团队中的UBIQUITOUS LANGUAGE（通用语言）。</strong></p><p><strong>原则</strong>：</p><ul><li>将模型作为语言的中心。确保团队在所有交流活动和代码中坚持使用这种语言。在画图、写东西、特别是讲话时也要使用这种语言。</li><li>通过尝试不同的表示方法（它们反应不同的模型）来消除难点。然后重构代码，并对类、方法和模块重命名，以便与新模型相一致。解决交谈中的术语混淆问题，就像我们队普通词汇形成一个公认的理解一样。</li><li>UBIQUITOUS LANGUAGE的更改就是对模型的更改。</li><li>领域专家应该避免使用拗口或无法表达领域理解的数据或结构，开发人员应该密切监视那些将会妨碍设计的有歧义和不一致的地方。</li></ul><h2 id="模式：”大声地”建模"><a href="#模式：”大声地”建模" class="headerlink" title="模式：”大声地”建模"></a>模式：”大声地”建模</h2><p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190603162751.png" alt=""></p><p>大声地建模强调使用单词和短语，以简单的形式来表述建模过程中的各种元素。</p><p>所以”大声地”建模可以看做是对UBIQUITOUS LANGUAGE模式的一种补充：</p><p>讨论系统时需要结合模型。使用模型的元素以及模型中各元素之间的交互来大声描述场景，并且按照模型允许的方式将各种概念结合到一起。找到更简单的表达方式来讲出你要将的话，然后将这些新的思想应用到图和代码中。</p><h2 id="一个团队，一种语言"><a href="#一个团队，一种语言" class="headerlink" title="一个团队，一种语言"></a>一个团队，一种语言</h2><p>用一个团队中，在语言上不应该有分歧。</p><p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190603165343.png" alt=""></p><p>有了UBIQUITOUS LANGUAGE之后，开发人员之间的对话、领域专家之间的讨论以及代码本身的表达都基于同一种语言，都来自于一个共享的领域模型。</p><h2 id="文档和图"><a href="#文档和图" class="headerlink" title="文档和图"></a>文档和图</h2><p>简洁的小图可以更有效的沟通和解释，而整个对象模型的综合性大图反而失去了沟通和解释的能力，因为会将读者淹没在大量的细节中。因此，我们应该使用只包含对象模型重要概念的简洁的图，这部分对理解设计非常重要。它们体现了设计的纲要。</p><p><strong>设计的重要细节应该在代码中体现出来。</strong></p><p><strong>模型不是图。</strong>图的目的是帮助表达和解释模型，代码可以表述设计细节。</p><h3 id="书面文档设计"><a href="#书面文档设计" class="headerlink" title="书面文档设计"></a>书面文档设计</h3><ul><li>文档必不可少</li><li>文档应作为代码和口头交流的补充</li><li><strong>文档不应在重复表示代码已经明确表达的内容</strong>。代码已经含有各个细节，它本身就是精确的程序行为说明。</li><li>文档应努力寻求生存之道并保持更新。</li><li><p>文档必须深入到各个项目活动中去。</p></li><li><p>根据UBIQUITOUS LANGUAGE及其演变来选择那些需要保持更新并与项目活动紧密交互的文档。</p></li></ul><h2 id="解释模型"><a href="#解释模型" class="headerlink" title="解释模型"></a>解释模型</h2><ul><li>解释模型可以包含提供上下文的那些领域方面，用户澄清范围上收到严格限制的技术模型。</li><li>解释模型提供了一定自由度，可以专门为某个特殊主题定制一些表达更强的风格。</li><li>解释模型还可以以一种不同的方式来呈现领域，各种不同角度的解释有助于人们更好的学习。</li><li>解释模型不必是对象模型，而且最好不是。</li></ul><p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190603213107.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;本文整理自《领域驱动设计：软件核心复杂性应对之道》第二章&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;领域模型是软件模型的公共语言的核心&lt;/strong&gt;。模型是与项目有关的概念集合，它用&lt;strong&gt;术语&lt;/strong&gt;和&lt;st
+      
+    
+    </summary>
+    
+      <category term="DDD" scheme="https://kylin1994.github.io/categories/DDD/"/>
+    
+    
+      <category term="DDD" scheme="https://kylin1994.github.io/tags/DDD/"/>
+    
+      <category term="Design" scheme="https://kylin1994.github.io/tags/Design/"/>
+    
+      <category term="Modeling" scheme="https://kylin1994.github.io/tags/Modeling/"/>
+    
+      <category term="domain" scheme="https://kylin1994.github.io/tags/domain/"/>
     
   </entry>
   

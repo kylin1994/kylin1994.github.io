@@ -138,7 +138,12 @@
 
   <article class="post-content">
     <h1>翻译：Kubernetes: Lifecycle of a Pod</h1>
-    <h1 id="翻译：-Kubernetes-Lifecycle-of-a-Pod"><a href="#翻译：-Kubernetes-Lifecycle-of-a-Pod" class="headerlink" title="翻译： Kubernetes: Lifecycle of a Pod"></a>翻译： Kubernetes: Lifecycle of a Pod</h1><p>查看Kubernetes pod的生命周期可以帮助了解可以在流行的容器软件中调度的最小工作单元发生了什么。</p>
+    <h1 id="Kubernetes-Lifecycle-of-a-Pod"><a href="#Kubernetes-Lifecycle-of-a-Pod" class="headerlink" title="Kubernetes: Lifecycle of a Pod"></a>Kubernetes: Lifecycle of a Pod</h1><blockquote>
+<p>本文翻译自：Kubernetes: Lifecycle of a Pod</p>
+<p>原文出处：<a href="https://dzone.com/articles/kubernetes-lifecycle-of-a-pod" target="_blank" rel="noopener">https://dzone.com/articles/kubernetes-lifecycle-of-a-pod</a></p>
+<p>参考：<a href="https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details" target="_blank" rel="noopener">https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details</a></p>
+</blockquote>
+<p>查看Kubernetes pod的生命周期可以帮助了解可以在流行的容器软件中调度的最小工作单元发生了什么。</p>
 <p>在Kubernetes中，Pod是能被调度的最小工作单元。一个Pod封装了一个应用的容器，存贮资源，唯一的网络IP和管理容器运行的其他选项。理想情况下，Pod并不会被集群直接部署，而是用更高层次的抽象层。应用通常通过更高层的资源对象部署，比如：Deployments, Replication Sets, Daemon Sets, Stateful Sets或者Jobs。和Pod进行交互主要用来解决问题，因此深入Pod是很重要的。</p>
 <h2 id="Pod的状态"><a href="#Pod的状态" class="headerlink" title="Pod的状态"></a>Pod的状态</h2><p>整个Pod的声明周期中，可以达到以下状态：</p>
 <p>Pending：Pod被Kubernetes系统接收（accepted），但是没有其容器还没有被完全创建。</p>
@@ -209,8 +214,6 @@
 </ol>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章的想法来自Kubernetes创始人Joe Beda的精彩文章，他解释了Kubernetes架构的主要组成部分和watch概念，这对于理解APIServer如何工作和etcd功能以及Pod的诞生至关重要。</p>
 <p>我们可以看到有多种方式来控制在POD的生命周期内发生的事件。初始容器可以帮助移除与容器引导相关的许多复杂性，从而帮助保持主容器内的逻辑简单。类似地，启动preStart lifecycle hook可以帮助运行容器启动后需要运行的任何代码（例如向监视系统或服务网格注册）。liveness probe和readness probe有助于在开始危害任何客户之前移除坏的Pod。优雅的shutdown可以作为一个pre-stop lifecycle hook运行，允许更优雅的退出。了解上述控制机制有助于更好地设计Pod和支持使用案例。</p>
-<p>原文出处：<a href="https://dzone.com/articles/kubernetes-lifecycle-of-a-pod" target="_blank" rel="noopener">https://dzone.com/articles/kubernetes-lifecycle-of-a-pod</a></p>
-<p>参考：<a href="https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details" target="_blank" rel="noopener">https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details</a></p>
 
   </article>
 </div>

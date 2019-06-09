@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kylin1994.github.io/"/>
-  <updated>2019-06-05T05:52:57.532Z</updated>
+  <updated>2019-06-09T14:04:44.901Z</updated>
   <id>https://kylin1994.github.io/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DDD笔记3-分离领域</title>
+    <link href="https://kylin1994.github.io/2019/06/05/DDD%E7%AC%94%E8%AE%B03-%E5%88%86%E7%A6%BB%E9%A2%86%E5%9F%9F/"/>
+    <id>https://kylin1994.github.io/2019/06/05/DDD笔记3-分离领域/</id>
+    <published>2019-06-05T05:51:54.517Z</published>
+    <updated>2019-06-09T14:04:44.901Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="DDD笔记3-分离领域"><a href="#DDD笔记3-分离领域" class="headerlink" title="DDD笔记3-分离领域"></a>DDD笔记3-分离领域</h1><blockquote><p>本文整理自《领域驱动设计：软件核心复杂性应对之道》第三章 </p></blockquote><p>下图为一章导航图，用来描述模式以及模式之间的关系。这些模式将会在后文以及DDD系列笔记中出现。</p><p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605100024.png" height="300"></p><h2 id="模式：LAYERED-ARCHITECTURE"><a href="#模式：LAYERED-ARCHITECTURE" class="headerlink" title="模式：LAYERED ARCHITECTURE"></a>模式：LAYERED ARCHITECTURE</h2><p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605104000.png" height="250"></p><p>跟具软件行业的经验和惯例，普遍采用LAYERD ARCHITECTURE。大多数成功的架构使用的分层架构都包含一下四个概念层：</p><p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605104648.png" alt=""></p><p>将领域层分离出来才是实现<strong>MODEL-DRIVEN DESIGN</strong>的关键。</p><p>因此：</p><p><strong>给复杂的应用程序划分层次。在每一层内分别进行设计，使其具有内聚性并且只依赖于它的下层。采用标准的架构模式，只与上层进行松散连接。将所有与领域模型相关的代码放在一个层中，并把它与用户界面层、应用层以及基础设施层的代码分开。领域对象应该将重点放在如何表达模型上，而不需考虑自己的显示和存储问题，也无需搭理应用任务等内容。这使得模型的含义足够丰富，结构足够清晰，可以捕捉到基本的业务知识，并有效地使用这些知识。</strong></p><p><strong>负责处理基本业务规则的是领域层，而不是应用层</strong></p><p>下面看一个银行转账的例子，a123转账给a234：</p><p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605142834.png" alt=""></p><h3 id="将各层连接起来"><a href="#将各层连接起来" class="headerlink" title="将各层连接起来"></a>将各层连接起来</h3><p>各层之间是松散连接的，层与层的之间的关系是单向的。上层可以直接使用或操作下层元素。下层元素和下层元素通信(不只是简单的查询返回)，可以使用<strong>回调</strong>或者<strong>OBSERVER模式</strong>。</p><p>用户界面层、应用层和领域层的连接方式：<strong>MODEL-VIEW-CONTROLLE</strong>以及其变体。</p><p>通常基础设施层不会发起领域层中的操作，它处于领域层”之下”，不包含其所服务的领域中的知识。基础设计层通常以SERVICE的形式提供各种技术能力，比如emai发送服务等。应用层和领域层可以通过公开接口访问这些SERVICE。</p><h3 id="架构框架"><a href="#架构框架" class="headerlink" title="架构框架"></a>架构框架</h3><p>好的架构框架技能解决复杂的的技术问题，也能让开发人员集中精力去表达模型，而不去考虑其他问题。项目团队在使用框架时，要明确其使用目的：建立一种可以表达领域模型的实现并且用它来解决重要问题。</p><h2 id="模型属于领域层"><a href="#模型属于领域层" class="headerlink" title="模型属于领域层"></a>模型属于领域层</h2><p>大部分软件都采用了<strong>LAYERED ARCHITECTURE</strong>，只是采用的分层方案存在不同而已。许多类型的开发工作都能从分层中获益，领域驱动设计只需要一个特定的层即可。</p><p>领域模型是一些列概念的集合。”领域层”则是领域模型以及所有与其直接相关的设计元素的表现，他由业务逻辑的设计和实现组成。在<strong>MODEL-DRIVEN DESIGN</strong>，领域层的软件构造放映了模型概念。</p><p>如果领域逻辑与程序中的其他关注点混在一起，就不能实现这种一致性。<strong>将领域实现独立出来是领域驱动设计的前提。</strong></p><h3 id="反模式：THE-SMART-UI"><a href="#反模式：THE-SMART-UI" class="headerlink" title="反模式：THE SMART UI"></a>反模式：THE SMART UI</h3><p>很多软件都采用了一种不那么复杂的是设计方法，作者称其为<strong>SMART UI（智能用户界面）</strong>。但是<strong>SMART UI与领域驱动设计迥然不同却互不兼容</strong>。所以这里称其为反模式，主要用来和领域驱动设计作对比。</p><p>MODEL-DRIVEN DESIGN并不适合小项目，因为学习过程十分艰难，周期很长，技术复杂。没有充裕的时间和专家的帮助，团队成员很难掌握这一项技术。</p><p>使用领域驱动设计，必然就选择了UI和领域的分离，应用程序和领域的分离。</p><p><strong><em>如果一个架构能把那些与领域相关的代码隔离出来，得到一个内聚的领域设计，同时又使领域与系统设计其他部分保持松散连接，那么这种架构也许可以支持领域驱动设计。</em></strong></p><h3 id="其他分离方式"><a href="#其他分离方式" class="headerlink" title="其他分离方式"></a>其他分离方式</h3><p><strong>BOUNDED CONTEXT</strong>和<strong>ANTICORRUPTION LAYER</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;DDD笔记3-分离领域&quot;&gt;&lt;a href=&quot;#DDD笔记3-分离领域&quot; class=&quot;headerlink&quot; title=&quot;DDD笔记3-分离领域&quot;&gt;&lt;/a&gt;DDD笔记3-分离领域&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;本文整理自《领域驱动设计：软件核心复杂性应
+      
+    
+    </summary>
+    
+      <category term="DDD" scheme="https://kylin1994.github.io/categories/DDD/"/>
+    
+    
+      <category term="DDD" scheme="https://kylin1994.github.io/tags/DDD/"/>
+    
+      <category term="Design" scheme="https://kylin1994.github.io/tags/Design/"/>
+    
+      <category term="Modeling" scheme="https://kylin1994.github.io/tags/Modeling/"/>
+    
+      <category term="domain" scheme="https://kylin1994.github.io/tags/domain/"/>
+    
+  </entry>
   
   <entry>
     <title>DDD笔记2-绑定模型和实现</title>
@@ -553,33 +585,6 @@
       <category term="二叉树" scheme="https://kylin1994.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     
       <category term="数据结构" scheme="https://kylin1994.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Docker搭建Redis主从复制、哨兵机制</title>
-    <link href="https://kylin1994.github.io/2018/03/14/%E4%BD%BF%E7%94%A8Docker%E6%90%AD%E5%BB%BARedis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E3%80%81%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6/"/>
-    <id>https://kylin1994.github.io/2018/03/14/使用Docker搭建Redis主从复制、哨兵机制/</id>
-    <published>2018-03-14T05:37:47.000Z</published>
-    <updated>2019-06-02T00:03:20.481Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="拓扑结构"><a href="#拓扑结构" class="headerlink" title="拓扑结构"></a>拓扑结构</h1><p>本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。<br><img src="http://upload-images.jianshu.io/upload_images/6287954-78c11a101a34e462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="redis拓扑结构"><br>拓扑信息：</p><table><thead><tr><th style="text-align:center">角色</th><th style="text-align:center">ip</th><th style="text-align:center">port</th></tr></thead><tbody><tr><td style="text-align:center">redis-master</td><td style="text-align:center">redis-master或者master或者master-sentinel或者master-sentinel2或者master-sentinel3或自动分配的ip</td><td style="text-align:center">6379</td></tr><tr><td style="text-align:center">redis-slave1</td><td style="text-align:center">容器启动时自动分配的ip</td><td style="text-align:center">6380</td></tr><tr><td style="text-align:center">redis-slave2</td><td style="text-align:center">容器启动时自动分配的ip</td><td style="text-align:center">6381</td></tr><tr><td style="text-align:center">redis-master-sentinel</td><td style="text-align:center">容器启动时自动分配的ip</td><td style="text-align:center">26379</td></tr><tr><td style="text-align:center">redis-master-sentinel2</td><td style="text-align:center">容器启动时自动分配的ip</td><td style="text-align:center">26380</td></tr><tr><td style="text-align:center">redis-master-sentinel3</td><td style="text-align:center">容器启动时自动分配的ip</td><td style="text-align:center">26381</td></tr></tbody></table><p>注：master或者master-sentinel或者master-sentinel2或者master-sentinel3都是主节点容器的别名。与之相关联的容器可以通过别称来代替ip访问容器。</p><h1 id="搭建主从复制结构"><a href="#搭建主从复制结构" class="headerlink" title="搭建主从复制结构"></a>搭建主从复制结构</h1><h2 id="master节点配置"><a href="#master节点配置" class="headerlink" title="master节点配置"></a>master节点配置</h2><h3 id="master节点配置文件"><a href="#master节点配置文件" class="headerlink" title="master节点配置文件"></a>master节点配置文件</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-43a97ebc46f85167.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="master节点配置文件"></p><h3 id="master节点配置文件详解"><a href="#master节点配置文件详解" class="headerlink" title="master节点配置文件详解"></a>master节点配置文件详解</h3><ul><li><code>port</code>：端口号</li><li><code>daemonize</code>：redis采用的是单进程多线程的模式。当redis.conf中选项daemonize设置成yes时，代表开启守护进程模式。在该模式下，redis会在后台运行，并将进程pid号写入至redis.conf选项pidfile设置的文件中，此时redis将一直运行，除非手动kill该进程。</li><li><code>logfile</code>：日志文件的名字，在工作目录下自动创建，会记录redis的运行日志。</li><li><code>dbfilename</code>：dump文件的名字，在工作目录下自动创建。</li><li><code>dir</code>：工作目录的路径。</li></ul><p>其他配置请参考redis中文官网：<a href="http://www.redis.cn" target="_blank" rel="noopener">www.redis.cn</a></p><h3 id="在docker中运行redis-master节点服务"><a href="#在docker中运行redis-master节点服务" class="headerlink" title="在docker中运行redis master节点服务"></a>在docker中运行redis master节点服务</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-eeaded7d794d34f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="master节点docker命令"><br>命令说明：</p><ul><li><code>--name</code>: 命名容器为<code>redis-master</code>，一定不要忽略容器命名，为后面<code>--link</code>命令命名更容易记住名字。</li><li><code>-v</code>:将本地的配置文件<code>~/redis/redis-6379.conf</code>挂载到容器中的<code>/redis/redis-6379.conf</code></li></ul><p>容器启动后，进入容器挂载的目录，执行<code>redis-server redis-6379.conf</code>命令，使用<code>redis-6379.conf</code>配置启动redis服务。具体操作如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/6287954-f743e5d1eb791441.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="启动master节点"><br>执行上述命令之后，如果没有消息，那么就是最好的消息，说明redis-server已经成功启动了。可以通过<code>redis-6379.conf</code>中配置的日志文件来查看启动情况。具体操作如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/6287954-dfca1fe657e1a3dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看日志文件"><br>日志说明：</p><ul><li>第一行：redis正在启动</li><li>第二行：redis版本信息，64位，进程号等</li><li>第三行：加载配置</li><li>第四行：redis的运行模式为standalone，端口为6379</li><li>第五行：警告，这句话的翻译大概就是：对一个高负载的环境来说tcp设置128这个值，太小了。具体解决方案参考：<a href="https://www.cnblogs.com/faunjoe88/p/7158484.html" target="_blank" rel="noopener">https://www.cnblogs.com/faunjoe88/p/7158484.html</a></li><li>第六行：说明redis server已经成功初始化</li><li>第七行： 警告，THP的系统配置问题，具体参考：<a href="https://jingyan.baidu.com/article/da1091fb196ea7027849d6b0.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/da1091fb196ea7027849d6b0.html</a><br>上述警告对于demo来说可以忽略，但是对于生产环境，需要重新对系统进行相关配置之后，再重新启动容器。</li></ul><p>至此，master节点已经成功启动了。</p><h2 id="slave节点配置"><a href="#slave节点配置" class="headerlink" title="slave节点配置"></a>slave节点配置</h2><h3 id="slave节点配置文件"><a href="#slave节点配置文件" class="headerlink" title="slave节点配置文件"></a>slave节点配置文件</h3><p>两个slave节点的配置一模一样，除了端口号之外。slave1的端口为6380，slave2的端口号为6381。<br><img src="http://upload-images.jianshu.io/upload_images/6287954-4f18124158729a3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="slave1节点的配置文件"></p><h3 id="slave节点配置文件详解"><a href="#slave节点配置文件详解" class="headerlink" title="slave节点配置文件详解"></a>slave节点配置文件详解</h3><ul><li>前5项配置和master节点类似，请参考master节点配置说明。</li><li><p>这里重点说一下 <code>slaveof</code>命令，此命令用来给当前redis server节点指定一个master节点，自身作为master节点的slave节点。<code>slaveof</code>命令的格式为<code>slaveof &lt;ip&gt; &lt;port&gt;</code>，很明显，当前节点通过ip和port来定位将哪一个节点作为master节点，但是对于配置<code>slaveof redis-master 6379</code>来说，<code>redis-master</code>参数并不是一个ip。这里是因为在docker环境下，容器启动是ip是不定的，所以容器的通信可以通过<code>--link</code>选项来实现，而这里的<code>redis-master</code>就是master节点容器的名字，用容器名可以代替ip。具体参看下文。</p><h3 id="在docker中运行redis-slave节点服务"><a href="#在docker中运行redis-slave节点服务" class="headerlink" title="在docker中运行redis slave节点服务"></a>在docker中运行redis slave节点服务</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-b3373fdc1a52e797.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="启动slave节点容器"><br>命令说明：</p></li><li><p><code>--name</code>: 容器名为<code>redis-slave1</code></p></li><li><code>-v</code>: 将本地<code>~/redis/redis-6380.conf</code>挂载到容器目录<code>/redis/redis-6380.conf</code></li><li><code>--link</code>: 建立与master节点之间的容器间的通信，<code>redis-master</code>为master节点的容器名，<code>master</code>为<code>redis-master</code>的别名。因此，slave的配置文件redis-6380.conf中最后一项配置也可以配置为<code>slaveof master 6379</code>。</li></ul><p>容器启动后使用<code>redis-server redis-6380.conf</code>命令启动redis server服务。如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/6287954-c1d5f49157d9bbaa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="启动redis server服务"><br><code>redis-server redis-6380.conf</code>命令执行后，如果没有任何消息，那么就是最好的消息，说明redis server已经成功启动。<br>下面可以通过查看日志文件来查看启动情况。如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/6287954-558fe52b3b7cd534.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看17slave2的日志"><br>日志分析：</p><ul><li>从第二行可以看出redis-server已经启动成功了。</li><li>Connecting to MASTER redis-master:6379说明已经连接到master节点，并且开始了数据的同步，从master节点复制到slave节点。</li><li>从最后6行可以看出，因为是新增的slave结点，所以master到slave的复制时全量复制（倒数第五行），部分复制不可用（倒数第六行）。复制一共经历了四个步骤（最后四行）：1. 从master接收数据 2.清理掉旧的数据 3.在内存中接在db 4.复制成功。</li></ul><h2 id="配置redis哨兵"><a href="#配置redis哨兵" class="headerlink" title="配置redis哨兵"></a>配置redis哨兵</h2><h3 id="redis哨兵配置文件"><a href="#redis哨兵配置文件" class="headerlink" title="redis哨兵配置文件"></a>redis哨兵配置文件</h3><p><img src="http://upload-images.jianshu.io/upload_images/6287954-dd34222eacccaa0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="redis-sentinel1配置文件"><br>配置说明：</p><ul><li><code>port daemonize logfile dir</code>配置和普通redis server节点相同。</li><li><p><code>sentinel monitor</code>：该命令的格式为<code>sentinel monitor &lt;master&gt; &lt;ip&gt; &lt;port&gt; &lt;quorum&gt;</code>。<br><code>&lt;master&gt;</code>：参数为哨兵监控的master节点的别名<br><code>&lt;ip&gt;</code>：参数为监控的master节点的ip（在docker中，容器间用<code>--link</code>命令通信，所以可以替换为目标容器的名字或别名）<br><code>&lt;port&gt;</code>：为监控的master结点的端口<br><code>&lt;quorum&gt;</code>：代表要判定master节点最终不可达所需要的票数。用于故障发现和判定。例如如果将quorum配置为2，代表至少要两个哨兵节点认为master节点不可达，那么这个不可达的判定才是客观的，对于<quorum>值设置的越小，那么达到下线的条件就越宽松，反之越严格。一般建议将其设置为哨兵节点的数量加1。</quorum></p></li><li><p><code>sentinel down-after-milliseconds</code>命令格式为<code>sentinel down-after-milliseconds &lt;master-name&gt; &lt;times&gt;</code><br><code>&lt;master&gt;</code>：参数为主节点的名称，这里为上面设置的mymaster<br><code>&lt;times&gt;</code>：sentinel节点定期会想master节点发送ping命令，如果超过times毫秒没有收到回复，则判定该节点不可达。down-after-milliseconds虽然以<master-name>为参数，但实际上对哨兵节点、主节点、从节点的判定同时有效，可以通过主节点来获取从节点和哨兵节点的信息。</master-name></p></li><li><p><code>sentinel parallel-syncs</code>格式为<code>sentinel parallel-syncs &lt;master-name&gt; &lt;nums&gt;</code><br>当哨兵节点集合对主节点的故障判定达到一致时，哨兵领导节点会做故障转移操作，选出新的主节点，原来的从节点会向新的主节点发起复制操作，parallel-syncs参数就是限制从节点向新的主节点发起复制的个数。若发起复制的从节点过多，那么可能会造成主节点阻塞。若发起复制的从节点过少，可能会造成数据在复制期间不一致的情况。<br><img src="http://upload-images.jianshu.io/upload_images/6287954-aa3af6a2a1805417.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="sentinel parallel-syncs示意图"></p></li><li><p><code>sentinel failover-timeout</code> 格式为<code>sentinel failover-timeout &lt;master-name&gt; &lt;times&gt;</code><br>表示故障转移的超时时间。<br>其他配置请参加redis中文官网：<a href="http://www.redis.cn" target="_blank" rel="noopener">www.redis.cn</a></p></li></ul><h3 id="在docker容器中启动redis哨兵服务"><a href="#在docker容器中启动redis哨兵服务" class="headerlink" title="在docker容器中启动redis哨兵服务"></a>在docker容器中启动redis哨兵服务</h3><p>使用下图命令在容器中启动redis哨兵服务。<br><img src="http://upload-images.jianshu.io/upload_images/6287954-37398a32eecf09e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docker启动redis哨兵命令"><br>其他两个哨兵服务只需要修改：<br><code>--name</code>参数（比如 <code>redis-master-sentinel2</code>)<br><code>-v</code>挂载相应的配置文件(比如<code>~/redis/redis-26380.conf:/redis/redis-62380.conf</code>)，–link参数给主节点去不同的别名(比如<code>redis-master:master-sentinel2</code>)。<br>在容器中启动redis-sentinel服务：<br><img src="http://upload-images.jianshu.io/upload_images/6287954-599cd762c04dbd30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在容器中启动redis-sentinel服务"><br>运行上述命令后没有消息，就是最好的消息。<br>下面可以查看工作目录下的日志文件来查看启动情况。如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/6287954-7965effb0c7662f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看哨兵节点的日志"><br>日志说明：</p><ul><li>从第四行可以看出，节点启动成功，以sentinel模式运行，端口为26379。</li><li>倒数第二行为sentinel的id信息</li><li>最后一行说明新加了一个哨兵节点监控到master节点，名字为mymaster，ip为172.17.0.2，quorum为2。</li></ul><p>至此，redis-sentinel节点配置完毕，其余两个sentinel节点请读者根据上面配置自行配置完成（很容易）。</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文从配置角度描述了怎么使用Docker搭建redis主从复制，并且添加了哨兵机制，但是并没有对redis进行详细剖析，这里强烈建议读者阅读相关书籍或是到redis官网了解redis运行机制。<br>若有问题，欢迎在评论区留言。<br>本文会定期更新，以便使用跟新版本的redis和docker。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;拓扑结构&quot;&gt;&lt;a href=&quot;#拓扑结构&quot; class=&quot;headerlink&quot; title=&quot;拓扑结构&quot;&gt;&lt;/a&gt;拓扑结构&lt;/h1&gt;&lt;p&gt;本文搭建如下图所示的redis拓扑结构，拓扑中共有3个哨兵，1和mater结点和2个slave结点。&lt;br&gt;&lt;img src
-      
-    
-    </summary>
-    
-      <category term="Redis" scheme="https://kylin1994.github.io/categories/Redis/"/>
-    
-    
-      <category term="Docker" scheme="https://kylin1994.github.io/tags/Docker/"/>
-    
-      <category term="Redis" scheme="https://kylin1994.github.io/tags/Redis/"/>
     
   </entry>
   

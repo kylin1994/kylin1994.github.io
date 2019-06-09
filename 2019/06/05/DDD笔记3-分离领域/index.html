@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="docker,容器," />
+  <meta name="keywords" content="DDD,Design,Modeling,domain," />
 
 
 
@@ -82,31 +82,23 @@
 
 
 
-<meta name="description" content="端口映射与容器互联除了通过网络访问外，Docker还提供了两个很方便的功能来满足服务访问的基本需求：一个是允许映射容器内应用的服务端口到本地宿主主机；另一个是互联机制实现多个容器间通过容器名来快速访问。 端口映射实现访问容器从外部访问容器应用在启动容器的时候，如果不指定对应的参数，在容器外部是无法通过网络来访问容器内的网络和服务的。 当容器中运行一些网络应用，要让外部访问这些应用时，可以通过-P或">
-<meta name="keywords" content="docker,容器">
+<meta name="description" content="DDD笔记3-分离领域 本文整理自《领域驱动设计：软件核心复杂性应对之道》第三章   下图为一章导航图，用来描述模式以及模式之间的关系。这些模式将会在后文以及DDD系列笔记中出现。  模式：LAYERED ARCHITECTURE 跟具软件行业的经验和惯例，普遍采用LAYERD ARCHITECTURE。大多数成功的架构使用的分层架构都包含一下四个概念层：  将领域层分离出来才是实现MODEL-D">
+<meta name="keywords" content="DDD,Design,Modeling,domain">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker学习笔记（5）- 端口映射与容器互联">
-<meta property="og:url" content="https://kylin1994.github.io/2018/03/29/Docker学习笔记（5）-端口映射与容器互联/index.html">
+<meta property="og:title" content="DDD笔记3-分离领域">
+<meta property="og:url" content="https://kylin1994.github.io/2019/06/05/DDD笔记3-分离领域/index.html">
 <meta property="og:site_name" content="Kylin Xiang&#39;s Blog">
-<meta property="og:description" content="端口映射与容器互联除了通过网络访问外，Docker还提供了两个很方便的功能来满足服务访问的基本需求：一个是允许映射容器内应用的服务端口到本地宿主主机；另一个是互联机制实现多个容器间通过容器名来快速访问。 端口映射实现访问容器从外部访问容器应用在启动容器的时候，如果不指定对应的参数，在容器外部是无法通过网络来访问容器内的网络和服务的。 当容器中运行一些网络应用，要让外部访问这些应用时，可以通过-P或">
+<meta property="og:description" content="DDD笔记3-分离领域 本文整理自《领域驱动设计：软件核心复杂性应对之道》第三章   下图为一章导航图，用来描述模式以及模式之间的关系。这些模式将会在后文以及DDD系列笔记中出现。  模式：LAYERED ARCHITECTURE 跟具软件行业的经验和惯例，普遍采用LAYERD ARCHITECTURE。大多数成功的架构使用的分层架构都包含一下四个概念层：  将领域层分离出来才是实现MODEL-D">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1347">
-<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1356">
-<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1352">
-<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1388">
-<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1390">
-<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1398">
-<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1400">
-<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1404">
-<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1411">
-<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1419">
-<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1427">
-<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1434">
-<meta property="og:updated_time" content="2019-06-02T00:03:00.616Z">
+<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605100024.png">
+<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605104000.png">
+<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605104648.png">
+<meta property="og:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605142834.png">
+<meta property="og:updated_time" content="2019-06-09T14:04:44.901Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker学习笔记（5）- 端口映射与容器互联">
-<meta name="twitter:description" content="端口映射与容器互联除了通过网络访问外，Docker还提供了两个很方便的功能来满足服务访问的基本需求：一个是允许映射容器内应用的服务端口到本地宿主主机；另一个是互联机制实现多个容器间通过容器名来快速访问。 端口映射实现访问容器从外部访问容器应用在启动容器的时候，如果不指定对应的参数，在容器外部是无法通过网络来访问容器内的网络和服务的。 当容器中运行一些网络应用，要让外部访问这些应用时，可以通过-P或">
-<meta name="twitter:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1347">
+<meta name="twitter:title" content="DDD笔记3-分离领域">
+<meta name="twitter:description" content="DDD笔记3-分离领域 本文整理自《领域驱动设计：软件核心复杂性应对之道》第三章   下图为一章导航图，用来描述模式以及模式之间的关系。这些模式将会在后文以及DDD系列笔记中出现。  模式：LAYERED ARCHITECTURE 跟具软件行业的经验和惯例，普遍采用LAYERD ARCHITECTURE。大多数成功的架构使用的分层架构都包含一下四个概念层：  将领域层分离出来才是实现MODEL-D">
+<meta name="twitter:image" content="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605100024.png">
 
 
 
@@ -136,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="https://kylin1994.github.io/2018/03/29/Docker学习笔记（5）-端口映射与容器互联/"/>
+  <link rel="canonical" href="https://kylin1994.github.io/2019/06/05/DDD笔记3-分离领域/"/>
 
 
 
 
 
-  <title>Docker学习笔记（5）- 端口映射与容器互联 | Kylin Xiang's Blog</title>
+  <title>DDD笔记3-分离领域 | Kylin Xiang's Blog</title>
   
 
 
@@ -321,7 +313,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kylin1994.github.io/2018/03/29/Docker学习笔记（5）-端口映射与容器互联/">
+    <link itemprop="mainEntityOfPage" href="https://kylin1994.github.io/2019/06/05/DDD笔记3-分离领域/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kylin Xiang">
@@ -338,7 +330,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Docker学习笔记（5）- 端口映射与容器互联</h1>
+          <h1 class="post-title" itemprop="name headline">DDD笔记3-分离领域</h1>
         
 
         <div class="post-meta">
@@ -350,8 +342,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-29T23:35:53+08:00">
-                2018-03-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-05T13:51:54+08:00">
+                2019-06-05
               </time>
             
 
@@ -373,8 +365,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
+                  <a href="/categories/DDD/" itemprop="url" rel="index">
+                    <span itemprop="name">DDD</span>
                   </a>
                 </span>
 
@@ -390,7 +382,7 @@
 
           
           
-             <span id="/2018/03/29/Docker学习笔记（5）-端口映射与容器互联/" class="leancloud_visitors" data-flag-title="Docker学习笔记（5）- 端口映射与容器互联">
+             <span id="/2019/06/05/DDD笔记3-分离领域/" class="leancloud_visitors" data-flag-title="DDD笔记3-分离领域">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -415,7 +407,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,447
+                  1,086
                 </span>
               
 
@@ -431,7 +423,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  4
                 </span>
               
             </div>
@@ -452,64 +444,32 @@
       
 
       
-        <h1 id="端口映射与容器互联"><a href="#端口映射与容器互联" class="headerlink" title="端口映射与容器互联"></a>端口映射与容器互联</h1><p>除了通过网络访问外，Docker还提供了两个很方便的功能来满足服务访问的基本需求：一个是允许映射容器内应用的服务端口到本地宿主主机；另一个是互联机制实现多个容器间通过容器名来快速访问。</p>
-<h1 id="端口映射实现访问容器"><a href="#端口映射实现访问容器" class="headerlink" title="端口映射实现访问容器"></a>端口映射实现访问容器</h1><h2 id="从外部访问容器应用"><a href="#从外部访问容器应用" class="headerlink" title="从外部访问容器应用"></a>从外部访问容器应用</h2><p>在启动容器的时候，如果不指定对应的参数，在容器外部是无法通过网络来访问容器内的网络和服务的。</p>
-<p>当容器中运行一些网络应用，要让外部访问这些应用时，可以通过-P或-p参数来指定端口映射。</p>
-<p>当使用-P标记时，Docker会随机映射一个49000~49900的端口到内部容器开放的网络端口。</p>
-<h2 id="映射所有接口地址"><a href="#映射所有接口地址" class="headerlink" title="映射所有接口地址"></a>映射所有接口地址</h2><p>hostPort:containerPort：将本地的5000端口映射到容器的5000端口</p>
-<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1347" alt="img"></p>
-<p>此时会绑定本地所有接口上的所有地址，多次使用-p标记可以绑定多个端口。</p>
-<h2 id="映射到指定地址的端口"><a href="#映射到指定地址的端口" class="headerlink" title="映射到指定地址的端口"></a>映射到指定地址的端口</h2><p>ip::containerPort：映射到指定地址的任意的端口：</p>
-<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1356" alt="img"></p>
-<p>使用 ip::containerPort 绑定 localhost 的任意端口到容器的 5000 端口，本地主机会自动分配一个端口。</p>
-<h2 id="映射到指定地址的端口-1"><a href="#映射到指定地址的端口-1" class="headerlink" title="映射到指定地址的端口"></a>映射到指定地址的端口</h2><p>当使用-p 标记时 则可以指定要映射的端口，并且，在一个指定端口上只可以绑定一个容器。支持的格式有 ：</p>
-<p>ip:hostPort:containerPort ：指定映射使用一个特定地址，比如localhost地址127.0.0.1:</p>
-<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1352" alt="img"></p>
-<h2 id="查看映射端口配置"><a href="#查看映射端口配置" class="headerlink" title="查看映射端口配置"></a>查看映射端口配置</h2><p>使用docker port命令来查看当前映射的端口配置，可以查看到绑定的地址。</p>
-<p>$ docker port &lt;container_id | container_name&gt;</p>
-<p>注意：容易有自己的内部网络和IP地址，使用docker inspect + 容器Id可以获取容器的具体信息。</p>
-<h1 id="互联机制实现便捷访问"><a href="#互联机制实现便捷访问" class="headerlink" title="互联机制实现便捷访问"></a>互联机制实现便捷访问</h1><p>容器的互联（linking)是一种让多个容器中应用进行快速交互的方式。他会在源和接收容器之间创建连接关系，接收容器可以通过容器名快速访问到容器源，而不用指定具体的IP地址。</p>
-<h2 id="自定义容器命名"><a href="#自定义容器命名" class="headerlink" title="自定义容器命名"></a>自定义容器命名</h2><p>连接系统依据容器的名称来执行。因此需要定义一个好记的容器的名字。</p>
-<p>虽然当创建容器的时候，系统会默认分配一个名字，单自定义容器名字有两个好处：</p>
-<ul>
-<li>自定义命名比较好记，比如一个Web容器，我们可以起名为web，一目了然；</li>
-<li>当要连接其他容器时，即便重启，也可以使用容器名而不用改变，比如web容器连接到db容器。</li>
-</ul>
-<p>使用–name标记可以为容器自定义命名：</p>
-<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1388" alt="img"></p>
-<p>使用docker inspect命名查看</p>
-<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1390" alt="img"></p>
-<p>注意：</p>
-<p>容器的名称是唯一的。如果已经命名了一个叫web的容器，当你要再次使用web这个名称的时候，需要先用docker rm来删除之前创建的同名容器。</p>
-<p>在执行docker run的时候，如果添加–rm标记，则容器在终止后会立刻删除。注意，–rm和-d参数不能同时使用。</p>
-<h2 id="容器互联"><a href="#容器互联" class="headerlink" title="容器互联"></a>容器互联</h2><p>使用–link参数可以让容器之间安全地进行交互。</p>
-<p>下面先创建一个新的数据库容器</p>
-<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1398" alt="img"></p>
-<p>查看创建的容器信息</p>
-<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1400" alt="img"></p>
-<p>然后创建一个新的web容器，并将它连接到db容器</p>
-<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1404" alt="img"></p>
-<p>此时，db容器和web容器建立互联关系</p>
-<p>–link参数的格式为–link name:alias，其中name是要连接的容器名称，alias是这个连接的别名。</p>
-<p>使用docekr ps来查看容器的连接，如下图所示：</p>
-<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1411" alt="img"></p>
-<p>Docker相当于在两个互联的容器之间创建了一个虚机通道，而且不用映射他们的端口到宿主主机上。在启动db容器的时候并没有使用-p和-P标记，从而避免了暴露数据库服务端口到外部网络上。</p>
-<p>Docker通过两种方式为为容器公开连接信息：</p>
-<ul>
-<li>更新环境变量；</li>
-<li>更新/etc/hosts文件。</li>
-</ul>
-<p>使用env命名来查看web容器环境变量：</p>
-<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1419" alt="img"></p>
-<p>其中DB_开头大写的环境变量是供web容器连接db容器使用的，前缀采用大写的连接别名。</p>
-<p>除了环境变量之外，Docker还添加host信息到父容器的/etc/hosts文件。下面是父容器web的hosts文件：</p>
-<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1427" alt="img"></p>
-<p>这里有两个hosts信息，第一个是web容器，web容器用自己的id作为默认主机名，第二个是容器的ip和容器的别名以及id。</p>
-<p>可以在web容器中安装Ping命令来测试与db容器的连通：</p>
-<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/1434" alt="img"></p>
-<p>用Ping来测试db容器，他会解析成172.17.0.5。用户可以连接多个子容器到父容器，比如可以连接多个web到同一个db容器上。</p>
-<h1 id="本文小结"><a href="#本文小结" class="headerlink" title="本文小结"></a>本文小结</h1><p>毫无疑问，容器服务的访问是很关键的一个用途。本文通过具体案例讲解了Docker容器服务访问的两大基本操作，包括基础的容器端口映射机制和容器的互联机制。同时，Docker目前可以成熟的支持Linux系统自带的网络服务和功能，这既可以利用现有成熟的技术提供稳定支持，又可以实现快速的高性能转发。</p>
-<p>在生产环境中，网络方面的需求更加复杂多变，包括跨主机甚至夸数据中心的通信，这时候往往就需要引入额外的机制，例如SDN或NFV（网络功能虚拟化）的相关技术。</p>
+        <h1 id="DDD笔记3-分离领域"><a href="#DDD笔记3-分离领域" class="headerlink" title="DDD笔记3-分离领域"></a>DDD笔记3-分离领域</h1><blockquote>
+<p>本文整理自《领域驱动设计：软件核心复杂性应对之道》第三章 </p>
+</blockquote>
+<p>下图为一章导航图，用来描述模式以及模式之间的关系。这些模式将会在后文以及DDD系列笔记中出现。</p>
+<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605100024.png" height="300"></p>
+<h2 id="模式：LAYERED-ARCHITECTURE"><a href="#模式：LAYERED-ARCHITECTURE" class="headerlink" title="模式：LAYERED ARCHITECTURE"></a>模式：LAYERED ARCHITECTURE</h2><p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605104000.png" height="250"></p>
+<p>跟具软件行业的经验和惯例，普遍采用LAYERD ARCHITECTURE。大多数成功的架构使用的分层架构都包含一下四个概念层：</p>
+<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605104648.png" alt=""></p>
+<p>将领域层分离出来才是实现<strong>MODEL-DRIVEN DESIGN</strong>的关键。</p>
+<p>因此：</p>
+<p><strong>给复杂的应用程序划分层次。在每一层内分别进行设计，使其具有内聚性并且只依赖于它的下层。采用标准的架构模式，只与上层进行松散连接。将所有与领域模型相关的代码放在一个层中，并把它与用户界面层、应用层以及基础设施层的代码分开。领域对象应该将重点放在如何表达模型上，而不需考虑自己的显示和存储问题，也无需搭理应用任务等内容。这使得模型的含义足够丰富，结构足够清晰，可以捕捉到基本的业务知识，并有效地使用这些知识。</strong></p>
+<p><strong>负责处理基本业务规则的是领域层，而不是应用层</strong></p>
+<p>下面看一个银行转账的例子，a123转账给a234：</p>
+<p><img src="https://blogpicgo.oss-cn-beijing.aliyuncs.com/20190605142834.png" alt=""></p>
+<h3 id="将各层连接起来"><a href="#将各层连接起来" class="headerlink" title="将各层连接起来"></a>将各层连接起来</h3><p>各层之间是松散连接的，层与层的之间的关系是单向的。上层可以直接使用或操作下层元素。下层元素和下层元素通信(不只是简单的查询返回)，可以使用<strong>回调</strong>或者<strong>OBSERVER模式</strong>。</p>
+<p>用户界面层、应用层和领域层的连接方式：<strong>MODEL-VIEW-CONTROLLE</strong>以及其变体。</p>
+<p>通常基础设施层不会发起领域层中的操作，它处于领域层”之下”，不包含其所服务的领域中的知识。基础设计层通常以SERVICE的形式提供各种技术能力，比如emai发送服务等。应用层和领域层可以通过公开接口访问这些SERVICE。</p>
+<h3 id="架构框架"><a href="#架构框架" class="headerlink" title="架构框架"></a>架构框架</h3><p>好的架构框架技能解决复杂的的技术问题，也能让开发人员集中精力去表达模型，而不去考虑其他问题。项目团队在使用框架时，要明确其使用目的：建立一种可以表达领域模型的实现并且用它来解决重要问题。</p>
+<h2 id="模型属于领域层"><a href="#模型属于领域层" class="headerlink" title="模型属于领域层"></a>模型属于领域层</h2><p>大部分软件都采用了<strong>LAYERED ARCHITECTURE</strong>，只是采用的分层方案存在不同而已。许多类型的开发工作都能从分层中获益，领域驱动设计只需要一个特定的层即可。</p>
+<p>领域模型是一些列概念的集合。”领域层”则是领域模型以及所有与其直接相关的设计元素的表现，他由业务逻辑的设计和实现组成。在<strong>MODEL-DRIVEN DESIGN</strong>，领域层的软件构造放映了模型概念。</p>
+<p>如果领域逻辑与程序中的其他关注点混在一起，就不能实现这种一致性。<strong>将领域实现独立出来是领域驱动设计的前提。</strong></p>
+<h3 id="反模式：THE-SMART-UI"><a href="#反模式：THE-SMART-UI" class="headerlink" title="反模式：THE SMART UI"></a>反模式：THE SMART UI</h3><p>很多软件都采用了一种不那么复杂的是设计方法，作者称其为<strong>SMART UI（智能用户界面）</strong>。但是<strong>SMART UI与领域驱动设计迥然不同却互不兼容</strong>。所以这里称其为反模式，主要用来和领域驱动设计作对比。</p>
+<p>MODEL-DRIVEN DESIGN并不适合小项目，因为学习过程十分艰难，周期很长，技术复杂。没有充裕的时间和专家的帮助，团队成员很难掌握这一项技术。</p>
+<p>使用领域驱动设计，必然就选择了UI和领域的分离，应用程序和领域的分离。</p>
+<p><strong><em>如果一个架构能把那些与领域相关的代码隔离出来，得到一个内聚的领域设计，同时又使领域与系统设计其他部分保持松散连接，那么这种架构也许可以支持领域驱动设计。</em></strong></p>
+<h3 id="其他分离方式"><a href="#其他分离方式" class="headerlink" title="其他分离方式"></a>其他分离方式</h3><p><strong>BOUNDED CONTEXT</strong>和<strong>ANTICORRUPTION LAYER</strong></p>
 
       
     </div>
@@ -556,9 +516,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/docker/" rel="tag"><i class="fa fa-tag"></i> docker</a>
+            <a href="/tags/DDD/" rel="tag"><i class="fa fa-tag"></i> DDD</a>
           
-            <a href="/tags/容器/" rel="tag"><i class="fa fa-tag"></i> 容器</a>
+            <a href="/tags/Design/" rel="tag"><i class="fa fa-tag"></i> Design</a>
+          
+            <a href="/tags/Modeling/" rel="tag"><i class="fa fa-tag"></i> Modeling</a>
+          
+            <a href="/tags/domain/" rel="tag"><i class="fa fa-tag"></i> domain</a>
           
         </div>
       
@@ -571,8 +535,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/29/Docker学习笔记（4）-Docker数据卷/" rel="next" title="Docker学习笔记（4）- Docker数据卷">
-                <i class="fa fa-chevron-left"></i> Docker学习笔记（4）- Docker数据卷
+              <a href="/2019/06/04/DDD笔记2-绑定模型和实现/" rel="next" title="DDD笔记2-绑定模型和实现">
+                <i class="fa fa-chevron-left"></i> DDD笔记2-绑定模型和实现
               </a>
             
           </div>
@@ -580,10 +544,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/29/Docker学习笔记（6）-Dockerfile/" rel="prev" title="Docker学习笔记（6）- Dockerfile">
-                Docker学习笔记（6）- Dockerfile <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -753,7 +713,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#端口映射与容器互联"><span class="nav-number">1.</span> <span class="nav-text">端口映射与容器互联</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#端口映射实现访问容器"><span class="nav-number">2.</span> <span class="nav-text">端口映射实现访问容器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#从外部访问容器应用"><span class="nav-number">2.1.</span> <span class="nav-text">从外部访问容器应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射所有接口地址"><span class="nav-number">2.2.</span> <span class="nav-text">映射所有接口地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射到指定地址的端口"><span class="nav-number">2.3.</span> <span class="nav-text">映射到指定地址的端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射到指定地址的端口-1"><span class="nav-number">2.4.</span> <span class="nav-text">映射到指定地址的端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看映射端口配置"><span class="nav-number">2.5.</span> <span class="nav-text">查看映射端口配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#互联机制实现便捷访问"><span class="nav-number">3.</span> <span class="nav-text">互联机制实现便捷访问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义容器命名"><span class="nav-number">3.1.</span> <span class="nav-text">自定义容器命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器互联"><span class="nav-number">3.2.</span> <span class="nav-text">容器互联</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本文小结"><span class="nav-number">4.</span> <span class="nav-text">本文小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DDD笔记3-分离领域"><span class="nav-number">1.</span> <span class="nav-text">DDD笔记3-分离领域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模式：LAYERED-ARCHITECTURE"><span class="nav-number">1.1.</span> <span class="nav-text">模式：LAYERED ARCHITECTURE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将各层连接起来"><span class="nav-number">1.1.1.</span> <span class="nav-text">将各层连接起来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构框架"><span class="nav-number">1.1.2.</span> <span class="nav-text">架构框架</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型属于领域层"><span class="nav-number">1.2.</span> <span class="nav-text">模型属于领域层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#反模式：THE-SMART-UI"><span class="nav-number">1.2.1.</span> <span class="nav-text">反模式：THE SMART UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他分离方式"><span class="nav-number">1.2.2.</span> <span class="nav-text">其他分离方式</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

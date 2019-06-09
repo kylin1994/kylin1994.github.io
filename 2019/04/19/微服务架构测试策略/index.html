@@ -130,7 +130,7 @@
 <meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g3oaz9w09nj30w00osjvc.jpg">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g3oazdg8h2j30lc0eot9v.jpg">
 <meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g3oazsk9u4j31eg0rigw7.jpg">
-<meta property="og:updated_time" content="2019-06-03T13:56:02.711Z">
+<meta property="og:updated_time" content="2019-06-09T14:34:45.581Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微服务架构测试策略">
 <meta name="twitter:description" content="本文整理翻译自Toby Clemson的《Testing Strategies in a Microservice Architecture》文章，英文原文出处：https://martinfowler.com/articles/microservice-testing/  在过去几年中，基于服务的架构已经转向更小、更集中的“微型”服务。这种方法有许多好处，例如能够独立部署、扩展和维护每个组件，">
@@ -521,21 +521,21 @@
 <p>微服务通过在每个相关模块之间传递消息来处理请求以形成响应。特定请求可能需要与Service/Gateway/Repository进行交互，因此模块之间是松耦合的。</p>
 <p>自动化测试应尽可能以最细的粒度为每次通信提供覆盖。因此，每个测试都提供了一个专注的且快速的反馈周期。</p>
 <hr>
-<p><img height="200" src="http://ww4.sinaimg.cn/large/006tNc79ly1g3oazc7t22j30sa0q0ae2.jpg"></p>
+<p><img width="200" src="http://ww4.sinaimg.cn/large/006tNc79ly1g3oazc7t22j30sa0q0ae2.jpg"></p>
 <p>资源接收请求，并且一旦经过验证，就会调用Domain以开始处理请求。</p>
-<p><img height="200" src="http://ww1.sinaimg.cn/large/006tNc79ly1g3oazd4ohpj30s80q4n1c.jpg"></p>
+<p><img width="200" src="http://ww1.sinaimg.cn/large/006tNc79ly1g3oazd4ohpj30s80q4n1c.jpg"></p>
 <p>如果必须协调许多模块以完成业务事务，则资源委托给服务。<br>否则，它直接与相关模块通信。</p>
-<p><img height="200" src="http://ww3.sinaimg.cn/large/006tNc79ly1g3oaz7ytg3j30s60pmn18.jpg"></p>
+<p><img width="200" src="http://ww3.sinaimg.cn/large/006tNc79ly1g3oaz7ytg3j30s60pmn18.jpg"></p>
 <p>与外部服务的连接需要特别注意，因为它们跨越网络边界。系统应该能够适应远程组件的中断。网关包含处理此类错误情况的逻辑。<br>一般的，与外部服务的通信比进程内通讯更加粗粒度，为了降低API的复杂性和延迟。</p>
-<p><img height="200" src="http://ww1.sinaimg.cn/large/006tNc79ly1g3oaz59ecqj30rs0pc42n.jpg"></p>
+<p><img width="200" src="http://ww1.sinaimg.cn/large/006tNc79ly1g3oaz59ecqj30rs0pc42n.jpg"></p>
 <p>同样，与外部数据存储的通信也有不同的设计考虑因素。服务通常更多得和数据存储交互而不是外部服务，数据存储位于网络边界外，从而导致延迟和中断风险。</p>
-<p><img height="200" src="http://ww3.sinaimg.cn/large/006tNc79ly1g3oaztn247j30ro0p80wu.jpg"></p>
+<p><img width="200" src="http://ww3.sinaimg.cn/large/006tNc79ly1g3oaztn247j30ro0p80wu.jpg"></p>
 <p>网络分区的存在会影响所使用的测试风格。这些模块的测试可能会有更长的执行时间，并且可能由于团队无法控制的原因而失败。 </p>
-<h2 id="多个微服务一起构成一个系统，提供有价值的业务功能"><a href="#多个微服务一起构成一个系统，提供有价值的业务功能" class="headerlink" title="多个微服务一起构成一个系统，提供有价值的业务功能"></a>多个微服务一起构成一个系统，提供有价值的业务功能</h2><p><img height="200" src="http://ww3.sinaimg.cn/large/006tNc79ly1g3oaze7f00j30oi0og419.jpg"></p>
+<h2 id="多个微服务一起构成一个系统，提供有价值的业务功能"><a href="#多个微服务一起构成一个系统，提供有价值的业务功能" class="headerlink" title="多个微服务一起构成一个系统，提供有价值的业务功能"></a>多个微服务一起构成一个系统，提供有价值的业务功能</h2><p><img width="200" src="http://ww3.sinaimg.cn/large/006tNc79ly1g3oaze7f00j30oi0og419.jpg"></p>
 <p>通常，团队将充当一个或多个微服务的监护人。这些服务交换消息以处理更大的业务请求。在交互格式方面，JSON目前最受欢迎，XML是最常见的替代方案。</p>
 <p>在某些情况下，异步发布 - 订阅通信机制比同步点对点机制更适合用例。作为在微服务之间实现pub-sub的轻量级方法，Atom syndication格式正变得越来越流行。</p>
 <p>由于业务请求跨越由网络分区分隔的多个组件，因此考虑系统中可能的故障模式非常重要。尽管这些组件可能会宕机，但是可以使用诸如超时（Timeout），断路器（circuit breaker）和舱壁（bulkheads）等技术帮助维持整个系统的正常运行。</p>
-<p><img height="200" src="http://ww2.sinaimg.cn/large/006tNc79ly1g3oaz9f2naj30w00o2n0w.jpg"></p>
+<p><img width="200" src="http://ww2.sinaimg.cn/large/006tNc79ly1g3oaz9f2naj30w00o2n0w.jpg"></p>
 <p>在较大的系统中，通常有多个团队负责不同的有界上下文（bounded contexts）。</p>
 <p>外部服务的测试问题可能与团队控制下的服务不同，因为对外部团队服务的接口和可用性不能保障。</p>
 <h2 id="单元测试（UNIT-TESTING）"><a href="#单元测试（UNIT-TESTING）" class="headerlink" title="单元测试（UNIT TESTING）"></a>单元测试（UNIT TESTING）</h2><blockquote>
@@ -548,19 +548,19 @@
 <p><a href="https://leanpub.com/wewut" target="_blank" rel="noopener">Sociable unit testing</a>的重点是通过观察模块状态的变化来测试模块的行为。这将被测单元视为完全通过其接口测试的黑盒子。</p>
 <p><a href="https://leanpub.com/wewut" target="_blank" rel="noopener">Solitary unit testing</a>着眼于对象及其依赖关系之间的交互和协作，这些关系由<a href="https://martinfowler.com/bliki/TestDouble.html" target="_blank" rel="noopener">test doubles</a>替换。</p>
 <p>这些单元测试风格并不冲突，并且经常在相同的代码库中使用以解决不同的测试问题。</p>
-<h3 id="两个风格的单元测试都在微服务中扮演者重要角色"><a href="#两个风格的单元测试都在微服务中扮演者重要角色" class="headerlink" title="两个风格的单元测试都在微服务中扮演者重要角色"></a>两个风格的单元测试都在微服务中扮演者重要角色</h3><p><img height="200" src="http://ww4.sinaimg.cn/large/006tNc79ly1g3oaz2cot2j30uo0p0q6q.jpg"></p>
+<h3 id="两个风格的单元测试都在微服务中扮演者重要角色"><a href="#两个风格的单元测试都在微服务中扮演者重要角色" class="headerlink" title="两个风格的单元测试都在微服务中扮演者重要角色"></a>两个风格的单元测试都在微服务中扮演者重要角色</h3><p><img width="200" src="http://ww4.sinaimg.cn/large/006tNc79ly1g3oaz2cot2j30uo0p0q6q.jpg"></p>
 <p>服务通常是被管道和协作代码（plumbing and coordination code）环绕的丰富领域。</p>
 <blockquote>
 <p>Plumbing code: <a href="https://www.oreilly.com/library/view/reactive-programming-with/9781787124233/b8e36bf6-bc79-49b9-a841-d3d7a488cbd1.xhtml" target="_blank" rel="noopener">https://www.oreilly.com/library/view/reactive-programming-with/9781787124233/b8e36bf6-bc79-49b9-a841-d3d7a488cbd1.xhtml</a></p>
 </blockquote>
 <hr>
-<p><img height="200" src="http://ww1.sinaimg.cn/large/006tNc79ly1g3oazbnmazj30jk0okgop.jpg"></p>
+<p><img width="200" src="http://ww1.sinaimg.cn/large/006tNc79ly1g3oazbnmazj30jk0okgop.jpg"></p>
 <p>领域逻辑（Domain Logic）通常表现为复杂的计算和状态转换的集合。由于这些类型的逻辑基于状态，因此尝试隔离单元几乎没有价值。这意味着，应该尽可能地将真实的领域对象用于被测单元的所有协作者。<span style="color:red">（个人理解：领域对象封装了领域具有的属性和功能，如果业务功能复杂，领域对象可以被多个服务协调调用以完成复杂业务，也有可能直接被Repository利用，完成简单的CRUD操作。所以将领域对象单独隔离出来测试没有意义，应将其与业务结合，测试对应逻辑单元。）</span></p>
-<p><img height="200" src="http://ww4.sinaimg.cn/large/006tNc79ly1g3oazxawbaj30jo0oqq61.jpg"></p>
+<p><img width="200" src="http://ww4.sinaimg.cn/large/006tNc79ly1g3oazxawbaj30jo0oqq61.jpg"></p>
 <p>使用plumbing code，很难将被测单元与外部模块隔离开来并对状态变化进行测试。因此，使用Test Doubles（Test Doubles指stub,mock等含义）更有效。</p>
 <p>此级别的单元测试的目的是验证用于生成请求的任意逻辑或映射来自外部依赖的响应，而不是以集成方式验证通信。因此，为协作者使用Test Doubles提供了一种以可靠和可重复的方式控制请求/响应的方法。<span style="color:red">（个人理解：这里的单元测试是使用Test double来模拟外部服务和数据库服务，验证当前服务发送请求和接收响应的部分（gateway和repository），而不是测试通信，测试通信的应该使用集成测试）。</span></p>
 <p>此级别的单元测试提供比集成测试更快的反馈，并且可以通过在特殊情况下将Test Doubles响应作为外部依赖来强制错误条件。<span style="color:red">（个人理解：这里说反馈更快是因为外部服务和数据库的请求和响应都是使用test double模拟出来的，而不是真正的网络连接，所以更快。并且，使用test double可以覆盖各种情况）</span>。</p>
-<p><img height="200" src="http://ww4.sinaimg.cn/large/006tNc79ly1g3oaz74iooj30js0omad8.jpg"></p>
+<p><img width="200" src="http://ww4.sinaimg.cn/large/006tNc79ly1g3oaz74iooj30js0omad8.jpg"></p>
 <p>协作逻辑（Coordination logic）更关心模块之间传递的消息，而不是那些模块中的任何复杂逻辑。使用Test Doubles允许验证传递的消息的细节并且响应桩，所以测试中可以在模块之间指定通信流。<span style="color:red">（个人理解：这里的逻辑协作指内部service之间的协作以及resource和service之间的协作，这里不关心service内部的复杂逻辑，而关心协作者之间的交互，使用test double可以准确模拟出消息传递的细节。）</span></p>
 <p>如果说一段协作逻辑需要太多数量的Test Double，这通常是一个好的指标，暗示一些逻辑需要被抽取出来单独测试。</p>
 <hr>
@@ -568,7 +568,7 @@
 <p>在这种情况下，综合性的单元测试可能无法获得回报。其他级别的测试（如<a href="https://martinfowler.com/articles/microservice-testing/#testing-component-introduction" target="_blank" rel="noopener">component testing</a>）可以提供更多价值。<span style="color:red">（个人理解：当领域逻辑很简单时，单元测试能覆盖的场景就比较少了，此时各种组件之间的协作和第三方服务占了大部分比例，所以使用component testing和integration testing更合适。）</span></p>
 <p>单元测试和测试的目的一般是限制被测单元的行为。不幸的副作用是，有时，测试也会限制实现（tests also constrain the implementation）。这通常表现为过度依赖基于mock的方法。</p>
 <p>重要的是不断质疑单元测试提供的价值与维护成本或限制你的实现的数量。通过这样做，可以使测试套件保持小型化，集中化和高价值。</p>
-<h3 id="单独的单元测试不能保证系统的行为"><a href="#单独的单元测试不能保证系统的行为" class="headerlink" title="单独的单元测试不能保证系统的行为"></a>单独的单元测试不能保证系统的行为</h3><p><img height="200" src="http://ww2.sinaimg.cn/large/006tNc79ly1g3oazz7xzkj30qy0pe42t.jpg"></p>
+<h3 id="单独的单元测试不能保证系统的行为"><a href="#单独的单元测试不能保证系统的行为" class="headerlink" title="单独的单元测试不能保证系统的行为"></a>单独的单元测试不能保证系统的行为</h3><p><img width="200" src="http://ww2.sinaimg.cn/large/006tNc79ly1g3oazz7xzkj30qy0pe42t.jpg"></p>
 <p>到目前为止，我们已经隔离了系统的每个核心模块。但是，当这些模块一起工作以形成完整的服务或它们与远程依赖交互时，这些模块不会被覆盖。<span style="color:red">（个人理解：单元测试还是主要聚焦于模块的内部，当模块之间一起提供完成服务的时候，单元测试智能保障每个模块内部没有问题，但是模块之间的协作交互还是需要更加粗粒度的测试）。</span><br>要验证每个模块是否与其协作者正确交互，需要进行更粗粒度的测试。      </p>
 <h2 id="集成测试（INTEGRATION-TESTING）"><a href="#集成测试（INTEGRATION-TESTING）" class="headerlink" title="集成测试（INTEGRATION TESTING）"></a>集成测试（INTEGRATION TESTING）</h2><blockquote>
 <p><em>An integration test verifies the communication paths and interactions between components to detect interface defects.</em></p>
